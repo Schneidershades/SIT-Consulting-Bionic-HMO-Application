@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Hcp;
+use App\Models\Hmo;
+use App\Models\Enrollee;
+
+class Bill extends Model
+{
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($walletfund){
+            $walletfund->identifier = 'bIlL'.uniqid(true);
+        });
+    }
+
+    public function hcp()
+    {
+    	return $this->belongsTo(Hcp::class);
+    }
+
+    public function hmo()
+    {
+        return $this->belongsTo(Hmo::class);
+    }
+
+    public function enrollee()
+    {
+        return $this->belongsTo(Enrollee::class);
+    }
+}
