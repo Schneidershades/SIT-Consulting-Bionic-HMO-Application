@@ -25,7 +25,7 @@ class BillController extends Controller
         // return view('dashboard.hmo.bills.index')
         //         ->with('bills', $bills);
 
-        $bills =  Agreement::where('hmo_id', auth()->user()->userable->id)->where('hcp_id')->get();
+        $bills =  Agreement::where('hmo_id', auth()->user()->userable->id)->get();
         return view('dashboard.hmo.bills.index')
                 ->with('bills', $bills);  
     }
