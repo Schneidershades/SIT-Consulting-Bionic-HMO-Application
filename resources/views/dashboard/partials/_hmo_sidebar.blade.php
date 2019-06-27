@@ -70,6 +70,9 @@
     <ul class="sidebar-submenu">
       <li><a href="{{route('enrollees.index')}}"><i class="fa fa-long-arrow-right"></i> View Enrollee</a></li>
       <li><a href="{{route('enrollees.create')}}"><i class="fa fa-long-arrow-right"></i> Add Enrollee</a></li>
+      <li><a href="3"><i class="fa fa-long-arrow-right"></i> Change HCP Requests</a></li>
+      <li><a href="3"><i class="fa fa-long-arrow-right"></i> Encounter Alerts</a></li>
+      <li><a href="3"><i class="fa fa-long-arrow-right"></i> Change HCP</a></li>
     </ul>
   </li>
   <li>
@@ -79,9 +82,20 @@
     </a>
     <ul class="sidebar-submenu">
       <li><a href="{{route('bills.index')}}"><i class="fa fa-long-arrow-right"></i> View Bills/Fee-for-Service</a></li>
-      <li><a href="{{route('bills.create')}}"><i class="fa fa-long-arrow-right"></i> Add Bills/Fee-for-Service</a></li>
+      <li><a href="{{route('bills.start')}}"><i class="fa fa-long-arrow-right"></i> Add Bills/Fee-for-Service</a></li>
     </ul>
   </li>
+
+  <li>
+    <a href="javaScript:void();" class="waves-effect">
+      <i class="icon-handbag"></i><span>Pre Authorization</span> 
+      <i class="fa fa-angle-left pull-right"></i>
+    </a>
+    <ul class="sidebar-submenu">
+      <li><a href="{{route('pre-authorization.index')}}"><i class="fa fa-long-arrow-right"></i> View Request</a></li>
+    </ul>
+  </li>
+
   <li>
     <a href="javaScript:void();" class="waves-effect">
      <i class="icon-diamond"></i><span>Claims</span>
@@ -161,10 +175,6 @@
     <!-- <li><a href="payment-history"><i class="fa fa-long-arrow-right"></i> Payment History</a></li> -->
   </ul>
 </li>
-
-
-
-
 
 <li class="sidebar-header">HMO Office</li>
 <li>

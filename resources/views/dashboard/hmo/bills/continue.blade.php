@@ -43,42 +43,33 @@
 			<div class="card-body">
 				<div class="card-title text-uppercase text-white"><i class="fa fa-address-book-o"></i>New Bill or Fee for Service</div>
 				<hr>
-				<form class="color-form" method="POST" action="{{route('bills.store')}}" enctype="multipart/form-data">
+				<form class="color-form" method="POST" action="{{route('bills.continue.store', $bill->identifier)}}" enctype="multipart/form-data">
 					@csrf
-					<div class="form-group row">
+					<div class="form-group row text-white">
 						<div class="col-md-12">
 							<div class="card-title text-white text-center"><i class="fa fa-address-book-o"></i> NEW BILL</div><br>
 						</div>
 
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-4 ">
 							<label for="input-26">Date</label>
-							<input name="date" type="date" class="form-control" id="input-26" placeholder="Enter Date of Bill" required>
+							<h5 class="text-white">{{$bill->date_of_bill}}</h5>
 						</div>
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-4">
 							<label for="input-26">Payment Reference</label>
-							<input name="payment_reference" type="text" class="form-control" id="input-26" placeholder="Enter Payment Reference/Receipt" required>
+							<h5 class="text-white">{{$bill->payment_reference}}</h5>
 						</div>
 
-						<div class="form-group col-md-6">
-							<label for="input-25">Enrollee ID</label>
-							<select class="form-control " name="enrollee_id" id="enrollee" onchange="showEnrolleeHcp(this.value)" required>
-								<!-- <option value="">---Select Enrollee---</option>
-								@foreach($enrollees as $enrollee)
-								<option value="{{$enrollee->id}}">{{$enrollee->code}} -{{$enrollee->first_name}} {{$enrollee->middle_name}} {{$enrollee->last_name}}</option>
-								@endforeach -->
-							</select>
+						<div class="form-group col-md-4">
+							<label for="input-25">Enrollee </label>
+							<h5 class="text-white">{{$bill->enrollee->first_name}} {{$bill->enrollee->middle_name}} {{$bill->enrollee->last_name}}</h5>
 						</div>
 
-						<div class="form-group col-md-6">
-							<label for="input-25">HCP ID</label>
-							<select class="form-control single-select" name="hcp_id" id="hcp" onchange="getHmoAgreementWithHcp(this.value)" required>
-								<!-- <option value="">---Select Health Care Provider---</option>
-								@foreach($hcps as $hcp)
-								<option value="{{$hcp->hcp->id}}">{{$hcp->hcp->hcp_code}} -{{$hcp->hcp->hcp_name}} </option>
-								@endforeach -->
-							</select>
+
+						<div class="form-group col-md-12">
+							<label for="input-26">Hcp</label>
+							<h5 class="text-white">{{$bill->hcp->name}}</h5>
 						</div>
 					</div>
 
@@ -89,12 +80,10 @@
 								<div class="form-group col-md-12" >
 									<label>Fee for service</label>
 									<select class="form-control single-select" name="treatment_id" id="treatment">
-
-										<!-- <option value="">---Select Service---</option>
-										@foreach($tariffs as $tariff)
-										<option value="{{$tariff->id}}">{{$tariff->description}} -{{$tariff->amount}}</option>
-										@endforeach -->
-
+										<option value="">---Select Service---</option>
+										@foreach($tariffAgreements as $agreement)
+										<option value="{{$agreement->agreementable->id}}">{{$agreement->agreementable->description}} -{{$agreement->agreementable->amount}}</option>
+										@endforeach
 									</select>
 								</div>
 								<div class="form-group col-md-12">
@@ -108,19 +97,17 @@
 						</div>
 					</div>
 
-					<div class='drugs'>
+					<div class='repeater'>
 						<!-- Make sure the repeater list value is different from the first repeater  -->
 						<div data-repeater-list="hcp_drug_details">
 							<div data-repeater-item class="form-group row">
 								<div class="form-group col-md-12">
 									<label>Drug purchase</label>
 									<select class="form-control single-select" name="drug_id" id="drug">
-
-										<!-- <option value="">---Select Drug ---</option>
-										@foreach($drugs as $drug)
-										<option value="{{$drug->id}}">{{$drug->drug_name}} - {{$drug->dosage_form}} - {{$drug->strengths}} - {{$drug->presentation}} - {{$drug->amount}}</option>
-										@endforeach -->
-
+										<option value="">---Select Drug ---</option>
+										@foreach($drugAgreements as $drug)
+										<option value="{{$drug->agreementable->id}}">{{$drug->agreementable->drug_name}} - {{$drug->agreementable->dosage_form}} - {{$drug->agreementable->strengths}} - {{$drug->agreementable->presentation}} - {{$drug->agreementable->amount}}</option>
+										@endforeach
 									</select>
 								</div>
 								<div class="form-group col-md-12">
@@ -135,12 +122,6 @@
 					</div>
 
 					<div class="form-group row">
-
-						
-						<div class="form-group col-md-12">
-							<label for="input-26">Description</label>
-							<textarea name="description" class="form-control" id="input-26" placeholder="Enter Treatment Description"></textarea>
-						</div>
 						<div class="form-group col-md-4">
 							<label for="input-26">Amount Charged</label>
 							<input name="amount_charged" type="number" min="0" class="form-control" id="input-26" placeholder="Enter Charged Amount">
@@ -150,17 +131,6 @@
 							<label for="input-26">Amount Paid</label>
 							<input name="amount_paid" type="number" min="0" class="form-control" id="input-26" placeholder="Enter Amount Paid">
 						</div>
-
-						<div class="form-group col-md-4">
-							<label for="input-25">Payment Method</label>
-							<select name="payment_method" class="form-control " required>
-								<option value="">---Select Payment Method---</option>
-								<option value="cash">Cash</option>
-								<option value="cheque">Cheque</option>
-								<option value="bank_transfer">Bank Transfer</option>
-							</select>									
-						</div>
-						<hr>
 					</div>
 					
 					<div class="form-group">
@@ -211,114 +181,6 @@
 
 <script type="text/javascript">
 
-	$('#enrollee').empty().append('<option value="">--Please select an Enrollee---</option>');
-	$('#hcp').empty().append('<option value="">--Please select an Enrollee First---</option>');
-
-	var url = '{{ URL::to('/js/hmo/all/enrollees')}}/';
-	$.get(url, function (data) {
-		$.each(data, function (i, data) {
-	  		$("#enrollee").append("<option value='"+data.id+"'>" + data.identifier + ' - ' +data.first_name +' '+ data.middle_name + ' '+data.last_name+"</option>");
-		});
-	});
-
-	function showEnrolleeHcp(enrollee_id) {
-		$('#hcp').empty().append('<option value="">--Please you can now select hcp---</option>');
-		//var id = id;
-		var url = '{{ URL::to('/js/enrollees/hcp/')}}/' + enrollee_id;
-		// console.log(url);
-		$.get(url, function (data) {
-		  	console.log(data);
-		  	// $('#hcp').empty();
-		  	$("#hcp").append("<option value='"+data.id+"'>"+data.hcp_name+"</option>");
-		  	// $.each(data, function (i, data) {
-		    //      console.log(data);
-		    //      $("#hcp").append("<option value='"+data.id+"'>"+data.hcp_name+"</option>");
-		   	// });
-		});
-	}
-
-	function getHmoAgreementWithHcp(hcp_id) {
-		$('#drug, #treatment').empty();
-		var tariff_content ='';
-		var tariff = '<select class="form-control single-select" name="treatment_id" id="treatment">';
-		tariff += tariff_content;
-		tariff += '</select>';
-
-		var drug_content ='';
-		var drug = '<select class="form-control single-select" name="drug_id" id="drug">';
-		drug += drug_content;
-		drug += '</select>';
-
-		var url = '{{ URL::to('/js/hcp/agreements/')}}/' + hcp_id;
-		console.log(url);
-		$.get(url, function (data) {
-			console.log(data);
-			
-			$.each(data, function (i, data) {
-				if(data.agreementable_type == 'tariff'){
-					tariff_content += '<option value='+data.agreementable_id+'>' + data.agreementable.tariff_code + ' - ' +data.agreementable.description +'  N '+data.agreementable.amount+'</option>';
-					$("#treatment").append(tariff_content);
-				}
-				if(data.agreementable_type == 'drug'){
-					drug_content += '<option value='+data.agreementable_id+'>' +data.agreementable.parent_id+ ' - ' +data.agreementable.drug_name+ ' ' +data.agreementable.dosage_form+ ' ' +data.agreementable.strengths+ ' '+data.agreementable.presentation+ ' N'+data.agreementable.amount+ '</option>';
-					$("#drug").append(drug_content);
-				}
-			});
-		});
-
-		// console.log(tariff);
-		
-		
-		// var url = '{{ URL::to('/js/hcp/agreements/')}}/' + hcp_id;
-		// console.log(url);
-		// $.get(url, function (data) {
-		// 	console.log(data);
-			
-		// 	$.each(data, function (i, data) {
-		// 		if(data.agreementable_type == 'tariff'){
-		// 			$("#treatment").append("<option value='"+data.agreementable_id+"'>" + data.agreementable.tariff_code + ' - ' +data.agreementable.description +'  N '+data.agreementable.amount+"</option>");
-		// 		}
-		// 		if(data.agreementable_type == 'drug'){
-		// 			$("#drug").append("<option value='"+data.agreementable_id+"'>" + data.agreementable.parent_id + ' - ' +data.agreementable.drug_name +' '+ data.agreementable.dosage_form + ' '+data.agreementable.strengths+ ' '+data.agreementable.presentation+ ' N'+data.agreementable.amount+"</option>");
-		// 		}
-		// 	});
-		// });
-		// 
-	}
-
-
-	$(document).ready(function () {
-		'use strict';
-		$('#drugs, #treatment').repeater({
-			isFirstItemUndeletable: true,
-			defaultValues: {
-				'textarea-input': 'foo',
-				'text-input': 'bar',
-				'select-input': 'B',
-				'checkbox-input': ['A', 'B'],
-				'radio-input': 'B'
-			},
-			show: function () {
-				$(this).slideDown();
-				// form.find('.multiple-select').select2();
-				$(this).find('.single-select').select2({
-
-	                placeholder: "Select Drug Item",
-
-	                allowClear: true,
-
-	            });
-			},
-			hide: function (deleteElement) {
-				if(confirm('Are you sure you want to delete this element?')) {
-					$(this).slideUp(deleteElement);
-				}
-			},
-			ready: function (setIndexes) {
-
-			}
-		});
-	});
 </script>
 
 

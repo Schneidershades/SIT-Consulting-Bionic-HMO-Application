@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -23,12 +24,12 @@ class CreateBillsTable extends Migration
             $table->string('treatment')->nullable();
             $table->string('description')->nullable();
             $table->string('active')->default('yes');
-            $table->decimal('amount_charged', 40, 2)->default(0);
-            $table->decimal('amount_paid', 40, 2)->default(0);
+            $table->decimal('amount_charged', 40, 2)->nullable()->default(0);
+            $table->decimal('amount_paid', 40, 2)->nullable()->default(0);
             $table->decimal('hcp_deduction', 40, 2)->nullable()->default(0);
-            $table->decimal('service_deduction', 40, 2)->default(0);
-            $table->decimal('drug_deduction', 40, 2)->default(0);
-            $table->decimal('final_payment', 40, 2)->default(0);
+            $table->decimal('service_deduction', 40, 2)->nullable()->default(0);
+            $table->decimal('drug_deduction', 40, 2)->nullable()->default(0);
+            $table->decimal('final_payment', 40, 2)->nullable()->default(0);
             $table->string('payment_method')->nullable();
             $table->string('payment_reference')->nullable();
             
@@ -102,8 +103,11 @@ class CreateBillsTable extends Migration
             
             $table->string('remittance')->nullable();
             $table->string('action')->default('pending');
+            $table->boolean('finished')->default(false);
             $table->softDeletes();
             $table->timestamps();
+
+            DB::update("ALTER TABLE bills AUTO_INCREMENT = 2300031;");
         });
     }
 

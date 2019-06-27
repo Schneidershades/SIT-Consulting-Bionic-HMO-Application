@@ -74,7 +74,7 @@ class BillController extends Controller
 
 
          // setup capitation
-        $service = new ServiceDrugTransaction;
+        $service = new TariffDrugTransaction;
         if($request->hcp_drug_details){
             foreach($request->hcp_service_details as $bill_detail){
                 $find_service = Tariff::where('id', $bill_detail['treatment_id'])->first();
@@ -86,7 +86,7 @@ class BillController extends Controller
             }
         }
 
-        $drug = new ServiceDrugTransaction;
+        $drug = new TariffDrugTransaction;
         if($request->hcp_drug_details){
             foreach($request->hcp_drug_details as $drug_detail){
                 $find_drug = Tariff::where('id', $drug_detail['drug_id'])->first();

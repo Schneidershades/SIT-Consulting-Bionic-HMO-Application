@@ -25,7 +25,7 @@ class EnrolleeController extends Controller
 
     public function create()
     {
-        $plans = HealthCarePlan::where('hmo_id', auth()->user()->userable->id)->where('parent_id', '!=', NULL)->get();
+        $plans = HealthCarePlan::where('hmo_id', auth()->user()->userable->id)->where('parent_id', '=', NULL)->get();
         $hcps = HmoHcp::where('hmo_id', auth()->user()->userable->id)->get();
         return view('dashboard.hmo.enrollees.create')
                 ->with('plans', $plans)

@@ -8,11 +8,16 @@ Auth::routes();
 
 
 Route::get('/js/tariff', 'HMO\tariffController@tariffApi');
+Route::get('/js/hmo/enrollees', 'HMO\BillController@getHcp')->name('get.hmo.enrollees');
+
+Route::get('/js/hmo/all/enrollees', 'HMO\BillController@getAllEnrollees')->name('get.enrollees');
+Route::get('/js/enrollees/hcp/{enrollee_id}', 'HMO\BillController@getEnrolleeHcp')->name('get.enrollee.hcp');
+Route::get('/js/hcp/agreements/{hcp_id}', 'HMO\BillController@getHmoAgreementWithHcp')->name('get.hcp.agreements');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => '/hmo', 'middleware' => ['hmo']],  function(){
+Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 	
 	Route::resource('/enrollees', 'HMO\EnrolleeController');
 	Route::get('/enrollees/delete/{id}', 'HMO\EnrolleeController@destroy')->name('enrollees.delete');
@@ -33,8 +38,15 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['hmo']],  function(){
 	Route::post('/hcps/update/{id}', 'HMO\HcpController@update')->name('hcps.update');
 
 	Route::resource('/bills', 'HMO\BillController');
+	Route::get('/bill/enrollee', 'HMO\BillController@start')->name('bills.start');
+	Route::post('/bill/enrollee', 'HMO\BillController@storeEnrollee')->name('bills.store.enrollee');
+	Route::get('/bill/enrollee/{identifier}', 'HMO\BillController@continueBill')->name('bills.continue');
+	Route::post('/bill/enrollee/{identifier}', 'HMO\BillController@continueBillStore')->name('bills.continue.store');
 	Route::get('/bills/delete/{id}', 'HMO\BillController@destroy')->name('bills.delete');
 	Route::post('/bills/update/{id}', 'HMO\BillController@update')->name('bills.update');
+
+
+	Route::get('/bills/pre-authorization/transaction', 'HMO\PreAuthorizationController@index')->name('pre-authorization.index');
 
 	Route::resource('/cash', 'HMO\CashController');
 	Route::get('/cash/delete/{id}', 'HMO\CashController@destroy')->name('cash.delete');
@@ -73,7 +85,7 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['hmo']],  function(){
 
 });
 
-Route::group(['prefix' => '/hcp', 'middleware' => ['hcp']],  function(){
+Route::group(['prefix' => '/hcp', 'middleware' => ['auth', 'hcp']],  function(){
 	Route::resource('/hcp-enrollees', 'HCP\EnrolleeController');
 	Route::resource('/hcp-hmos', 'HCP\HmoController');
 	Route::resource('/hcp-bills', 'HCP\BillController');
@@ -85,3 +97,4 @@ Route::group(['prefix' => '/hcp', 'middleware' => ['hcp']],  function(){
 	Route::resource('/hcp-encounters', 'HCP\EncounterController');
 	Route::resource('/hcp-claims', 'HCP\ClaimController');
 });
+

@@ -76,10 +76,10 @@
 							</address>
 						</div><!-- /.col -->
 					</div><!-- /.row -->
-					@if(json_decode($bill->service_break_down) != null)
+					@if($bill->transactions->count() > 0)
 						<table class="table">
 
-							<div><h5>tariff Items</h5>	</div>
+							<div><h5>Tariff Breakdown</h5>	</div>
 							<thead>
 								<tr>
 									<th scope="col">Tariff code</th>
@@ -88,37 +88,44 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach(json_decode($bill->service_break_down) as $t)
-								<tr scope="row">
-									<th scope="col">{{$t->tariff_code}} </th>
-									<th scope="col">{{$t->description}}</th>
-									<th scope="col">{{$t->amount}}</th>
-								</tr>
+								@foreach($bill->transactions as $t)
+									@if($t->hospitable_type == "tariff")
+									<tr scope="row">
+										<th scope="col">{{$t->hospitable->tariff_code}} </th>
+										<th scope="col">{{$t->hospitable->description}}</th>
+										<th scope="col">{{$t->hospitable->amount}}</th>
+									</tr>
+									@endif
 								@endforeach
 							</tbody>
 						</table><br>
+
+
+						<table class="table">
+							<h5>Drug BreakDown</h5>
+							<thead>
+								<tr>
+									<th scope="col">Drug Items</th>
+									<th scope="col">Amount</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach($bill->transactions as $t)
+									@if($t->hospitable_type == "drug")
+										<tr scope="row">
+											<th scope="col"> {{$t->hospitable->drug_name}} - {{$t->hospitable->dosage_form}}  - {{$t->hospitable->strengths}}  - {{$t->hospitable->presentation}}</th>
+											<th scope="col">{{$t->hospitable->amount}}</th>
+										</tr>
+									@endif
+								@endforeach
+							</tbody>
+						</table>
+
+						
+
+
 					@endif
 
-					@if(json_decode($bill->drug_break_down) != null)
-					<h5>Drug BreakDown</h5>
-
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Drug Items</th>
-								<th scope="col">Amount</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach(json_decode($bill->drug_break_down) as $t)
-							<tr scope="row">
-								<th scope="col"> {{$t->drug_name}} - {{$t->dosage_form}}  - {{$t->strengths}}  - {{$t->presentation}}</th>
-								<th scope="col">{{$t->amount}}</th>
-							</tr>
-							@endforeach
-						</tbody>
-					</table>
-					@endif
 					<br><br>
 
 					<div class="row">

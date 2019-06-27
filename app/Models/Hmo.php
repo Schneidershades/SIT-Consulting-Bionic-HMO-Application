@@ -12,6 +12,7 @@ use App\Models\Staff;
 use App\Models\Capitation;
 use App\Models\Bill;
 use App\Models\Agreement;
+use App\Models\HcpTransfer;
 
 class Hmo extends Model
 {
@@ -67,5 +68,10 @@ class Hmo extends Model
     public function agreements()
     {
         return $this->hasMany(Agreement::class);
+    }
+
+    public function transfer()
+    {
+        return $this->morphMany(HcpTransfer::class, 'transferrable');
     }
 }

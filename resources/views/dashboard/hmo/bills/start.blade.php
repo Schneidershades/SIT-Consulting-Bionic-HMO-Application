@@ -22,11 +22,11 @@
 <!-- Breadcrumb-->
 <div class="row pt-2 pb-2">
 	<div class="col-sm-9">
-		<h4 class="page-title">New Bill</h4>
+		<h4 class="page-title">New Bill for Enrollee</h4>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="javaScript:void();">{{auth()->user()->userable->hmo_name}}</a></li>
 			<li class="breadcrumb-item"><a href="javaScript:void();">Dashboard</a></li>
-			<li class="breadcrumb-item active" aria-current="page">New Bill</li>
+			<li class="breadcrumb-item active" aria-current="page">New Bill for Enrollee</li>
 		</ol>
 	</div>
 	<div class="col-sm-3">
@@ -41,9 +41,9 @@
 	<div class="col-lg-12 mx-auto">
 		<div class="card bg-dark shadow-dark">
 			<div class="card-body">
-				<div class="card-title text-uppercase text-white"><i class="fa fa-address-book-o"></i>New Bill or Fee for Service</div>
+				<div class="card-title text-uppercase text-white"><i class="fa fa-address-book-o"></i>New Bill for enrollee</div>
 				<hr>
-				<form class="color-form" method="POST" action="{{route('bills.store')}}" enctype="multipart/form-data">
+				<form class="color-form" method="POST" action="{{route('bills.store.enrollee')}}" enctype="multipart/form-data">
 					@csrf
 					<div class="form-group row">
 						<div class="col-md-12">
@@ -53,7 +53,7 @@
 
 						<div class="form-group col-md-6">
 							<label for="input-26">Date</label>
-							<input name="date" type="date" class="form-control" id="input-26" placeholder="Enter Date of Bill" required>
+							<input name="date" type="date" id="datePicker" class="form-control" id="input-26" placeholder="Enter Date of Bill" required>
 						</div>
 
 						<div class="form-group col-md-6">
@@ -61,108 +61,24 @@
 							<input name="payment_reference" type="text" class="form-control" id="input-26" placeholder="Enter Payment Reference/Receipt" required>
 						</div>
 
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-12">
 							<label for="input-25">Enrollee ID</label>
-							<select class="form-control " name="enrollee_id" id="enrollee" onchange="showEnrolleeHcp(this.value)" required>
-								<!-- <option value="">---Select Enrollee---</option>
+							<select class="form-control single-select" name="enrollee_id" id="enrollee" required>
+								<option value="">---Select Enrollee---</option>
 								@foreach($enrollees as $enrollee)
-								<option value="{{$enrollee->id}}">{{$enrollee->code}} -{{$enrollee->first_name}} {{$enrollee->middle_name}} {{$enrollee->last_name}}</option>
-								@endforeach -->
+								<option value="{{$enrollee->id}}">{{$enrollee->identifier}} -{{$enrollee->first_name}} {{$enrollee->middle_name}} {{$enrollee->last_name}}</option>
+								@endforeach
 							</select>
 						</div>
 
-						<div class="form-group col-md-6">
-							<label for="input-25">HCP ID</label>
-							<select class="form-control single-select" name="hcp_id" id="hcp" onchange="getHmoAgreementWithHcp(this.value)" required>
-								<!-- <option value="">---Select Health Care Provider---</option>
-								@foreach($hcps as $hcp)
-								<option value="{{$hcp->hcp->id}}">{{$hcp->hcp->hcp_code}} -{{$hcp->hcp->hcp_name}} </option>
-								@endforeach -->
-							</select>
-						</div>
-					</div>
 
-					<div class='repeater'>
-						<!-- Make sure the repeater list value is different from the first repeater  -->
-						<div data-repeater-list="hcp_service_details">
-							<div data-repeater-item class="form-group row">
-								<div class="form-group col-md-12" >
-									<label>Fee for service</label>
-									<select class="form-control single-select" name="treatment_id" id="treatment">
 
-										<!-- <option value="">---Select Service---</option>
-										@foreach($tariffs as $tariff)
-										<option value="{{$tariff->id}}">{{$tariff->description}} -{{$tariff->amount}}</option>
-										@endforeach -->
-
-									</select>
-								</div>
-								<div class="form-group col-md-12">
-									<button data-repeater-delete type="button" class="badge badge-pill badge-danger m-1" >-</button>
-								</div>
-								<hr>
-							</div>
-						</div>
-						<div class="text-right">
-							<button data-repeater-create type="button" class="btn btn-primary waves-effect waves-light m-1"> + Add Fee for Service </button>
-						</div>
-					</div>
-
-					<div class='drugs'>
-						<!-- Make sure the repeater list value is different from the first repeater  -->
-						<div data-repeater-list="hcp_drug_details">
-							<div data-repeater-item class="form-group row">
-								<div class="form-group col-md-12">
-									<label>Drug purchase</label>
-									<select class="form-control single-select" name="drug_id" id="drug">
-
-										<!-- <option value="">---Select Drug ---</option>
-										@foreach($drugs as $drug)
-										<option value="{{$drug->id}}">{{$drug->drug_name}} - {{$drug->dosage_form}} - {{$drug->strengths}} - {{$drug->presentation}} - {{$drug->amount}}</option>
-										@endforeach -->
-
-									</select>
-								</div>
-								<div class="form-group col-md-12">
-									<button data-repeater-delete type="button" class="badge badge-pill badge-danger m-1" >-</button>
-								</div>
-								<hr>
-							</div>
-						</div>
-						<div class="text-right">
-							<button data-repeater-create type="button" class="btn btn-primary waves-effect waves-light m-1"> + Add Drug </button>
-						</div>
-					</div>
-
-					<div class="form-group row">
-
-						
 						<div class="form-group col-md-12">
 							<label for="input-26">Description</label>
 							<textarea name="description" class="form-control" id="input-26" placeholder="Enter Treatment Description"></textarea>
 						</div>
-						<div class="form-group col-md-4">
-							<label for="input-26">Amount Charged</label>
-							<input name="amount_charged" type="number" min="0" class="form-control" id="input-26" placeholder="Enter Charged Amount">
-						</div>
-
-						<div class="form-group col-md-4">
-							<label for="input-26">Amount Paid</label>
-							<input name="amount_paid" type="number" min="0" class="form-control" id="input-26" placeholder="Enter Amount Paid">
-						</div>
-
-						<div class="form-group col-md-4">
-							<label for="input-25">Payment Method</label>
-							<select name="payment_method" class="form-control " required>
-								<option value="">---Select Payment Method---</option>
-								<option value="cash">Cash</option>
-								<option value="cheque">Cheque</option>
-								<option value="bank_transfer">Bank Transfer</option>
-							</select>									
-						</div>
-						<hr>
 					</div>
-					
+
 					<div class="form-group">
 						<button type="submit" class="btn btn-link bg-white text-dark shadow px-5"><i class="icon-lock"></i> Register Bill</button>
 					</div>
@@ -210,32 +126,34 @@
 
 
 <script type="text/javascript">
+	    $('#datePicker').val(new Date().toDateInputValue());
+	});​
 
-	$('#enrollee').empty().append('<option value="">--Please select an Enrollee---</option>');
-	$('#hcp').empty().append('<option value="">--Please select an Enrollee First---</option>');
+	// $('#enrollee').empty().append('<option value="">--Please select an Enrollee---</option>');
+	// $('#hcp').empty().append('<option value="">--Please select an Enrollee First---</option>');
 
-	var url = '{{ URL::to('/js/hmo/all/enrollees')}}/';
-	$.get(url, function (data) {
-		$.each(data, function (i, data) {
-	  		$("#enrollee").append("<option value='"+data.id+"'>" + data.identifier + ' - ' +data.first_name +' '+ data.middle_name + ' '+data.last_name+"</option>");
-		});
-	});
+	// var url = '{{ URL::to('/js/hmo/all/enrollees')}}/';
+	// $.get(url, function (data) {
+	// 	$.each(data, function (i, data) {
+	//   		$("#enrollee").append("<option value='"+data.id+"'>" + data.identifier + ' - ' +data.first_name +' '+ data.middle_name + ' '+data.last_name+"</option>");
+	// 	});
+	// });
 
-	function showEnrolleeHcp(enrollee_id) {
-		$('#hcp').empty().append('<option value="">--Please you can now select hcp---</option>');
-		//var id = id;
-		var url = '{{ URL::to('/js/enrollees/hcp/')}}/' + enrollee_id;
-		// console.log(url);
-		$.get(url, function (data) {
-		  	console.log(data);
-		  	// $('#hcp').empty();
-		  	$("#hcp").append("<option value='"+data.id+"'>"+data.hcp_name+"</option>");
-		  	// $.each(data, function (i, data) {
-		    //      console.log(data);
-		    //      $("#hcp").append("<option value='"+data.id+"'>"+data.hcp_name+"</option>");
-		   	// });
-		});
-	}
+	// function showEnrolleeHcp(enrollee_id) {
+	// 	$('#hcp').empty().append('<option value="">--Please you can now select hcp---</option>');
+	// 	//var id = id;
+	// 	var url = '{{ URL::to('/js/enrollees/hcp/')}}/' + enrollee_id;
+	// 	// console.log(url);
+	// 	$.get(url, function (data) {
+	// 	  	console.log(data);
+	// 	  	// $('#hcp').empty();
+	// 	  	$("#hcp").append("<option value='"+data.id+"'>"+data.hcp_name+"</option>");
+	// 	  	// $.each(data, function (i, data) {
+	// 	    //      console.log(data);
+	// 	    //      $("#hcp").append("<option value='"+data.id+"'>"+data.hcp_name+"</option>");
+	// 	   	// });
+	// 	});
+	// }
 
 	function getHmoAgreementWithHcp(hcp_id) {
 		$('#drug, #treatment').empty();

@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceDrugTransaction extends Model
+class HcpTransfer extends Model
 {
-    public function hospitable()
+    public function transferrable()
     {
         return $this->morphTo();
-    } 
+    }
 }

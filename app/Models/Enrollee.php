@@ -8,6 +8,8 @@ use App\Models\Dependant;
 use App\Models\Hcp;
 use App\Models\HealthCarePlan;
 use App\Models\Bill;
+use App\Models\Agreement;
+use App\Models\HcpTransfer;
 
 class Enrollee extends Model
 {
@@ -48,5 +50,10 @@ class Enrollee extends Model
     public function bills()
     {
         return $this->hasMany(Bill::class);
+    }
+
+    public function transfer()
+    {
+        return $this->morphMany(HcpTransfer::class, 'transferrable');
     }
 }

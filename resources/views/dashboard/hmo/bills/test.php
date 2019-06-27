@@ -82,33 +82,11 @@
 						</div>
 					</div>
 
-					<div class='repeater'>
-						<!-- Make sure the repeater list value is different from the first repeater  -->
-						<div data-repeater-list="hcp_service_details">
-							<div data-repeater-item class="form-group row">
-								<div class="form-group col-md-12" >
-									<label>Fee for service</label>
-									<select class="form-control single-select" name="treatment_id" id="treatment">
-
-										<!-- <option value="">---Select Service---</option>
-										@foreach($tariffs as $tariff)
-										<option value="{{$tariff->id}}">{{$tariff->description}} -{{$tariff->amount}}</option>
-										@endforeach -->
-
-									</select>
-								</div>
-								<div class="form-group col-md-12">
-									<button data-repeater-delete type="button" class="badge badge-pill badge-danger m-1" >-</button>
-								</div>
-								<hr>
-							</div>
-						</div>
-						<div class="text-right">
-							<button data-repeater-create type="button" class="btn btn-primary waves-effect waves-light m-1"> + Add Fee for Service </button>
-						</div>
+					<div id="treatmentContainer">
+						
 					</div>
 
-					<div class='drugs'>
+					<div class='drugs' >
 						<!-- Make sure the repeater list value is different from the first repeater  -->
 						<div data-repeater-list="hcp_drug_details">
 							<div data-repeater-item class="form-group row">
@@ -236,16 +214,48 @@
 		   	// });
 		});
 	}
+	function showTariff(tc){
+		// var tariff = '<select class="form-control single-select" name="treatment_id" id="treatment">';
+		// // var tariff_content = '';
+		// tariff += tc;
+		// tariff += '</select>';
 
+
+		var tariff = '<div class="repeater">'+
+			'<div data-repeater-list="hcp_service_details">'+
+				'<div data-repeater-item class="form-group row">'+
+					'<div class="form-group col-md-12">'+
+						'<label>Fee for service</label>'+
+						'<select class="form-control single-select" name="treatment_id" id="treatment">'+
+						tc +	
+						'</select>'+
+					'</div>'+
+					'<div class="form-group col-md-12">'+
+						'<button data-repeater-delete type="button" class="badge badge-pill badge-danger m-1" >-</button>'+
+					'</div>'+
+					'<hr>'+
+				'</div>'+
+			'</div>'+
+			'<div class="text-right">'+
+				'<button data-repeater-create type="button" class="btn btn-primary waves-effect waves-light m-1">'+
+				' + Add Fee for Service '+
+				'</button>'+
+			'</div>'+
+		'</div>';
+
+		
+		return tariff;
+	}
 	function getHmoAgreementWithHcp(hcp_id) {
 		$('#drug, #treatment').empty();
-		var tariff_content ='';
-		var tariff = '<select class="form-control single-select" name="treatment_id" id="treatment">';
-		tariff += tariff_content;
-		tariff += '</select>';
 
-		var drug_content ='';
+		// var tariff = '<select class="form-control single-select" name="treatment_id" id="treatment">';
+		// // var tariff_content = '';
+		// tariff += tariff_content;
+		// tariff += '</select>';
+
 		var drug = '<select class="form-control single-select" name="drug_id" id="drug">';
+		var drug_content ='';
 		drug += drug_content;
 		drug += '</select>';
 
@@ -256,12 +266,16 @@
 			
 			$.each(data, function (i, data) {
 				if(data.agreementable_type == 'tariff'){
-					tariff_content += '<option value='+data.agreementable_id+'>' + data.agreementable.tariff_code + ' - ' +data.agreementable.description +'  N '+data.agreementable.amount+'</option>';
-					$("#treatment").append(tariff_content);
+					var tariff_content = '<option value="'+data.agreementable_id+'">' + data.agreementable.tariff_code + ' - ' +data.agreementable.description +'  N '+data.agreementable.amount+'</option>';
+					// $("#treatment").append(tariff_content);
+					var content = showTariff(tariff_content);
+					console.log(content);
+					var tariff_content = $("#treatmentContainer").append(content);
 				}
 				if(data.agreementable_type == 'drug'){
 					drug_content += '<option value='+data.agreementable_id+'>' +data.agreementable.parent_id+ ' - ' +data.agreementable.drug_name+ ' ' +data.agreementable.dosage_form+ ' ' +data.agreementable.strengths+ ' '+data.agreementable.presentation+ ' N'+data.agreementable.amount+ '</option>';
-					$("#drug").append(drug_content);
+					// $("#drug").append(drug_content);
+					console.log(tariff_content);
 				}
 			});
 		});
@@ -289,7 +303,7 @@
 
 	$(document).ready(function () {
 		'use strict';
-		$('#drugs, #treatment').repeater({
+		$('#drug, #treatment').repeater({
 			isFirstItemUndeletable: true,
 			defaultValues: {
 				'textarea-input': 'foo',
@@ -301,13 +315,13 @@
 			show: function () {
 				$(this).slideDown();
 				// form.find('.multiple-select').select2();
-				$(this).find('.single-select').select2({
+				// $(this).find('.single-select').select2({
 
-	                placeholder: "Select Drug Item",
+	   //              placeholder: "Select Drug Item",
 
-	                allowClear: true,
+	   //              allowClear: true,
 
-	            });
+	   //          });
 			},
 			hide: function (deleteElement) {
 				if(confirm('Are you sure you want to delete this element?')) {

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Hcp;
 use App\Models\Hmo;
 use App\Models\Enrollee;
+use App\Models\TariffDrugTransaction;
 
 class Bill extends Model
 {
@@ -31,5 +32,10 @@ class Bill extends Model
     public function enrollee()
     {
         return $this->belongsTo(Enrollee::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(TariffDrugTransaction::class, 'bill_id');
     }
 }

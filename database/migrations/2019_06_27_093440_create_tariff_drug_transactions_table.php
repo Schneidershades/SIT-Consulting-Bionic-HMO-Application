@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateServiceDrugTransactionsTable extends Migration
+class CreateTariffDrugTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,20 @@ class CreateServiceDrugTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('service_drug_transactions', function (Blueprint $table) {
+        Schema::create('tariff_drug_transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('identifier')->nullable();
             $table->integer('hospitable_id')->nullable();
             $table->string('hospitable_type')->nullable();
             $table->integer('enrollee_id')->nullable();
             $table->integer('hcp_id')->nullable();
             $table->integer('hmo_id')->nullable();
+            $table->integer('bill_id')->nullable();
             $table->date('period')->nullable();
+            $table->boolean('pre_authorization')->default(false);
+            $table->string('status')->default('pending');
+            $table->string('service_type')->nullable();
+            $table->decimal('amount', 40, 2)->nullable()->default(0);
             $table->timestamps();
         });
     }
@@ -32,6 +38,6 @@ class CreateServiceDrugTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_drug_transactions');
+        Schema::dropIfExists('tariff_drug_transactions');
     }
 }

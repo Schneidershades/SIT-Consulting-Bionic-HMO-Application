@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ServiceDrugTransaction;
+use App\Models\TariffDrugTransaction;
 use App\Models\Agreement;
 use App\Models\HealthCarePlan;
 
@@ -20,7 +20,7 @@ class Tariff extends Model
 
     public function serviceItems()
     {
-        return $this->morphMany(ServiceDrugTransaction::class, 'hospitable');
+        return $this->morphMany(TariffDrugTransaction::class, 'hospitable');
     } 
 
     public function tariffAgreements()

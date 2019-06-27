@@ -38,7 +38,7 @@ class HealthCarePlan extends Model
 
     public function parent()
     {
-        return $this->belongsTo(HealthCarePlan::class, 'parent_id');
+        return $this->belongsTo(HealthCarePlan::class, 'id');
     }
 
     public function benefits()

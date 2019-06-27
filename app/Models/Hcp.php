@@ -10,6 +10,7 @@ use App\Models\Assessment;
 use App\Models\Capitation;
 use App\Models\Encounter;
 use App\Models\Agreement;
+use App\Models\HcpTransfer;
 
 class Hcp extends Model
 {
@@ -73,5 +74,15 @@ class Hcp extends Model
     public function agreements()
     {
         return $this->hasMany(Agreement::class);
+    }
+
+    public function specificHmoAgreements()
+    {
+        return $this->hasMany(Agreement::class, 'hcp_id')->where('hmo_id', auth()->user()->userable->id);
+    }
+    
+    public function transfer()
+    {
+        return $this->morphMany(HcpTransfer::class, 'transferrable');
     }
 }

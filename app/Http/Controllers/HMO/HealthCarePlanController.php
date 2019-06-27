@@ -16,7 +16,7 @@ class HealthCarePlanController extends Controller
 
     public function index()
     {
-        $plans = HealthCarePlan::where('hmo_id', auth()->user()->userable->id)->where('parent_id', '!=', NULL)->get();
+        $plans = HealthCarePlan::where('hmo_id', auth()->user()->userable->id)->where('parent_id', '=', NULL)->get();
         return view('dashboard.hmo.health-plan.index')
                 ->with('plans', $plans); 
     }
@@ -107,7 +107,7 @@ class HealthCarePlanController extends Controller
         $plan->delete();
         $plan->benefits()->delete();
         Session::flash('success', 'The Health care plan was sucessfully deleted');
-        return redirect()->route('plan.index');
+        return redirect()->route('plans.index');
     }
 
     public function destroyDrugsOrTariffFeatures($id)

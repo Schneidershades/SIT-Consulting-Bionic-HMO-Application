@@ -23,6 +23,8 @@ class CreateHmosTable extends Migration
             $table->string('hmo_contact')->nullable();
             $table->string('hmo_region')->nullable();
             $table->string('hmo_email')->nullable();
+            $table->string('hmo_fax')->nullable();
+            $table->string('hmo_executive_name')->nullable();
             $table->string('hmo_service')->nullable();
 
             $table->string('hmo_payment_gateway')->nullable();
