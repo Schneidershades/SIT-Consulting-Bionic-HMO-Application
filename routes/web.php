@@ -23,10 +23,17 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 	Route::get('/enrollees/delete/{id}', 'HMO\EnrolleeController@destroy')->name('enrollees.delete');
 	Route::post('/enrollees/update/{id}', 'HMO\EnrolleeController@update')->name('enrollees.update');
 
+	Route::get('/enrollees/transfers/requests', 'HMO\EnrolleeController@allEnrolleeHcpTransfers')->name('enrollees.hcp.transfers.requests');
+	Route::get('/enrollees/change/hcp/', 'HMO\EnrolleeController@changeEnrolleeHcp')->name('enrollees.change.hcp');
+	Route::post('/enrollees/change/hcp/', 'HMO\EnrolleeController@changeHcpStore')->name('enrollees.change.hcp.store');
+	Route::get('/enrollees/change/hcp/request/', 'HMO\EnrolleeController@pendingEnrolleeHcpChangeRequest')->name('enrollees.change.hcp.request');
+	Route::get('/enrollees/change/hcp/show/request/{id}', 'HMO\EnrolleeController@showEnrolleeHcpChangeRequest')->name('enrollees.change.hcp.show.request');
+	Route::get('/enrollees/change/hcp/cancel/request/{id}', 'HMO\EnrolleeController@cancelRequest')->name('enrollees.change.hcp.cancel.request');
+	Route::get('/enrollees/change/hcp/verify/request/{id}', 'HMO\EnrolleeController@verifyRequest')->name('enrollees.change.hcp.verify.request');
+
 	Route::resource('/plans', 'HMO\HealthCarePlanController');
 	Route::get('/plans/delete/{id}', 'HMO\HealthCarePlanController@destroy')->name('plans.delete');
 	Route::post('/plans/update/{id}', 'HMO\HealthCarePlanController@update')->name('plans.update');
-
 	Route::get('/plans/delete/feature/{id}', 'HMO\HealthCarePlanController@destroyDrugsOrtariffFeatures')->name('healthPlanService.delete');
 
 	Route::resource('/staff', 'HMO\StaffController');
@@ -46,7 +53,11 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 	Route::post('/bills/update/{id}', 'HMO\BillController@update')->name('bills.update');
 
 
-	Route::get('/bills/pre-authorization/transaction', 'HMO\PreAuthorizationController@index')->name('pre-authorization.index');
+	Route::get('/bills/pre-authorization/all/transactions', 'HMO\PreAuthorizationController@index')->name('pre-authorization.index');
+	Route::get('/bills/pre-authorization/pending/transactions', 'HMO\PreAuthorizationController@pending')->name('pre-authorization.pending');
+	Route::get('/bills/pre-authorization/verify/transaction', 'HMO\PreAuthorizationController@verify')->name('pre-authorization.verify');
+	Route::get('/bills/pre-authorization/cancel/transaction', 'HMO\PreAuthorizationController@cancel')->name('pre-authorization.cancel');
+	Route::get('/bills/pre-authorization/show/transaction', 'HMO\PreAuthorizationController@show')->name('pre-authorization.show');
 
 	Route::resource('/cash', 'HMO\CashController');
 	Route::get('/cash/delete/{id}', 'HMO\CashController@destroy')->name('cash.delete');

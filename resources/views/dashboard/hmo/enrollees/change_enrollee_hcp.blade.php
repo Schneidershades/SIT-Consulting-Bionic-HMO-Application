@@ -22,11 +22,11 @@
 <!-- Breadcrumb-->
 <div class="row pt-2 pb-2">
 	<div class="col-sm-9">
-		<h4 class="page-title">New Bill for Enrollee</h4>
+		<h4 class="page-title">Transfer Enrollee</h4>
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="javaScript:void();">{{auth()->user()->userable->hmo_name}}</a></li>
 			<li class="breadcrumb-item"><a href="javaScript:void();">Dashboard</a></li>
-			<li class="breadcrumb-item active" aria-current="page">New Bill for Enrollee</li>
+			<li class="breadcrumb-item active" aria-current="page">Transfer Enrollee</li>
 		</ol>
 	</div>
 	<div class="col-sm-3">
@@ -41,32 +41,32 @@
 	<div class="col-lg-12 mx-auto">
 		<div class="card bg-dark shadow-dark">
 			<div class="card-body">
-				<div class="card-title text-uppercase text-white"><i class="fa fa-address-book-o"></i>New Bill for enrollee</div>
+				<div class="card-title text-uppercase text-white"><i class="fa fa-address-book-o"></i>Transfer Enrollee</div>
 				<hr>
-				<form class="color-form" method="POST" action="{{route('bills.store.enrollee')}}" enctype="multipart/form-data">
+				<form class="color-form" method="POST" action="{{route('enrollees.change.hcp.store')}}" enctype="multipart/form-data">
 					@csrf
 					<div class="form-group row">
 						<div class="col-md-12">
-							<div class="card-title text-white text-center"><i class="fa fa-address-book-o"></i> NEW BILL</div><br>
+							<div class="card-title text-white text-center"><i class="fa fa-address-book-o"></i> Transfer Enrollee</div><br>
 						</div>
 
-
-						<div class="form-group col-md-6">
-							<label for="input-26">Date</label>
-							<input name="date" type="date" id="datePicker" class="form-control" id="input-26" placeholder="Enter Date of Bill" required>
-						</div>
-
-						<div class="form-group col-md-6">
-							<label for="input-26">Payment Reference</label>
-							<input name="payment_reference" type="text" class="form-control" id="input-26" placeholder="Enter Payment Reference/Receipt" required>
-						</div>
 
 						<div class="form-group col-md-12">
 							<label for="input-25">Enrollee ID</label>
 							<select class="form-control single-select" name="enrollee_id" id="enrollee" required>
 								<option value="">---Select Enrollee---</option>
 								@foreach($enrollees as $enrollee)
-								<option value="{{$enrollee->id}}">{{$enrollee->identifier}} -{{$enrollee->first_name}} {{$enrollee->middle_name}} {{$enrollee->last_name}}</option>
+								<option value="{{$enrollee->id}}">{{$enrollee->identifier}} -{{$enrollee->first_name}} {{$enrollee->middle_name}} {{$enrollee->last_name}} in ({{$enrollee->hcp->hcp_code}}/{{$enrollee->hcp->hcp_name}})</option>
+								@endforeach
+							</select>
+						</div>
+
+						<div class="form-group col-md-12">
+							<label for="input-25">HCP ID</label>
+							<select class="form-control single-select" name="hcp_id" id="hcp" required>
+								<option value="">---Select Health Care Provider---</option>
+								@foreach($hcps as $hcp)
+								<option value="{{$hcp->hcp->id}}">{{$hcp->hcp->hcp_code}} -{{$hcp->hcp->hcp_name}} </option>
 								@endforeach
 							</select>
 						</div>
@@ -74,8 +74,8 @@
 
 
 						<div class="form-group col-md-12">
-							<label for="input-26">Description</label>
-							<textarea name="description" class="form-control" id="input-26" placeholder="Enter Treatment Description"></textarea>
+							<label for="input-26">Reason for Transfer</label>
+							<textarea name="reason" class="form-control" id="input-26" placeholder="Reason for transfer"></textarea>
 						</div>
 					</div>
 

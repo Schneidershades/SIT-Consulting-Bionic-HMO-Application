@@ -52,9 +52,9 @@
                 <td>{{$transaction->hospitable->amount}}</td>
                 <td>{{$transaction->status}}</td>
                 <td>
-                  <a href="{{route('pre-authorization.show', $transaction->identifier)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>
-                  <a href="{{route('pre-authorization.verify', $transaction->identifier)}}" class="btn btn-success btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-check"></i></a>
-                  <a href="{{route('pre-authorization.cancel', $transaction->identifier)}}" class="btn btn-danger btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-times"></i></a>
+                  <a href="{{route('bills.show', $transaction->identifier)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>
+                  <a href="{{route('bills.show', $transaction->identifier)}}" class="btn btn-success btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-check"></i></a>
+                  <a href="{{route('bills.show', $transaction->identifier)}}" class="btn btn-danger btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-times"></i></a>
                 </td>
               </tr>
               @endforeach

@@ -15,12 +15,13 @@ class CreateHcpTransfersTable extends Migration
     {
         Schema::create('hcp_transfers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('hcp_id')->nullable();
+            $table->integer('transfer_to_hcp_id')->nullable();
+            $table->integer('transfer_from_hcp_id')->nullable();
             $table->integer('enrollee_id')->nullable();
             $table->integer('hmo_id')->nullable();
             $table->integer('transferrable_id')->nullable();
             $table->string('transferrable_type')->nullable();
-            $table->text('transafer_reason')->nullable();
+            $table->text('transfer_reason')->nullable();
             $table->string('action')->default('pending');
             // the id of the user inputing the data
             $table->integer('requesting_user_id')->nullable()->index();

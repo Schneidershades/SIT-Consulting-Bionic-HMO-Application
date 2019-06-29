@@ -8,6 +8,7 @@ use App\Models\Enrollee;
 use App\Models\HealthCarePlan;
 use App\Models\Hmo;
 use App\Models\HmoHcp;
+use App\Models\HcpTransfer;
 use App\Models\HealthCarePlanBenefit;
 use Session;
 
@@ -165,5 +166,77 @@ class EnrolleeController extends Controller
         $enrollee->delete();
         Session::flash('success', 'The enrollee was sucessfully deleted');
         return redirect()->route('enrollees.index');
+    }
+
+    public function transfer()
+    {
+        $transfers = HcpTransfer::where('hmo_id', auth()->user()->userable->id)->get();
+        return view('dashboard.hmo.enrollees.transfers')
+                ->with('transfers', $transfers); 
+    }
+
+    public function changeEnrolleeHcp()
+    {
+        $enrollees = Enrollee::where('hmo_id', auth()->user()->userable->id)->get();
+        $hcps = HmoHcp::where('hmo_id', auth()->user()->userable->id)->get();
+        return view('dashboard.hmo.enrollees.change_enrollee_hcp')
+                ->with('enrollees', $enrollees)
+                ->with('hcps', $hcps); 
+    }
+
+    public function changeHcpStore(Request $request)
+    {
+        $hmo = Hmo::find(auth()->user()->userable->id);
+        $enrollee = Enrollee::find($request->enrollee_id);
+
+        $transfer = new HcpTransfer;
+        $transfer->transfer_to_hcp_id = $enrollee->hcp_id;
+        $transfer->transfer_from_hcp_id = $request->hcp_id;
+        $transfer->enrollee_id = $request->enrollee_id;
+        $transfer->hmo_id = auth()->user()->userable->id;
+        $transfer->transfer_reason = $request->reason;
+        $transfer->requesting_user_id = auth()->user()->id;
+        $hmo->transfer()->save($transfer);
+
+        return redirect()->route('enrollees.change.hcp.request');
+    }
+
+    public function pendingEnrolleeHcpChangeRequest()
+    {
+        $transfers = HcpTransfer::where('hmo_id', auth()->user()->userable->id)->where('action', 'pending')->get();
+        return view('dashboard.hmo.enrollees.pending_hcp_change')
+                ->with('transfers', $transfers); 
+    }
+
+    public function allEnrolleeHcpTransfers()
+    {
+        $transfers = HcpTransfer::where('hmo_id', auth()->user()->userable->id)->get();
+        return view('dashboard.hmo.enrollees.all_enrollee_transfers')
+                ->with('transfers', $transfers); 
+    }
+
+    public function showEnrolleeHcpChangeRequest($id)
+    {
+        $transfer = HcpTransfer::find($id);
+        return view('dashboard.hmo.enrollees.show_hcp_change')
+                ->with('transfer', $transfer); 
+    }
+
+    public function cancelRequest($id)
+    {
+        $transfer = HcpTransfer::find($id);
+        $transfer->action = 'cancelled';
+        $transfer->approving_user_id = auth()->user()->id;
+        $transfer->save();
+        return redirect()->back(); 
+    }
+
+    public function verifyRequest($id)
+    {
+        $transfer = HcpTransfer::find($id);
+        $transfer->action = 'verified';
+        $transfer->approving_user_id = auth()->user()->id;
+        $transfer->save();
+        return redirect()->back(); 
     }
 }

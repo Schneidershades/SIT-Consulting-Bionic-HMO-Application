@@ -70,9 +70,10 @@
     <ul class="sidebar-submenu">
       <li><a href="{{route('enrollees.index')}}"><i class="fa fa-long-arrow-right"></i> View Enrollee</a></li>
       <li><a href="{{route('enrollees.create')}}"><i class="fa fa-long-arrow-right"></i> Add Enrollee</a></li>
-      <li><a href="3"><i class="fa fa-long-arrow-right"></i> Change HCP Requests</a></li>
+      <li><a href="{{route('enrollees.hcp.transfers.requests')}}"><i class="fa fa-long-arrow-right"></i> All Enrollee Hcp Transfer Requests</a></li>
+      <li><a href="{{route('enrollees.change.hcp.request')}}"><i class="fa fa-long-arrow-right"></i> Pending Enrollee Hcp Transfer Requests</a></li>
+      <li><a href="{{route('enrollees.change.hcp')}}"><i class="fa fa-long-arrow-right"></i>Enrollee Hcp Transfer</a></li>
       <li><a href="3"><i class="fa fa-long-arrow-right"></i> Encounter Alerts</a></li>
-      <li><a href="3"><i class="fa fa-long-arrow-right"></i> Change HCP</a></li>
     </ul>
   </li>
   <li>
