@@ -67,11 +67,14 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 	Route::get('/assessments/delete/{id}', 'HMO\AssessmentController@destroy')->name('assessments.delete');
 	Route::post('/assessments/update/{id}', 'HMO\AssessmentController@update')->name('assessments.update');
 
-	Route::resource('/hmo-tariffs', 'HMO\tariffController');
-	Route::get('/hmo-tariffs/delete/{id}', 'HMO\HcpController@destroy')->name('hmo-tariffs.delete');
+	Route::resource('/hmo-tariffs', 'HMO\TariffController');
+	Route::get('/hmo-tariffs/delete/{id}', 'HMO\TariffController@destroy')->name('hmo-tariffs.delete');
 	Route::resource('/hmo-drugs', 'HMO\DrugController');
 	Route::get('/hmo-drugs/delete/{id}', 'HMO\DrugController@destroy')->name('hmo-drugs.delete');
 	// Route::get('/rate', 'HMO\RateController@index')->name('hmo.rates');
+	// 
+	Route::resource('/hmo-disease-classes', 'HMO\tariffController');
+	Route::get('/hmo-disease-classes/delete/{id}', 'HMO\HcpController@destroy')->name('hmo-tariffs.delete');
 
 	Route::resource('/capitations', 'HMO\CapitationController');
 	Route::get('/capitations/delete/{id}', 'HMO\CapitationController@destroy')->name('capitations.delete');

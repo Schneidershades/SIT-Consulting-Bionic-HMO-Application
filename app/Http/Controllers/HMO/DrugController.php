@@ -24,17 +24,17 @@ class DrugController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         if($request->hcp_drug_details){
             foreach($request->hcp_drug_details as $hcp_drug){
-                $find_tarrif = Drug::where('id', $hcp_tariff['parent_id'])->first();
-                if($find_tarrif != null){
+                $find_drug = Drug::where('id', $hcp_drug['parent_id'])->first();
+                if($find_drug != null){
                     $drug = new Drug;
-                    $drug->drug_name = $hcp_tariff['name'];
-                    $drug->dosage_form = $hcp_tariff['dosage_form'];
-                    $drug->strength = $hcp_tariff['strength'];
-                    $drug->presentation = $hcp_tariff['presentation'];
-                    $drug->parent_id = $hcp_tariff['parent_id'];
+                    $drug->drug_name = $hcp_drug['name'];
+                    $drug->dosage_form = $hcp_drug['dosage_form'];
+                    $drug->strength = $hcp_drug['strength'];
+                    $drug->presentation = $hcp_drug['presentation'];
+                    $drug->parent_id = $hcp_drug['parent_id'];
                     $drug->save();
                 }
             }

@@ -14,6 +14,7 @@ use App\Models\Drug;
 use App\Models\HmoHcp;
 use App\Models\Hcp;
 use App\Models\TariffDrugTransaction;
+use App\Models\DiseaseClass;
 use Session;
 
 
@@ -203,6 +204,14 @@ class BillController extends Controller
                 }
             }
         }
+
+        // encounter alerts 
+        
+        // $alert = Bill::where('user_id', $bill->enrollee_id)->where('hmo_id', $bill->hmo_id)->get();
+
+        // if($alert->count() > 4){
+
+        // }
 
         // dd('ho');
         
