@@ -10,8 +10,7 @@ class DiseaseClassController extends Controller
 {
     public function index()
     {
-    	$classes = DiseaseClass::where('parent_id', '!=' , NULL)->get();
-
+    	$classes = DiseaseClass::where('parent_id', '!=' , NULL)->where('user_type', auth()->user()->userable->id)->get();
     	return view('dashboard.hmo.diseases.index')
     			->with('classes', $classes);
 
@@ -32,10 +31,10 @@ class DiseaseClassController extends Controller
                 $find_disease = DiseaseClass::where('id', $hcp_disease['parent_id'])->first();
                 if($find_disease != null){
                     $disease = new DiseaseClass;
-                    $disease->drug_name = $hcp_disease['name'];
-                    $disease->dosage_form = $hcp_disease['dosage_form'];
-                    $disease->strength = $hcp_disease['strength'];
-                    $disease->presentation = $hcp_disease['presentation'];
+                    $disease->disease_code = $hcp_disease['disease_code'];
+                    $disease->description = $hcp_disease['description'];
+                    $disease->user_operator_id = auth()->user()->id;
+                    $disease->user_type = auth()->user()->userable->id;
                     $disease->parent_id = $hcp_disease['parent_id'];
                     $disease->save();
                 }
@@ -63,9 +62,12 @@ class DiseaseClassController extends Controller
     public function update()
     {
     	$disease = DiseaseClass::findOrFail($id);
-        $disease->delete();
-        Session::flash('success', 'The disease has been deleted');
-        return redirect()->route('hmo-tarrifs.index'); 
+    	$disease->disease_code = $request->disease_code;
+        $disease->description = $request->description;
+        $disease->parent_id = $request->parent_id;
+        $disease->save();
+        Session::flash('success', 'The disease has been updated');
+        return redirect()->route('hmo-disease-classes.index'); 
     }
 
     public function delete()
@@ -73,6 +75,6 @@ class DiseaseClassController extends Controller
     	$disease = DiseaseClass::findOrFail($id);
         $disease->delete();
         Session::flash('success', 'The disease has been deleted');
-        return redirect()->route('hmo-tarrifs.index'); 
+        return redirect()->route('hmo-disease-classes.index'); 
     }
 }

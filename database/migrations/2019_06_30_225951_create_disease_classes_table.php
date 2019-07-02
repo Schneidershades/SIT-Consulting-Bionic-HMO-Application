@@ -22,6 +22,7 @@ class CreateDiseaseClassesTable extends Migration
             $table->text('description')->nullable();
             $table->string('parent_id')->nullable();
             $table->integer('user_operator_id')->nullable()->index();
+            $table->integer('user_type')->nullable()->index();
             $table->integer('verify_id')->nullable()->index();
             $table->string('action')->default('pending');
             $table->timestamps();
