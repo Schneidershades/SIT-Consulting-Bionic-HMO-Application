@@ -27,7 +27,7 @@ class CreateDiseaseClassesTable extends Migration
             $table->string('action')->default('pending');
             $table->timestamps();
 
-            DB::update("ALTER TABLE disease_classes AUTO_INCREMENT = 1300031;");
+            // DB::update("ALTER TABLE disease_classes AUTO_INCREMENT = 1300031");
         });
     }
 

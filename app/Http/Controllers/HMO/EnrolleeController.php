@@ -237,6 +237,10 @@ class EnrolleeController extends Controller
         $transfer->action = 'verified';
         $transfer->approving_user_id = auth()->user()->id;
         $transfer->save();
+
+        $enrollee = $transfer->enrollee();
+        $enrollee->hcp_id = $transfer->transfer_to_hcp_id;
+        $enrollee->save();
         return redirect()->back(); 
     }
 }

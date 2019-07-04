@@ -73,8 +73,8 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 	Route::get('/hmo-drugs/delete/{id}', 'HMO\DrugController@destroy')->name('hmo-drugs.delete');
 	// Route::get('/rate', 'HMO\RateController@index')->name('hmo.rates');
 	// 
-	Route::resource('/hmo-disease-classes', 'HMO\tariffController');
-	Route::get('/hmo-disease-classes/delete/{id}', 'HMO\HcpController@destroy')->name('hmo-tariffs.delete');
+	Route::resource('/hmo-disease-classes', 'HMO\DiseaseClassController');
+	Route::get('/hmo-disease-classes/delete/{id}', 'HMO\DiseaseClassController@destroy')->name('hmo-disease-classes.delete');
 
 	Route::resource('/capitations', 'HMO\CapitationController');
 	Route::get('/capitations/delete/{id}', 'HMO\CapitationController@destroy')->name('capitations.delete');

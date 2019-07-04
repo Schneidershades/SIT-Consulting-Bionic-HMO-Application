@@ -71,6 +71,16 @@
 							</select>
 						</div>
 
+						<div class="form-group col-md-12">
+							<label for="input-25">Encounter Issue</label>
+							<select class="form-control single-select" name="disease_id" id="enrollee" required>
+								<option value="">---Select Encounter Disease---</option>
+								@foreach($diseases as $disease)
+								<option value="{{$disease->id}}">{{$disease->disease_code}} -{{$disease->description}}</option>
+								@endforeach
+							</select>
+						</div>
+
 
 
 						<div class="form-group col-md-12">

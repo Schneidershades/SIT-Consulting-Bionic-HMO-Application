@@ -30,7 +30,9 @@ class BillController extends Controller
     public function start()
     {
         $enrollees = Enrollee::where('hmo_id', auth()->user()->userable->id)->get();
+        $diseases = DiseaseClass::where('parent_id', '!=' , NULL)->get();
         return view('dashboard.hmo.bills.start')
+                ->with('diseases', $diseases)
                 ->with('enrollees', $enrollees);
     }
 
@@ -45,6 +47,8 @@ class BillController extends Controller
             $checkHcp = Hcp::where('id', $checkEnrollee->hcp_id)->first();
             
         }
+
+        // $checkEncounterAlerts = Bill::where('enrollee', $request->enrollee_id)->get();
 
         if($checkHcp == null){
             return redirect()->back();

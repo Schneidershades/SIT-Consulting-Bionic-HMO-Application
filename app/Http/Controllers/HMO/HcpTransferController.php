@@ -30,12 +30,12 @@ class HcpTransferController extends Controller
     	$transfer = HcpTransfer::find($id);
     }
 
-    public function rejectRequest()
+    public function rejectRequest($id)
     {
     	$transfer = HcpTransfer::find($id);
     }
 
-    public function approveRequest()
+    public function approveRequest($id)
     {
     	$transfer = HcpTransfer::find($id);
     }
