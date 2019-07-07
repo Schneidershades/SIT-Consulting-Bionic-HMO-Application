@@ -100,13 +100,32 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 });
 
 Route::group(['prefix' => '/hcp', 'middleware' => ['auth', 'hcp']],  function(){
-	Route::resource('/hcp-enrollees', 'HCP\EnrolleeController');
+
+	
+	Route::resource('/hcp-enrollee-bills', 'HCP\BillController');
+	Route::get('/hcp-enrollee-bills/enrollee/start', 'HCP\BillController@start')->name('hcp-enrollee-bills.start');
+	Route::post('/hcp-enrollee-bills/enrollee/start', 'HCP\BillController@storeEnrollee')->name('hcp-enrollee-bills.store.enrollee');
+	Route::get('/hcp-enrollee-bills/enrollee/{identifier}', 'HCP\BillController@continueBill')->name('hcp-enrollee-bills.continue');
+	Route::post('/hcp-enrollee-bills/enrollee/{identifier}', 'HCP\BillController@continueBillStore')->name('hcp-enrollee-bills.continue.store');
+	Route::get('/hcp-enrollee-bills/delete/{id}', 'HCP\BillController@destroy')->name('hcp-enrollee-bills.delete');
+
+
+
+	Route::get('/hcp-enrollees/transfers/', 'HCP\EnrolleeController@allTransfers')->name('hcp.enrollees.transfers');
+	Route::get('/hcp-enrollees/incoming/transfers/', 'HCP\EnrolleeController@pendingIncomingTransferRequest')->name('hcp.enrollees.incoming.transfers');
+	Route::get('/hcp-enrollees/outgoing/transfers/', 'HCP\EnrolleeController@pendingOutgoingTransferRequest')->name('hcp.enrollees.outgoing.transfers');
+	Route::get('/hcp-enrollees/verify/incoming/request/{id}', 'HCP\EnrolleeController@verifyCheckinIncomingTransferRequest')->name('hcp.enrollees.verify.incoming.transfers');
+
+
+
+	Route::resource('/hcp-enrollees', 'HCP\EnrolleeController')->only([
+	    'index', 'show',
+	]);
 	Route::resource('/hcp-hmos', 'HCP\HmoController');
-	Route::resource('/hcp-bills', 'HCP\BillController');
 	Route::resource('/hcp-assessments', 'HCP\AssessmentController');
 	Route::get('/hcp-tariffs', 'HCP\tariffController@index')->name('hcp.tariffs');
 	Route::get('/hcp-rates', 'HCP\RateController@index')->name('hcp.rates');
-	Route::get('/drugs', 'HCP\DrugController@index')->name('hcp.drugs');
+	Route::get('/hcp-drugs', 'HCP\DrugController@index')->name('hcp.drugs');
 	Route::resource('/hcp-capitations', 'HCP\CapitationController');
 	Route::resource('/hcp-encounters', 'HCP\EncounterController');
 	Route::resource('/hcp-claims', 'HCP\ClaimController');

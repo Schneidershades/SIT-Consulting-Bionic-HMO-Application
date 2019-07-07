@@ -4,11 +4,11 @@
 <!-- Breadcrumb-->
  <div class="row pt-2 pb-2">
     <div class="col-sm-9">
-	    <h4 class="page-title">Enrollees</h4>
+	    <h4 class="page-title">Enrollees Transfers</h4>
 	    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="javaScript:void();">Enrollees to {{auth()->user()->userable->hcp_name}}</a></li>
+        <li class="breadcrumb-item"><a href="javaScript:void();">Enrollees Transfers to {{auth()->user()->userable->hcp_name}}</a></li>
         <li class="breadcrumb-item"><a href="javaScript:void();">Dashboard</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Enrollees</li>
+        <li class="breadcrumb-item active" aria-current="page">Enrollees Transfers</li>
      </ol>
     </div>
  	<div class="col-sm-3">
@@ -24,7 +24,7 @@
       <div class="card-body">
         <div class="media">
           <div class="media-body text-left">
-            <h4 class="text-white">{{$enrollees->count()}}</h4>
+            <h4 class="text-white">{{$transfers->count()}}</h4>
             <span class="text-white">Enrollees</span>
           </div>
           <div class="align-self-center"><span id="dash-chart-1"></span></div>
@@ -47,24 +47,21 @@
             <thead>
               <tr>
                 <th>Code</th>
-                <th>Name</th>
-                <th>HMO</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              @foreach($enrollees as $enrollee)
+              @foreach($transfers as $transfer)
               <tr>
-                <td>{{$enrollee->identifier}}</td>
-                <td><span class="btn btn-primary m-1">{{$enrollee->first_name}} {{$enrollee->middle_name}} {{$enrollee->last_name}}</span></td>
-                <td><span class="btn btn-success m-1">{{$enrollee->hmo->hmo_name}}</span></td>
+                <td>{{$transfer->first_name}} {{$transfer->middle_name}} {{$transfer->last_name}}</td>
+                <td>Approve</td>
               </tr>
               @endforeach
             </tbody>
             <tfoot>
               <tr>
                 <th>Code</th>
-                <th>Name</th>
-                <th>HMO</th>
+                <th>Action</th>
               </tr>
             </tfoot>
           </table>

@@ -69,8 +69,7 @@
                 <td>{{$bill->tariff_deduction}}</td>
                 <td>{{$bill->final_payment}}</td>
                 <td>
-                  <a href="{{route('bills.edit', $bill->identifier)}}" class="btn btn-dark btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-edit"></i></a>
-                  <a href="{{route('bills.show', $bill->identifier)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>
+                  <a href="{{route('hcp-enrollee-bills.show', $bill->identifier)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>
                 </td>
               </tr>
               @endforeach

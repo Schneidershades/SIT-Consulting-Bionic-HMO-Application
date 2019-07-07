@@ -63,7 +63,7 @@
 							<select name="hcp_id" class="form-control single-select" required>
 								<option value="">---Select Health Care Provider---</option>
 								@foreach($hcps as $hcp)
-								<option value="{{$hcp->id}}">{{$hcp->hcp->hcp_code}} - {{$hcp->hcp->hcp_name}}</option>
+								<option value="{{$hcp->hcp_id}}">{{$hcp->hcp->hcp_code}} - {{$hcp->hcp->hcp_name}}</option>
 								@endforeach
 							</select>
 						</div>

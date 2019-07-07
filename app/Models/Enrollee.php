@@ -38,7 +38,7 @@ class Enrollee extends Model
 
     public function hcp()
     {
-    	return $this->belongsTo(Hcp::class, 'hcp_id');
+    	return $this->belongsTo(Hcp::class);
     }
 
     public function health_care_plan()

@@ -28,19 +28,23 @@
 <ul class="sidebar-menu do-nicescrol">
   <li class="sidebar-header">MAIN NAVIGATION</li>
   <li>
-    <a href="javaScript:void();" class="waves-effect">
-      <i class="icon-home"></i><span>HMO Status</span><i class="fa fa-angle-left pull-right"></i>
-    </a>
-    <ul class="sidebar-submenu">
-      <li><a href="{{route('hcp-hmos.index')}}"><i class="fa fa-long-arrow-right"></i> Current HMOs </a></li>
-    </ul>
+     <a href="{{route('home')}}" class="waves-effect">
+     <i class="icon-home"></i> <span>Dashboard</span> 
+     </a>
+  </li>
+  <li>
+     <a href="{{route('hcp-hmos.index')}}" class="waves-effect">
+     <i class="icon-home"></i> <span>My HMOs</span> 
+     </a>
   </li>
   <li>
     <a href="javaScript:void();" class="waves-effect">
-      <i class="icon-home"></i><span>HCP Enrollees</span><i class="fa fa-angle-left pull-right"></i>
+      <i class="icon-home"></i><span>Enrollees</span><i class="fa fa-angle-left pull-right"></i>
     </a>
     <ul class="sidebar-submenu">
-      <li><a href="{{route('hcp-enrollees.index')}}"><i class="fa fa-long-arrow-right"></i> Enrollee List </a></li>
+      <li><a href="{{route('hcp-enrollees.index')}}"><i class="fa fa-long-arrow-right"></i> My Enrollees </a></li>
+      <li><a href="{{route('hcp.enrollees.incoming.transfers')}}"><i class="fa fa-long-arrow-right"></i> Incoming Requests </a></li>
+      <li><a href="{{route('hcp.enrollees.outgoing.transfers')}}"><i class="fa fa-long-arrow-right"></i> Outgoing Requests </a></li>
     </ul>
   </li>
   <li>
@@ -49,8 +53,8 @@
       <i class="fa fa-angle-left pull-right"></i>
     </a>
     <ul class="sidebar-submenu">
-      <li><a href="{{route('hcp-bills.create')}}"><i class="fa fa-long-arrow-right"></i> Submit Enrollee Bills</a></li>
-      <li><a href="{{route('hcp-bills.index')}}"><i class="fa fa-long-arrow-right"></i> View Enrollee Bills</a></li>
+      <li><a href="{{route('hcp-enrollee-bills.start')}}"><i class="fa fa-long-arrow-right"></i> Submit Bills</a></li>
+      <li><a href="{{route('hcp-enrollee-bills.index')}}"><i class="fa fa-long-arrow-right"></i> View Bills</a></li>
     </ul>
   </li>
 
@@ -62,6 +66,16 @@
     <ul class="sidebar-submenu">
       <li><a href="{{route('hcp-claims.index')}}"><i class="fa fa-long-arrow-right"></i> All Claims</a></li>
     </ul>
+  </li>
+
+  <li>
+     <a href="javaScript:void();" class="waves-effect">
+     <i class="icon-docs"></i><span>Pre Authorization</span> 
+     <i class="fa fa-angle-left pull-right"></i>
+     </a>
+     <ul class="sidebar-submenu">
+        <li><a href="{{route('pre-authorization.index')}}"><i class="fa fa-long-arrow-right"></i> View Request</a></li>
+     </ul>
   </li>
 
 
