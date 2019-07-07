@@ -40,13 +40,12 @@
     <div class="card">
       <div class="card-header"><i class="fa fa-table"></i> All Enrollees Outgoing Transfers
       </div>
-
       <div class="card-body">
         <div class="table-responsive">
           <table id="example" class="table table-bordered">
             <thead>
               <tr>
-                <th>Code</th>
+                <th>Name</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -55,16 +54,14 @@
               <tr>
                 <td>{{$transfer->first_name}} {{$transfer->middle_name}} {{$transfer->last_name}}</td>
                 <td>
-                  @if($transfer->first_name)
-                  <button class="btn btn-info"></button>
-                  @else
+                  <button class="btn btn-info">Not Verified</button>
                 </td>
               </tr>
               @endforeach
             </tbody>
             <tfoot>
               <tr>
-                <th>Code</th>
+                <th>Name</th>
                 <th>Action</th>
               </tr>
             </tfoot>
