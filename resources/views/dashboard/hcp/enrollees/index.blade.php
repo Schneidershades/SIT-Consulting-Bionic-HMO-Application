@@ -48,15 +48,15 @@
               <tr>
                 <th>Code</th>
                 <th>Name</th>
-                <th>HMO</th>
+                <th>HCP</th>
               </tr>
             </thead>
             <tbody>
               @foreach($enrollees as $enrollee)
               <tr>
                 <td>{{$enrollee->identifier}}</td>
-                <td><span class="btn btn-primary m-1">{{$enrollee->first_name}} {{$enrollee->middle_name}} {{$enrollee->last_name}}</span></td>
-                <td><span class="btn btn-success m-1">{{$enrollee->hmo->hmo_name}}</span></td>
+                <td>{{$enrollee->first_name}} {{$enrollee->middle_name}} {{$enrollee->last_name}}</td>
+                <td>{{$enrollee->hcp->hcp_name}}</td>
               </tr>
               @endforeach
             </tbody>
@@ -64,7 +64,7 @@
               <tr>
                 <th>Code</th>
                 <th>Name</th>
-                <th>HMO</th>
+                <th>HCP </th>
               </tr>
             </tfoot>
           </table>
@@ -73,6 +73,7 @@
     </div>
   </div>
 </div><!-- End Row-->
+
 
 
 

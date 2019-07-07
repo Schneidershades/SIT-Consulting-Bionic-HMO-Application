@@ -61,5 +61,12 @@ class EnrolleeController extends Controller
         return view('dashboard.hcp.enrollees.outgoing_transfer')
                 ->with('transfers', $transfers); 
     }
+
+    public function showTransferInfo($id)
+    {
+        $transfers = HcpTransfer::where('id', $id)->get();
+        return view('dashboard.hcp.enrollees.transfer_show')
+                ->with('transfers', $transfers); 
+    }
     
 }

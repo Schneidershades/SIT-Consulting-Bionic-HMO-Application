@@ -111,7 +111,7 @@ Route::group(['prefix' => '/hcp', 'middleware' => ['auth', 'hcp']],  function(){
 
 
 
-	Route::get('/hcp-enrollees/transfers/', 'HCP\EnrolleeController@allTransfers')->name('hcp.enrollees.transfers');
+	Route::get('/hcp-enrollees/transfers/{id}', 'HCP\EnrolleeController@showTransferInfo')->name('hcp.enrollees.transfers.show');
 	Route::get('/hcp-enrollees/incoming/transfers/', 'HCP\EnrolleeController@pendingIncomingTransferRequest')->name('hcp.enrollees.incoming.transfers');
 	Route::get('/hcp-enrollees/outgoing/transfers/', 'HCP\EnrolleeController@pendingOutgoingTransferRequest')->name('hcp.enrollees.outgoing.transfers');
 	Route::get('/hcp-enrollees/verify/incoming/request/{id}', 'HCP\EnrolleeController@verifyCheckinIncomingTransferRequest')->name('hcp.enrollees.verify.incoming.transfers');
