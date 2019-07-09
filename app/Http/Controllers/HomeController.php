@@ -13,6 +13,7 @@ use App\Models\Rate;
 use App\Models\Tariff;
 use App\Models\Drug;
 use App\Models\Staff;
+use App\Models\Agreement;
 
 class HomeController extends Controller
 {
@@ -56,6 +57,7 @@ class HomeController extends Controller
                 ->with('hcp_claims', Bill::where('hcp_id', auth()->user()->userable->id)->get())
                 ->with('hcp_enrollees', Enrollee::where('hcp_id', auth()->user()->userable->id)->get())
                 ->with('hcp_tariffs', Tariff::all())
+                ->with('hcp_agreements', Agreement::where('hcp_id' ,auth()->user()->userable->id)->get())
                 ->with('hcp_drugs', Drug::all())
             ;
         }

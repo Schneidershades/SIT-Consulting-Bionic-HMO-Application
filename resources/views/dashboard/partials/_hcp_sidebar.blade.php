@@ -74,8 +74,8 @@
             <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="sidebar-submenu">
-                <li><a href="{{route('hcp-pre-authorization.index')}}"><i class="fa fa-long-arrow-right"></i> Submit Bills</a></li>
-                <li><a href="{{route('hcp-pre-authorization.pending')}}"><i class="fa fa-long-arrow-right"></i> View Bills</a></li>
+                <li><a href="{{route('hcp-pre-authorization.index')}}"><i class="fa fa-long-arrow-right"></i> All Requests</a></li>
+                <li><a href="{{route('hcp-pre-authorization.pending')}}"><i class="fa fa-long-arrow-right"></i>Pending Requests</a></li>
             </ul>
         </li>
 
@@ -86,15 +86,6 @@
             </a>
             <ul class="sidebar-submenu">
                 <li><a href="{{route('hcp-claims.index')}}"><i class="fa fa-long-arrow-right"></i> All Claims</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="javaScript:void();" class="waves-effect">
-            <i class="icon-docs"></i><span>Pre Authorization</span> 
-            <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="sidebar-submenu">
-                <li><a href="{{route('pre-authorization.index')}}"><i class="fa fa-long-arrow-right"></i> View Request</a></li>
             </ul>
         </li>
         <li>
@@ -114,18 +105,6 @@
             </a>
             <ul class="sidebar-submenu">
                 <li><a href="{{route('hcp-assessments.index')}}"><i class="fa fa-long-arrow-right"></i>Assessments</a></li>
-            </ul>
-        </li>
-        <li class="sidebar-header">NHIS Rates/tariffs</li>
-        <li>
-            <a href="javaScript:void();" class="waves-effect">
-            <i class="icon-diamond"></i><span>NHIS Standards</span>
-            <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="sidebar-submenu">
-                <li><a href="{{route('hcp.rates')}}"><i class="fa fa-long-arrow-right"></i> Rate</a></li>
-                <li><a href="{{route('hcp.tariffs')}}"><i class="fa fa-long-arrow-right"></i> tariffs</a></li>
-                <li><a href="{{route('hcp.drugs')}}"><i class="fa fa-long-arrow-right"></i> Drugs</a></li>
             </ul>
         </li>
     </ul>

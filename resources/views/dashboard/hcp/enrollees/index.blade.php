@@ -49,6 +49,7 @@
                 <th>Code</th>
                 <th>Name</th>
                 <th>HCP</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -57,16 +58,12 @@
                 <td>{{$enrollee->identifier}}</td>
                 <td>{{$enrollee->first_name}} {{$enrollee->middle_name}} {{$enrollee->last_name}}</td>
                 <td>{{$enrollee->hcp->hcp_name}}</td>
+                <td>
+                  <a href="{{route('hcp-enrollees.show', $enrollee->id)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>
+                </td>
               </tr>
               @endforeach
             </tbody>
-            <tfoot>
-              <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>HCP </th>
-              </tr>
-            </tfoot>
           </table>
         </div>
       </div>

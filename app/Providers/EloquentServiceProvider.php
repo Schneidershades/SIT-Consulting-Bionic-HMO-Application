@@ -9,6 +9,7 @@ use App\Models\Hcp;
 use App\Models\Staff;
 use App\Models\Tariff;
 use App\Models\Drug;
+use App\Models\Enrollee;
 
 class EloquentServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,7 @@ class EloquentServiceProvider extends ServiceProvider
             'staff' => Staff::class,
             'tariff' => Tariff::class,
             'drug' => Drug::class,
+            'enrollee' => Enrollee::class,
         ]);
     }
 

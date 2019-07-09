@@ -105,13 +105,13 @@
 				<div class="row">
 				
 				
-				@if(!$dependants->count())
+				@if(!$enrollee->dependants->count())
 					<div class="col-md-12">
 						<h5>No Dependant are available for now</h5>
 					</div>
 				@endif
 
-				@foreach($dependants as $dependant)
+				@foreach($enrollee->dependants as $dependant)
 
 					<div class="col-md-4">
 						<label for="input-25">Set Enrollee Number</label>

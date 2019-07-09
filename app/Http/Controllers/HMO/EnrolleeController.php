@@ -62,6 +62,17 @@ class EnrolleeController extends Controller
         $enrollee->nationality = $request->nationality;
         $enrollee->save();
 
+        $user = new User;
+        $user->name = $request->first_name .' '. $request->middle_name .' '. $request->last_name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->userable_type = $request->userable_type;
+        $user->userable_id = $request->userable_id;
+
+        $enrollee->user()->save($user);
+
+        Session::flash('success', 'The Enrollee Account was sucessfully created');
+
         $dependant = new Enrollee;
         if($request->hcp_dependant_details){
             foreach($request->hcp_dependant_details as $dependants){

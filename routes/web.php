@@ -55,9 +55,9 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 
 	Route::get('/bills/pre-authorization/all/transactions', 'HMO\PreAuthorizationController@index')->name('pre-authorization.index');
 	Route::get('/bills/pre-authorization/pending/transactions', 'HMO\PreAuthorizationController@pending')->name('pre-authorization.pending');
-	Route::get('/bills/pre-authorization/verify/transaction', 'HMO\PreAuthorizationController@verify')->name('pre-authorization.verify');
-	Route::get('/bills/pre-authorization/cancel/transaction', 'HMO\PreAuthorizationController@cancel')->name('pre-authorization.cancel');
-	Route::get('/bills/pre-authorization/show/transaction', 'HMO\PreAuthorizationController@show')->name('pre-authorization.show');
+	Route::get('/bills/pre-authorization/verify/transaction/{id}', 'HMO\PreAuthorizationController@verify')->name('pre-authorization.verify');
+	Route::get('/bills/pre-authorization/cancel/transaction/{id}', 'HMO\PreAuthorizationController@cancel')->name('pre-authorization.cancel');
+	Route::get('/bills/pre-authorization/show/transaction/{id}', 'HMO\PreAuthorizationController@show')->name('pre-authorization.show');
 
 	Route::resource('/cash', 'HMO\CashController');
 	Route::get('/cash/delete/{id}', 'HMO\CashController@destroy')->name('cash.delete');

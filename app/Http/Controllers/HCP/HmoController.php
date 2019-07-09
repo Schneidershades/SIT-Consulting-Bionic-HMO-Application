@@ -25,9 +25,12 @@ class HmoController extends Controller
 
     public function show($id)
     {
-        $hmo = Hmo::find($id);
+        $hmo = HmoHcp::where('hcp_id', auth()->user()->userable->id)->where('hmo_id', $id)->first();
+        if($hmo == null){
+            Session::flash('info', 'No rights given to see this file');
+            return redirect()->route('hcp-hmos.index');
+        }
         $agreements = Agreement::where('hcp_id', auth()->user()->userable->id)->where('hmo_id', $id)->get();
-        // dd($agreement);
         return view('dashboard.hcp.hmos.show')
                 ->with('hmo', $hmo)
                 ->with('agreements', $agreements); 

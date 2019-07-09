@@ -21,6 +21,13 @@ class Enrollee extends Model
             $walletfund->identifier = 'eNrOlLeE'.uniqid(true);
         });
     }
+
+    public function user()
+    {
+        return $this->morphMany(User::class, 'userable');
+    }  
+
+    
     public function hmo()
     {
     	return $this->belongsTo(Hmo::class);
@@ -28,12 +35,12 @@ class Enrollee extends Model
 
     public function dependants()
     {
-    	return $this->hasMany(Enrollee::class, 'id');
+    	return $this->hasMany(Enrollee::class, 'parent_id');
     }
 
     public function parent()
     {
-        return $this->belongsTo(Enrollee::class, 'parent_id');
+        return $this->belongsTo(Enrollee::class);
     }
 
     public function hcp()

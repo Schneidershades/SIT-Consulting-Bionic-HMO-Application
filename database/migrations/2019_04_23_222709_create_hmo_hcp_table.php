@@ -20,6 +20,7 @@ class CreateHmoHcpTable extends Migration
             $table->integer('hcp_id')->nullable();
             $table->integer('hmo_id')->nullable();
             $table->string('action')->default('pending');
+            $table->string('provider_payment_mechanism')->default('none');
             $table->timestamps();
         });
     }
