@@ -48,7 +48,7 @@ class HomeController extends Controller
 
         if(auth()->user()->userable_type == 'hcp'){
 
-            return view('dashboard.health-care.home')
+            return view('dashboard.hcp.home')
                 ->with('hcp_hmos', HmoHcp::where('hcp_id', auth()->user()->userable->id)->get())
                 ->with('hcp_bills', Bill::where('hcp_id', auth()->user()->userable->id)->get())
                 ->with('hcp_assessments', Assessment::where('hcp_id', auth()->user()->userable->id)->get())

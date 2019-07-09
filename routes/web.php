@@ -101,6 +101,10 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 
 Route::group(['prefix' => '/hcp', 'middleware' => ['auth', 'hcp']],  function(){
 
+
+	Route::resource('/hcp-agreements', 'HCP\AgreementController')->only([
+	    'index'
+	]);;
 	
 	Route::resource('/hcp-enrollee-bills', 'HCP\BillController');
 	Route::get('/hcp-enrollee-bills/enrollee/start', 'HCP\BillController@start')->name('hcp-enrollee-bills.start');
@@ -116,6 +120,9 @@ Route::group(['prefix' => '/hcp', 'middleware' => ['auth', 'hcp']],  function(){
 	Route::get('/hcp-enrollees/outgoing/transfers/', 'HCP\EnrolleeController@pendingOutgoingTransferRequest')->name('hcp.enrollees.outgoing.transfers');
 	Route::get('/hcp-enrollees/verify/incoming/request/{id}', 'HCP\EnrolleeController@verifyCheckinIncomingTransferRequest')->name('hcp.enrollees.verify.incoming.transfers');
 
+
+	Route::get('/hcp-bills/pre-authorization/all/transactions', 'HCP\PreAuthorizationController@index')->name('hcp-pre-authorization.index');
+	Route::get('/hcp-bills/pre-authorization/pending/transactions', 'HCP\PreAuthorizationController@pending')->name('hcp-pre-authorization.pending');
 
 
 	Route::resource('/hcp-enrollees', 'HCP\EnrolleeController')->only([

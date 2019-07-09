@@ -4,8 +4,9 @@ namespace App\Http\Controllers\HCP;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Agreement;
 
-class TariffDrugAgreementController extends Controller
+class AgreementController extends Controller
 {
     public function index()
     {

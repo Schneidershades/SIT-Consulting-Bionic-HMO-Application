@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Hcp;
 use App\Models\Hmo;
 use App\Models\HmoHcp;
+use App\Models\Agreement;
 use Session;
 
 class HmoController extends Controller
@@ -20,5 +21,15 @@ class HmoController extends Controller
         }
         return view('dashboard.hcp.hmos.index')
                 ->with('hmos', $hmos); 
+    }
+
+    public function show($id)
+    {
+        $hmo = Hmo::find($id);
+        $agreements = Agreement::where('hcp_id', auth()->user()->userable->id)->where('hmo_id', $id)->get();
+        // dd($agreement);
+        return view('dashboard.hcp.hmos.show')
+                ->with('hmo', $hmo)
+                ->with('agreements', $agreements); 
     }
 }
