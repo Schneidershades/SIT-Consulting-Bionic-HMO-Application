@@ -32,6 +32,9 @@ class CreateHcpsTable extends Migration
             $table->string('action')->default('pending');
             $table->integer('hmo_signature_approvals')->default(0);
             $table->integer('hcp_signature_approvals')->default(0);
+            $table->string('hmo_signature_status')->default('pending');
+            $table->string('hcp_signature_status')->default('pending');
+            $table->integer('hmo_signatories')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

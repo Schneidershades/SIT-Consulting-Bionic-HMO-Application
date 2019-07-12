@@ -10,6 +10,7 @@ use App\Models\Staff;
 use App\Models\Tariff;
 use App\Models\Drug;
 use App\Models\Enrollee;
+use App\Models\Bill;
 
 class EloquentServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,7 @@ class EloquentServiceProvider extends ServiceProvider
             'tariff' => Tariff::class,
             'drug' => Drug::class,
             'enrollee' => Enrollee::class,
+            'bill' => Bill::class,
         ]);
     }
 

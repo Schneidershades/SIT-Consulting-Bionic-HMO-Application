@@ -15,6 +15,7 @@ use App\Models\HmoHcp;
 use App\Models\Hcp;
 use App\Models\Claim;
 use App\Models\DiseaseClass;
+use App\Models\AuthorizationSignature;
 use Session;
 
 
@@ -22,7 +23,7 @@ class BillController extends Controller
 {
     public function index()
     {
-        $bills =  Bill::where('hmo_id', auth()->user()->userable->id)->get();
+        $bills =  Bill::where('hmo_id', auth()->user()->userable->id)->where('hcp_signature_staus', 'verified')->get();
         return view('dashboard.hmo.bills.index')
                 ->with('bills', $bills);
     }
@@ -383,5 +384,36 @@ class BillController extends Controller
     {
         $agreement = Agreement::where('hcp_id', $hcp_id)->where('hmo_id', auth()->user()->userable->id)->with('agreementable')->get();
         return $agreement;
+    }
+
+    public function hmoSignBill($id)
+    {
+        $bill = Bill::where('identifier', $id)->first();
+
+        if($bill->id){
+            $checkCheckHowManyAlreadySigned = AuthorizationSignature::where('signable_type', 'bill')
+                ->where('signable_id',  $bill->id)->first();
+        }
+
+        if($checkCheckHowManyAlreadySigned->count() >= auth()->user()->userable->hmo_signatories){
+            Session::flash('success', 'The bill has already been signed by authorized signatories');
+            return redirect()->back();
+        }
+
+        $checkIfAlreadySigned = AuthorizationSignature::where('signable_type', 'bill')
+            ->where('operator_user_id',  auth()->user()->id)
+            ->where('signable_id',  $bill->id)->first();
+
+        if($checkIfAlreadySigned == null){
+            Session::flash('success', 'The bill is already signed by you');
+            return redirect()->back();
+        }
+
+        $sign = new AuthorizationSignature;
+        $sign->operator_user_id = auth()->user()->id;
+        $sign->approveSignature()->save($sign);
+
+        Session::flash('success', 'The bill was sucessfully signed by '. auth()->user()->name);
+        return redirect()->back();
     }
 }

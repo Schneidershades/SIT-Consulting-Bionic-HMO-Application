@@ -51,6 +51,7 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 	Route::post('/bill/enrollee/{identifier}', 'HMO\BillController@continueBillStore')->name('bills.continue.store');
 	Route::get('/bills/delete/{id}', 'HMO\BillController@destroy')->name('bills.delete');
 	Route::post('/bills/update/{id}', 'HMO\BillController@update')->name('bills.update');
+	Route::get('/bills/sign/{id}', 'HMO\BillController@hmoSignBill')->name('bills.sign');
 
 
 	Route::get('/bills/pre-authorization/all/transactions', 'HMO\PreAuthorizationController@index')->name('pre-authorization.index');
@@ -113,7 +114,7 @@ Route::group(['prefix' => '/hcp', 'middleware' => ['auth', 'hcp']],  function(){
 	Route::get('/hcp-enrollee-bills/enrollee/{identifier}', 'HCP\BillController@continueBill')->name('hcp-enrollee-bills.continue');
 	Route::post('/hcp-enrollee-bills/enrollee/{identifier}', 'HCP\BillController@continueBillStore')->name('hcp-enrollee-bills.continue.store');
 	Route::get('/hcp-enrollee-bills/delete/{id}', 'HCP\BillController@destroy')->name('hcp-enrollee-bills.delete');
-
+	Route::get('/hcp-enrollee-bills/sign/{id}', 'HMO\BillController@hmoSignBill')->name('hcp-enrollee-bills.sign');
 
 
 	Route::get('/hcp-enrollees/transfers/{id}', 'HCP\EnrolleeController@showTransferInfo')->name('hcp.enrollees.transfers.show');

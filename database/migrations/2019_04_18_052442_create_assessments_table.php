@@ -23,7 +23,6 @@ class CreateAssessmentsTable extends Migration
             $table->integer('hcp_id')->nullable()->index();
             $table->integer('hmo_id')->nullable()->index();
             $table->integer('operator_user_id')->nullable()->index();
-            $table->integer('verify_id')->nullable()->index();
             $table->string('action')->default('pending');
             $table->softDeletes();
             $table->timestamps();

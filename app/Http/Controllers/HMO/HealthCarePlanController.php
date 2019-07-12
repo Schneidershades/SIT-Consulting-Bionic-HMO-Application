@@ -43,26 +43,27 @@ class HealthCarePlanController extends Controller
         $plan->parent_id = $request->parent_id ? $request->parent_id : null;
         $plan->save();
 
-        $tariffs = Tariff::whereIn('id', $request->tariffs)->get();
-        $drugs = Drug::whereIn('id', $request->drugs)->get();
-
-    	
-
-
-        foreach ($drugs as $drug) {
-            $drug->healthPlannable()->attach($plan);
+        if($request->tariffs){
+            $tariffs = Tariff::whereIn('id', $request->tariffs)->get();
+            foreach ($tariffs as $tariff) {
+                $tariff->healthPlannable()->attach($plan);
+            }            
         }
 
-        foreach ($tariffs as $tariff) {
-            $tariff->healthPlannable()->attach($plan);
-        }
+        if($request->drugs){
+            $drugs = Drug::whereIn('id', $request->drugs)->get();
+            foreach ($drugs as $drug) {
+                $drug->healthPlannable()->attach($plan);
+            }
+    	}
 
-        $plan_benefits = new HealthCarePlanBenefit;
-        foreach($request->health_care_benefits_details as $benefits_details){
-            $plan_benefits['benefit'] = $benefits_details['benefit'];
-            $plan->benefits()->save($plan_benefits);
+        if($request->health_care_benefits_details){
+             $plan_benefits = new HealthCarePlanBenefit;
+            foreach($request->health_care_benefits_details as $benefits_details){
+                $plan_benefits['benefit'] = $benefits_details['benefit'];
+                $plan->benefits()->save($plan_benefits);
+            }
         }
-
         Session::flash('success', 'The Health care plan was sucessfully recorded');
         return redirect()->route('plans.index');
 
@@ -92,11 +93,6 @@ class HealthCarePlanController extends Controller
         $plan->amount = $request->amount;
         $plan->save();
 
-        $plan_benefits = new HealthCarePlanBenefit;
-        foreach($request->health_care_benefits_details as $benefits_details){
-            $plan_benefits['benefit'] = $benefits_details['benefit'];
-            $plan->benefits()->save($plan_benefits);
-        }
         Session::flash('success', 'The Health care plan was sucessfully updated');
         return redirect()->route('plans.show', $plan->id);
     }

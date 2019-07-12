@@ -27,6 +27,7 @@ class CreateHcpTransfersTable extends Migration
             $table->integer('transferrable_id')->nullable();
             $table->string('transferrable_type')->nullable();
             $table->text('transfer_reason')->nullable();
+            
             $table->string('action')->default('pending');
 
             // the id of the user inputing the data
@@ -34,7 +35,9 @@ class CreateHcpTransfersTable extends Migration
             $table->integer('approving_user_id')->nullable()->index();
 
             $table->integer('hmo_signature_approvals')->default(0);
+            $table->string('hmo_signature_status')->default('pending');
             $table->integer('hcp_signature_approvals')->default(0);
+            $table->string('hcp_signature_status')->default('pending');
             
             $table->softDeletes();
             $table->timestamps();

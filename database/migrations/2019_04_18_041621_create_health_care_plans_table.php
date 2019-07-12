@@ -24,6 +24,7 @@ class CreateHealthCarePlansTable extends Migration
             $table->integer('verify_id')->nullable()->index();
             $table->string('action')->default('pending');
             $table->integer('hmo_signature_approvals')->nullable();
+            $table->string('hmo_signature_status')->default('pending');
             $table->softDeletes();
             $table->timestamps();
         });

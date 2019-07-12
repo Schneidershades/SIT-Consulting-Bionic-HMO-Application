@@ -27,7 +27,9 @@ class CreateCapitationsTable extends Migration
             $table->string('action')->default('pending');
             $table->string('disbursment')->default('processing');
             $table->integer('hmo_signature_approvals')->default(0);
+            $table->string('hmo_signature_status')->default('pending');
             $table->integer('hcp_signature_approvals')->default(0);
+            $table->string('hcp_signature_status')->default('pending');
             $table->softDeletes();
             $table->timestamps();
         });

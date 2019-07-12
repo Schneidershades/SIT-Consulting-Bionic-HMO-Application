@@ -37,8 +37,19 @@ class CreateBillsTable extends Migration
             $table->string('disbursment')->default('processing');  
             $table->string('action')->default('pending');
             $table->boolean('finished')->default(false);
-            $table->integer('hmo_signature_approvals')->default(0);
-            $table->integer('hcp_signature_approvals')->default(0);
+
+            $table->integer('hmo_bills_signature_approvals')->default(0);
+            $table->string('hmo_bills_signature_status')->default('pending');
+
+            $table->integer('hcp_bills_signature_approvals')->default(0);
+            $table->string('hcp_bills_signature_status')->default('pending');
+
+            $table->integer('hmo_claims_signature_approvals')->default(0);
+            $table->string('hmo_claims_signature_status')->default('pending');
+
+            $table->integer('hcp_claims_signature_approvals')->default(0);
+            $table->string('hcp_claims_signature_status')->default('pending');
+            
             $table->softDeletes();
             $table->timestamps();
         });

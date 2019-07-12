@@ -31,7 +31,9 @@ class CreateClaimsTable extends Migration
             $table->string('verification')->nullable();
             $table->integer('operator_user_id')->nullable()->index();
             $table->integer('hmo_signature_approvals')->default(0);
+            $table->string('hmo_signature_status')->default('pending');
             $table->integer('hcp_signature_approvals')->default(0);
+            $table->string('hcp_signature_status')->default('pending');
             $table->softDeletes();
             $table->timestamps();
         });

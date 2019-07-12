@@ -38,8 +38,12 @@ class CreateHmosTable extends Migration
             $table->integer('parent_hmo_id')->nullable()->index();
             
             $table->integer('operator_user_id')->nullable()->index();
-
+            
             $table->integer('hmo_signature_approvals')->default(0);
+            
+            $table->string('hmo_signature_status')->default('pending');
+
+            $table->integer('hmo_signatories')->default(0);
 
             $table->string('action')->default('pending');
 

@@ -23,6 +23,55 @@ class PermissionsTableSeeder extends Seeder
     		'name'=> 'create assessments',
     	]);
 
+        Permission::create([
+            'name'=> 'view agreements',
+        ]);
+
+        Permission::create([
+            'name'=> 'edit assessments',
+        ]);
+
+        Permission::create([
+            'name'=> 'delete assessments',
+        ]);
+
+        Permission::create([
+            'name'=> 'create assessments',
+        ]);
+
+        Permission::create([
+            'name'=> 'view agreements',
+        ]);
+
+        Permission::create([
+            'name'=> 'edit assessments',
+        ]);
+
+        Permission::create([
+            'name'=> 'delete assessments',
+        ]);
+
+        Permission::create([
+            'name'=> 'create assessments',
+        ]);
+
+
+        Permission::create([
+            'name'=> 'view enrollee transfer',
+        ]);
+
+        Permission::create([
+            'name'=> 'edit enrollee transfer',
+        ]);
+
+        Permission::create([
+            'name'=> 'delete enrollee transfer',
+        ]);
+
+        Permission::create([
+            'name'=> 'create enrollee transfer',
+        ]);
+
     	Permission::create([
     		'name'=> 'view bills',
     	]);
