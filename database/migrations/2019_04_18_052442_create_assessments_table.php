@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -21,12 +22,15 @@ class CreateAssessmentsTable extends Migration
             $table->text('recommendation')->nullable();
             $table->integer('hcp_id')->nullable()->index();
             $table->integer('hmo_id')->nullable()->index();
-            $table->integer('operator_id')->nullable()->index();
+            $table->integer('operator_user_id')->nullable()->index();
             $table->integer('verify_id')->nullable()->index();
             $table->string('action')->default('pending');
             $table->softDeletes();
             $table->timestamps();
         });
+
+        
+        DB::update("ALTER TABLE assessments AUTO_INCREMENT = 90031;");
     }
 
     /**

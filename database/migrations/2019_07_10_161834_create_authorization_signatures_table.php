@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEncounterCategoriesTable extends Migration
+class CreateAuthorizationSignaturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +14,17 @@ class CreateEncounterCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('encounter_categories', function (Blueprint $table) {
+        Schema::create('authorization_signatures', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('identifier')->nullable();
-            $table->string('name')->nullable();
-            $table->string('slug')->unique()->nullable();
-            $table->integer('operator_user_id')->unsigned()->nullable();
-            $table->integer('verify_id')->unsigned()->nullable();
+            $table->integer('signable_id')->nullable();
+            $table->string('signable_type')->nullable();
+            $table->string('operator_user_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
+
+        
+        DB::update("ALTER TABLE authorization_signatures AUTO_INCREMENT = 30831;");
     }
 
     /**
@@ -33,6 +34,6 @@ class CreateEncounterCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('encounter_categories');
+        Schema::dropIfExists('authorization_signatures');
     }
 }

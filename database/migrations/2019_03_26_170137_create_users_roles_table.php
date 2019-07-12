@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -19,6 +20,9 @@ class CreateUsersRolesTable extends Migration
             $table->integer('role_id')->unsigned()->index();
             $table->timestamps();
         });
+
+        
+        DB::update("ALTER TABLE users_roles AUTO_INCREMENT = 2300031;");
     }
 
     /**

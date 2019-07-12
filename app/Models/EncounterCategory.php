@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AuthorizationSignature;
 use App\Models\Encounter;
 
 class EncounterCategory extends Model
@@ -19,5 +20,10 @@ class EncounterCategory extends Model
     public function encounters()
     {
     	return $this->hasMany(Encounter::class);
+    }
+
+    public function approveSignature()
+    {
+        return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
 }

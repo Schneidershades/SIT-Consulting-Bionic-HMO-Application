@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AuthorizationSignature;
 use App\Models\Hcp;
 use App\Models\Hmo;
 use App\Models\Enrollee;
@@ -37,5 +38,10 @@ class Bill extends Model
     public function transactions()
     {
         return $this->hasMany(TariffDrugTransaction::class, 'bill_id');
+    }
+
+    public function approveSignature()
+    {
+        return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
 }

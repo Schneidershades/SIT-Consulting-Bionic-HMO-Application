@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AuthorizationSignature;
 use App\Models\Hcp;
 use App\Models\Hmo;
 
@@ -27,5 +28,8 @@ class Assessment extends Model
         return $this->belongsTo(Hmo::class);
     }
 
-
+    public function approveSignature()
+    {
+        return $this->morphToMany(AuthorizationSignature::class, 'signable');
+    }
 }

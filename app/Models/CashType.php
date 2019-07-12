@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AuthorizationSignature;
 use App\Models\CashTransaction;
 
 class CashType extends Model
@@ -19,5 +20,10 @@ class CashType extends Model
     public function cashTransaction()
     {
     	return $this->belongsTo(CashTransaction::Class);
+    }
+
+    public function approveSignature()
+    {
+        return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
 }

@@ -69,7 +69,7 @@
 			              	<label for="input-9">Select from Existing HCPs</label>
 		                    <select multiple="multiple" class=" form-control multi-select" id="my_multi_select3" name="hcps[]">
 		                    @foreach($hcps as $hcp)
-								<option value="{{$hcp->id}}">{{$hcp->hcp_code}} - {{$hcp->hcp_name}}</option>
+								<option value="{{$hcp->hcp->id}}">{{$hcp->hcp->hcp_code}} - {{$hcp->hcp->hcp_name}}</option>
 		                    @endforeach
 			                </select>
 		               	</div>

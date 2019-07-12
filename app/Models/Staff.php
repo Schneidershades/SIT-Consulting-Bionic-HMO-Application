@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AuthorizationSignature;
 use App\Models\Hmo;
 use App\Models\StaffBenefit;
 use App\Models\StaffPenalty;
@@ -31,5 +32,10 @@ class Staff extends Model
     public function staffPenalties()
     {
         return $this->hasMany(StaffPenalty::class);
+    }
+
+    public function approveSignature()
+    {
+        return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
 }

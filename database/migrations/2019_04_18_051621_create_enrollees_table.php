@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -46,13 +47,17 @@ class CreateEnrolleesTable extends Migration
             $table->string('national_identity_expiry')->nullable();
             $table->string('relationship')->nullable('principal');
             $table->integer('parent_id')->nullable();
-            $table->integer('operator_id')->nullable()->index();
+            $table->integer('operator_user_id')->nullable()->index();
             $table->integer('verify_id')->nullable()->index();
             $table->string('action')->default('pending');
             $table->string('image')->default('pending');
+            $table->integer('hmo_signature_approvals')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
+
+
+        DB::update("ALTER TABLE enrollees AUTO_INCREMENT = 100031;");
     }
 
     /**

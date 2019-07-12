@@ -92,6 +92,7 @@
          </a>
          <ul class="sidebar-submenu">
             <li><a href="{{route('pre-authorization.index')}}"><i class="fa fa-long-arrow-right"></i> View Request</a></li>
+            <li><a href="{{route('pre-authorization.pending')}}"><i class="fa fa-long-arrow-right"></i> pending Request</a></li>
          </ul>
       </li>
       <li>

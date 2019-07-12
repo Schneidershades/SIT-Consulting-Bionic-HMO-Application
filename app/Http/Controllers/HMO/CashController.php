@@ -41,7 +41,7 @@ class CashController extends Controller
                 $cash->amount = $cash_detail['amount'];
                 $cash->description = $cash_detail['description'];
                 $cash->payment_method = $cash_detail['payment_method'];
-                $cash->operator_id = auth()->user()->userable->id;
+                $cash->operator_user_id = auth()->user()->userable->id;
                 $cash->save();
             }
         }

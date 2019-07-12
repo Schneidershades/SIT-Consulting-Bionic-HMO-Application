@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -20,13 +21,16 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->integer('operator_id')->nullable()->index();
+            $table->integer('operator_user_id')->nullable()->index();
             $table->integer('verify_id')->nullable()->index();
             $table->integer('userable_id')->nullable()->index();
             $table->string('userable_type');
             $table->softDeletes();
             $table->timestamps();
         });
+
+
+        DB::update("ALTER TABLE users AUTO_INCREMENT = 90031;");
     }
 
     /**

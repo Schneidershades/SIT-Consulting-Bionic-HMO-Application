@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AuthorizationSignature;
 use App\Models\User;
 use App\Models\Staff;
 use App\Models\Hmo;
@@ -86,5 +87,8 @@ class Hcp extends Model
         return $this->morphMany(HcpTransfer::class, 'transferrable');
     }
 
-    
+    public function approveSignature()
+    {
+        return $this->morphToMany(AuthorizationSignature::class, 'signable');
+    }
 }

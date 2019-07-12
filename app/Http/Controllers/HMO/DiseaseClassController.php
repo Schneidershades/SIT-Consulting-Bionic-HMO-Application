@@ -36,7 +36,7 @@ class DiseaseClassController extends Controller
                     $disease = new DiseaseClass;
                     $disease->disease_code = $hcp_disease['code'];
                     $disease->description = $hcp_disease['description'];
-                    $disease->user_operator_id = auth()->user()->id;
+                    $disease->user_operator_user_id = auth()->user()->id;
                     $disease->user_type = auth()->user()->userable->id;
                     $disease->parent_id = $hcp_disease['parent_id'];
                     $disease->save();

@@ -32,7 +32,8 @@
               <tr>
                 <th>HCP Code</th>
                 <th>Name</th>
-                <th>No of Enrollees</th>
+                <th>Enrollees</th>
+                <th>Payment Channel</th>
                 <th>Account Status</th>
                 <th>Action</th>
               </tr>
@@ -44,10 +45,17 @@
                 <td>{{$hcp->hcp->hcp_name}}</td>
                 <td>{{$hcp->countHmoEnrollees($hcp->hcp->id)}}</td>
                 <td>
+                  @if($hcp->provider_payment_mechanism == "none")
+                  <span class="badge badge-danger m-1">None</span>
+                  @else
+                  <span class="badge badge-success">{{$hcp->provider_payment_mechanism}}</span>
+                  @endif
+                </td>
+                <td>
                   @if($hcp->hasAccount($hcp->hcp_id) == 'yes')
                   <span class="badge badge-danger m-1">Has an Account</span>
                   @else
-                  <span class="badge badge-danger">No Account Account</span>
+                  <span class="badge badge-success">No Account Account</span>
                   
                   @endif
                 </td>
@@ -58,15 +66,6 @@
               </tr>
               @endforeach
             </tbody>
-            <tfoot>
-              <tr>
-                <th>HCP Code</th>
-                <th>Name</th>
-                <th>No of Enrollees</th>
-                <th>Account Status</th>
-                <th>Action</th>
-              </tr>
-            </tfoot>
           </table>
         </div>
       </div>

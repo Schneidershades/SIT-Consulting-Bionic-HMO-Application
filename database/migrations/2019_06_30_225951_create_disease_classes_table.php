@@ -21,7 +21,7 @@ class CreateDiseaseClassesTable extends Migration
             $table->string('disease_code')->nullable();
             $table->text('description')->nullable();
             $table->string('parent_id')->nullable();
-            $table->integer('user_operator_id')->nullable()->index();
+            $table->integer('operator_user_id')->nullable()->index();
             $table->integer('user_type')->nullable()->index();
             $table->integer('verify_id')->nullable()->index();
             $table->string('action')->default('pending');
@@ -29,6 +29,9 @@ class CreateDiseaseClassesTable extends Migration
 
             // DB::update("ALTER TABLE disease_classes AUTO_INCREMENT = 1300031");
         });
+
+        
+        DB::update("ALTER TABLE disease_classes AUTO_INCREMENT = 30831;");
     }
 
     /**

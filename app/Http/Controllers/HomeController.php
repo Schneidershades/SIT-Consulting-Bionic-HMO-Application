@@ -9,6 +9,8 @@ use App\Models\Assessment;
 use App\Models\Claim;
 use App\Models\Enrollee;
 use App\Models\HmoHcp;
+use App\Models\Hmo;
+use App\Models\Hcp;
 use App\Models\Rate;
 use App\Models\Tariff;
 use App\Models\Drug;
@@ -43,6 +45,7 @@ class HomeController extends Controller
                 ->with('hmo_claims', Bill::where('hmo_id', auth()->user()->userable->id)->get())
                 ->with('hmo_enrollees', Enrollee::where('hmo_id', auth()->user()->userable->id)->get())
                 ->with('hmo_hcps', HmoHcp::where('hmo_id', auth()->user()->userable->id)->get())
+                ->with('hmo_branches', Hmo::where('id', auth()->user()->userable->id)->whereNotNull('parent_hmo_id')->get())
                 ->with('hmo_tariffs', Tariff::all())
                 ->with('hmo_drugs', Drug::all());
         }

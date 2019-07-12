@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -51,11 +52,14 @@ class CreateStaffTable extends Migration
             $table->string('genotype')->nullable();
             $table->string('blood_group')->nullable();
             $table->string('state_deformity')->nullable();
-            $table->integer('operator_id')->nullable()->index();
+            $table->integer('operator_user_id')->nullable()->index();
             $table->integer('verify_id')->nullable()->index();
             $table->softDeletes();
             $table->timestamps();
         });
+
+
+        DB::update("ALTER TABLE staff AUTO_INCREMENT = 50031;");
     }
 
     /**

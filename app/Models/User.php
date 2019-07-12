@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
         return $this->morphTo();
     }
+
+    public function approveSignature()
+    {
+        return $this->morphToMany(AuthorizationSignature::class, 'signable');
+    }
 }

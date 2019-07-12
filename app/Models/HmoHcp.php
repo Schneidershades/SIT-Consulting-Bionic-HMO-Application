@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AuthorizationSignature;
 use App\Models\Hmo;
 use App\Models\Hcp;
 use App\Models\User;
@@ -37,5 +38,10 @@ class HmoHcp extends Model
 
     public function countHmoEnrollees($id){
         return $countEnrollees = Enrollee::where('hmo_id', auth()->user()->userable->id)->where('hcp_id', $id)->count();
+    }
+
+    public function approveSignature()
+    {
+        return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
 }

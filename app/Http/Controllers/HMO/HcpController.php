@@ -49,7 +49,12 @@ class HcpController extends Controller
 
     public function show($id)
     {
-        $hcp = Hcp::find($id);
+        $hcp = HmoHcp::where('hmo_id', auth()->user()->userable->id)->where('hcp_id', $id)->first();
+        if($hcp == null){
+            Session::flash('info', 'No rights given to see this file');
+            return redirect()->route('hcp-hmos.index');
+        }
+
         $agreements = Agreement::where('hmo_id', auth()->user()->userable->id)->where('hcp_id', $id)->get();
         // dd($agreement);
         return view('dashboard.hmo.hcps.show')
@@ -91,6 +96,15 @@ class HcpController extends Controller
         $user->userable_id = $request->userable_id;
         $user->save();
         Session::flash('success', 'The HCP Account was sucessfully created');
+        return redirect()->back();
+    }
+
+    public function setPaymentMechanism(Request $request)
+    {
+        $findHcp = HmoHcp::where('hmo_id', auth()->user()->userable->id)->where('hcp_id',$request->hcp_id)->first();
+        $findHcp->provider_payment_mechanism = $request->provider_payment_mechanism;
+        $findHcp->save();
+        Session::flash('success', 'The payment setup has been updated to ' . $request->provider_payment_mechanism);
         return redirect()->back();
     }
 }

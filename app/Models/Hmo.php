@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AuthorizationSignature;
 use App\Models\HealthCarePlan;
 use App\Models\Enrollee;
 use App\Models\Hmo;
@@ -73,5 +74,20 @@ class Hmo extends Model
     public function transfer()
     {
         return $this->morphMany(HcpTransfer::class, 'transferrable');
+    }
+
+    public function branches()
+    {
+        return $this->hasMany(Hmo::class, 'parent_hmo_id');
+    }
+
+    public function headOffice()
+    {
+        return $this->belongsTo(Hmo::class);
+    }
+
+    public function approveSignature()
+    {
+        return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
 }

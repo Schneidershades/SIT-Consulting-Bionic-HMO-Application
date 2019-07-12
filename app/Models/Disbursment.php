@@ -4,15 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\AuthorizationSignature;
-use App\Models\HealthCarePlan;
 
-class HealthCarePlanBenefit extends Model
+class Disbursment extends Model
 {
-    public function plan()
-    {
-        return $this->belongsTo(HealthCarePlan::class);
-    }
-    
     public function approveSignature()
     {
         return $this->morphToMany(AuthorizationSignature::class, 'signable');

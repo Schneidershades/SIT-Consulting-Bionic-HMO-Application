@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AuthorizationSignature;
 use App\Models\Hmo;
 use App\Models\Dependant;
 use App\Models\Hcp;
@@ -62,5 +63,10 @@ class Enrollee extends Model
     public function transfer()
     {
         return $this->morphMany(HcpTransfer::class, 'transferrable');
+    }
+
+    public function approveSignature()
+    {
+        return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
 }

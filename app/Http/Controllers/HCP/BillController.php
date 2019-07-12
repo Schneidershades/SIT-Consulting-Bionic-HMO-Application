@@ -116,7 +116,7 @@ class BillController extends Controller
         $bill->save();
 
         // save to the transaction as regards to count drug and service activities
-        $service = new TariffDrugTransaction;
+        $service = new Claim;
         if($request->hcp_drug_details){
             foreach($request->hcp_service_details as $bill_detail){
                 // dd($bill_detail);                         
@@ -164,7 +164,7 @@ class BillController extends Controller
             }
         }
 
-        $drug = new TariffDrugTransaction;
+        $drug = new Claim;
         if($request->hcp_drug_details){
             foreach($request->hcp_drug_details as $drug_detail){
                 $drugCheck = Drug::where('id', $drug_detail['drug_id'])->first();

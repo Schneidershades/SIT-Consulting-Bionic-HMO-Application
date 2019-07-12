@@ -54,7 +54,7 @@ class EncounterController extends Controller
                 $encounter->month = $e['month'];
                 $encounter->lives = $e['lives'];
                 $encounter->encounter_category_id = $cat_id;
-                $encounter->operator_id = auth()->user()->userable->id;
+                $encounter->operator_user_id = auth()->user()->userable->id;
                 $encounter->save(); 
             }else{
                 Session::flash('info', 'You cannot add record to status again wait till next month');

@@ -92,6 +92,7 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 	Route::resource('/settings/payment', 'HMO\PaymentController');
 
 	Route::post('/create-hcps-account', 'HMO\HcpController@createHcpAccount')->name('create.hcps.account');
+	Route::post('/set-payment-mechanism', 'HMO\HcpController@setPaymentMechanism')->name('set.payment.mechanism');
 
 	Route::resource('/agreements', 'HMO\AgreementController');
 	Route::get('/agreements/delete/{id}', 'HMO\AgreementController@destroy')->name('agreements.delete');

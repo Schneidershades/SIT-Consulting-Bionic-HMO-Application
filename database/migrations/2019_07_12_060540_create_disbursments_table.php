@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEncounterCategoriesTable extends Migration
+class CreateDisbursmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +14,18 @@ class CreateEncounterCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('encounter_categories', function (Blueprint $table) {
+        Schema::create('disbursments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('identifier')->nullable();
-            $table->string('name')->nullable();
-            $table->string('slug')->unique()->nullable();
-            $table->integer('operator_user_id')->unsigned()->nullable();
-            $table->integer('verify_id')->unsigned()->nullable();
+            $table->integer('hcp_id')->nullable();
+            $table->integer('hmo_id')->nullable();
+            $table->integer('remittance')->default(0);
+            $table->decimal('amount', 40, 2)->nullable()->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
+
+        
+        DB::update("ALTER TABLE disbursments AUTO_INCREMENT = 100031;");
     }
 
     /**
@@ -33,6 +35,6 @@ class CreateEncounterCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('encounter_categories');
+        Schema::dropIfExists('disbursments');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -19,8 +20,12 @@ class CreateStaffDeductionsTable extends Migration
             $table->decimal('amount', 40, 2)->default(0);
             $table->integer('staff_id')->unsigned()->nullable();
             $table->string('benefit_period')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
+
+        
+        DB::update("ALTER TABLE staff_deductions AUTO_INCREMENT = 30831;");
     }
 
     /**

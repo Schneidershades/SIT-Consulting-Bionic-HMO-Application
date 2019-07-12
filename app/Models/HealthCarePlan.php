@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AuthorizationSignature;
 use App\Models\User;
 use App\Models\Hmo;
 use App\Models\HealthCarePlanBenefit;
@@ -58,5 +59,10 @@ class HealthCarePlan extends Model
     public function tariffs()
     {
         return $this->morphedByMany(Tariff::class, 'health_care_plannables');
+    }
+
+    public function approveSignature()
+    {
+        return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
 }

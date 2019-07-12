@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -27,9 +28,10 @@ class CreateHcpsTable extends Migration
             $table->string('hcp_bank_name')->nullable();
             $table->string('hcp_bank_account_number')->nullable();
             $table->string('hcp_bank_sort_code')->nullable();
-            $table->integer('operator_id')->nullable()->index();
-            $table->integer('verify_id')->nullable()->index();
+            $table->integer('operator_user_id')->nullable()->index();
             $table->string('action')->default('pending');
+            $table->integer('hmo_signature_approvals')->default(0);
+            $table->integer('hcp_signature_approvals')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

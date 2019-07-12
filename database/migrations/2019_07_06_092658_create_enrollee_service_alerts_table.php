@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -19,6 +20,7 @@ class CreateEnrolleeServiceAlertsTable extends Migration
             $table->integer('hcp_id')->unsigned()->index()->nullable();
             $table->integer('enrollee_id')->unsigned()->index()->nullable();
             $table->integer('visits')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

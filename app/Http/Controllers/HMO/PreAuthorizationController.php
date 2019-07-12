@@ -4,35 +4,35 @@ namespace App\Http\Controllers\HMO;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\TariffDrugTransaction;
+use App\Models\Claim;
 use Session;
 
 class PreAuthorizationController extends Controller
 {
     public function index()
     {
-        $transactions = TariffDrugTransaction::where('pre_authorization', true)->where('hmo_id', auth()->user()->userable->id)->get();
+        $transactions = Claim::where('pre_authorization', true)->where('hmo_id', auth()->user()->userable->id)->get();
     	return view('dashboard.hmo.pre-authorization.index')
                 ->with('transactions', $transactions);
     }
 
     public function pending()
     {
-        $transactions = TariffDrugTransaction::where('pre_authorization', true)->where('status', 'pending')->where('hmo_id', auth()->user()->userable->id)->get();
+        $transactions = Claim::where('pre_authorization', true)->where('status', 'pending')->where('hmo_id', auth()->user()->userable->id)->get();
     	return view('dashboard.hmo.pre-authorization.pending')
                 ->with('transactions', $transactions);
     }
 
     public function show($identifier)
     {
-    	$transaction = TariffDrugTransaction::where('identifier', $identifier)->first();
+    	$transaction = Claim::where('identifier', $identifier)->where('hmo_id', auth()->user()->userable->id)->first();
     	return view('dashboard.hmo.pre-authorization.show')
                 ->with('transaction', $transaction);
     }
 
     public function verify($identifier)
     {
-    	$transaction = TariffDrugTransaction::where('identifier', $identifier)->first();
+    	$transaction = Claim::where('identifier', $identifier)->first();
 
         if($transaction->status != 'pending'){
             Session::flash('success', 'Cannot perform activity on this item');
@@ -51,7 +51,7 @@ class PreAuthorizationController extends Controller
 
     public function cancel($identifier)
     {
-    	$transaction = TariffDrugTransaction::where('identifier', $identifier)->first();
+    	$transaction = Claim::where('identifier', $identifier)->first();
         if($transaction->status != 'pending'){
             Session::flash('success', 'Cannot perform activity on this item');
             return redirect()->back();

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -33,10 +34,15 @@ class CreateHmosTable extends Migration
 
             $table->string('hmo_payment_api_public_key_live')->nullable();
             $table->string('hmo_payment_api_private_key_live')->nullable();
+
+            $table->integer('parent_hmo_id')->nullable()->index();
             
-            $table->integer('operator_id')->nullable()->index();
-            $table->integer('verify_id')->nullable()->index();
+            $table->integer('operator_user_id')->nullable()->index();
+
+            $table->integer('hmo_signature_approvals')->default(0);
+
             $table->string('action')->default('pending');
+
             $table->softDeletes();
             $table->timestamps();
         });

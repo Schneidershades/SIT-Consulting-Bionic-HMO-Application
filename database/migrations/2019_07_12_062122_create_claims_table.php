@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTariffDrugTransactionsTable extends Migration
+class CreateClaimsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +14,11 @@ class CreateTariffDrugTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tariff_drug_transactions', function (Blueprint $table) {
+        Schema::create('claims', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('identifier')->nullable();
-            $table->integer('hospitable_id')->nullable();
-            $table->string('hospitable_type')->nullable();
+            $table->integer('claimable_id')->nullable();
+            $table->string('claimable_type')->nullable();
             $table->integer('enrollee_id')->nullable();
             $table->integer('hcp_id')->nullable();
             $table->integer('hmo_id')->nullable();
@@ -27,8 +28,17 @@ class CreateTariffDrugTransactionsTable extends Migration
             $table->string('status')->default('pending');
             $table->string('service_type')->nullable();
             $table->decimal('amount', 40, 2)->nullable()->default(0);
+            $table->string('verification')->nullable();
+            $table->integer('operator_user_id')->nullable()->index();
+            $table->integer('hmo_signature_approvals')->default(0);
+            $table->integer('hcp_signature_approvals')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
+        
+
+        
+        DB::update("ALTER TABLE claims AUTO_INCREMENT = 100031;");
     }
 
     /**
@@ -38,6 +48,6 @@ class CreateTariffDrugTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tariff_drug_transactions');
+        Schema::dropIfExists('claims');
     }
 }

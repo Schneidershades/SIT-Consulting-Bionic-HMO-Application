@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -25,6 +26,9 @@ class CreateUsersPermissionsTable extends Migration
 
             // $table->primary(['user_id', 'permission_id']);
         });
+
+        
+        DB::update("ALTER TABLE users_permissions AUTO_INCREMENT = 2300031;");
     }
 
     /**

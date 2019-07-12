@@ -8,6 +8,7 @@ use DB;
 use App\Models\Rate;
 use App\Models\Capitation;
 use App\Models\Hcp;
+use App\Models\HmoHcp;
 
 class CapitationController extends Controller
 {
@@ -20,7 +21,7 @@ class CapitationController extends Controller
 
     public function raiseCreateCapitation()
     {
-        $hcps = Hcp::with('hmos')->get();
+        $hcps = HmoHcp::where('hmo_id', auth()->user()->userable->id)->get();
         return view('dashboard.hmo.capitation.raise')
                 ->with('hcps', $hcps);
     }

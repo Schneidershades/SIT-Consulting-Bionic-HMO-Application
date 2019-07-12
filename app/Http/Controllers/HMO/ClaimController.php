@@ -5,19 +5,20 @@ namespace App\Http\Controllers\HMO;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Bill;
+use App\Models\Claim;
 
 class ClaimController extends Controller
 {
     public function index()
     {
-    	$claims =  Bill::where('hmo_id', auth()->user()->userable->id)->get();
+    	$claims =  Claim::where('hmo_id', auth()->user()->userable->id)->where('status', 'verified')->get();
         return view('dashboard.hmo.claims.index')
                 ->with('bills', $claims);
     }
 
     public function show($id)
     {
-    	$claim =  Bill::where('identifier', $id)->first();
+    	$claim =  Claim::where('identifier', $id)->where('status', 'verified')->first();
         return view('dashboard.hmo.claims.show')
                 ->with('bill', $claim);
     }

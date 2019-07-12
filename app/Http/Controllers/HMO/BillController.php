@@ -13,7 +13,7 @@ use App\Models\Rate;
 use App\Models\Drug;
 use App\Models\HmoHcp;
 use App\Models\Hcp;
-use App\Models\TariffDrugTransaction;
+use App\Models\Claim;
 use App\Models\DiseaseClass;
 use Session;
 
@@ -115,7 +115,7 @@ class BillController extends Controller
         $bill->save();
 
         // save to the transaction as regards to count drug and service activities
-        $service = new TariffDrugTransaction;
+        $service = new Claim;
         if($request->hcp_drug_details){
             foreach($request->hcp_service_details as $bill_detail){
                 // dd($bill_detail);                         
@@ -163,7 +163,7 @@ class BillController extends Controller
             }
         }
 
-        $drug = new TariffDrugTransaction;
+        $drug = new Claim;
         if($request->hcp_drug_details){
             foreach($request->hcp_drug_details as $drug_detail){
                 $drugCheck = Drug::where('id', $drug_detail['drug_id'])->first();
@@ -281,7 +281,7 @@ class BillController extends Controller
         $bill->save();
 
         // save to the transaction as regards to count drug and service activities
-        $service = new TariffDrugTransaction;
+        $service = new Claim;
         if($request->hcp_drug_details){
             foreach($request->hcp_service_details as $bill_detail){
                 $find_service = Tariff::where('id', $bill_detail['treatment_id'])->first();
@@ -295,7 +295,7 @@ class BillController extends Controller
             }
         }
 
-        $drug = new TariffDrugTransaction;
+        $drug = new Claim;
         if($request->hcp_drug_details){
             foreach($request->hcp_drug_details as $drug_detail){
                 $find_drug = Tariff::where('id', $drug_detail['drug_id'])->first();

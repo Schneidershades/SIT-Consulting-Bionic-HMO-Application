@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\TariffDrugTransaction;
+use App\Models\AuthorizationSignature;
+use App\Models\Claim;
 use App\Models\Agreement;
 use App\Models\HealthCarePlan;
 
@@ -20,7 +21,7 @@ class Tariff extends Model
 
     public function serviceItems()
     {
-        return $this->morphMany(TariffDrugTransaction::class, 'hospitable');
+        return $this->morphMany(Claim::class, 'claimable');
     } 
 
     public function tariffAgreements()
@@ -36,5 +37,10 @@ class Tariff extends Model
     public function healthPlannable()
     {
         return $this->morphToMany(HealthCarePlan::class, 'health_care_plannables');
+    }
+
+    public function approveSignature()
+    {
+        return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
 }
