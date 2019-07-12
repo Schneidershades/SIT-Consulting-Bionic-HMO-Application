@@ -16,6 +16,7 @@ use App\Models\Tariff;
 use App\Models\Drug;
 use App\Models\Staff;
 use App\Models\Agreement;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class HomeController extends Controller
 {
@@ -36,6 +37,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        
         if(auth()->user()->userable_type == 'hmo'){
 
             return view('dashboard.hmo.home')

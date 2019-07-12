@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\HMO;
 
+use App\Http\Helpers\FunctionHelpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;

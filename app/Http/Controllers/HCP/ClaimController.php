@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\HCP;
 
+use App\Http\Helpers\FunctionHelpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Bill;

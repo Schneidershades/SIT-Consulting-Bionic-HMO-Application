@@ -34,8 +34,8 @@
    
   </div><!--End wrapper-->
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-              @csrf
-          </form>
+        @csrf
+    </form>
   @include('dashboard.partials._script')
   @yield('scripts')
 </body>

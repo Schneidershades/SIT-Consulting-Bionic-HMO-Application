@@ -44,4 +44,5 @@ class Bill extends Model
     {
         return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
+
 }

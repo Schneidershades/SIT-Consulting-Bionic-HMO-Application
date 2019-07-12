@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\HMO;
 
+use App\Http\Helpers\FunctionHelpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Bill;
@@ -224,119 +225,6 @@ class BillController extends Controller
         return redirect()->route('bills.show', $bill->identifier);
     }
 
-    public function create()
-    {
-        $tariffs = Tariff::where('amount', '!=', 0)->where('parent_id', '!=' , NULL)->get();
-        $drugs = Drug::where('amount', '!=', 0)->get();
-        $enrollees = Enrollee::where('hmo_id', auth()->user()->userable->id)->get();
-        $hcps = HmoHcp::where('hmo_id', auth()->user()->userable->id)->get();
-        return view('dashboard.hmo.bills.create')
-                ->with('tariffs', $tariffs)
-                ->with('drugs', $drugs)
-                ->with('hcps', $hcps)
-                ->with('enrollees', $enrollees);
-    }
-
-
-    public function store(Request $request)
-    {
-        
-        dd($request->all());
-        if($request->enrollee_id){
-            $checkEnrollee = Enrollee::where('id', $request->enrollee_id)->first();
-        }
-
-        if($request->hcp_id){
-            $checkHcp = Hcp::where('id', $request->hcp_id)->first();
-        }
-
-        $agreement = Agreement::whereIn('id', $request->hcp_service_details)->whereIn()->get();
-
-        // $checkService = Tariff::whereIn('id', $request->hcp_service_details)->get();
-        // $checkdrugs = Drug::whereIn('id', $request->hcp_drug_details)->get();
-        // $service_deduction = Tariff::whereIn('id', $request->hcp_service_details)->sum('amount');
-        // $drug_deduction = Drug::whereIn('id', $request->hcp_drug_details)->sum('amount');
- 
-        $payment_to_hcp = $service_deduction + $drug_deduction;
-
-        $final_payment_to_hcp = $request->amount_charged - $payment_to_hcp;
-
-        // dd($final_payment);
-        $bill = new Bill;
-        $bill->enrollee_id = $checkEnrollee->id;
-        $bill->hmo_id = auth()->user()->userable->id;
-        $bill->hcp_id = $checkEnrollee->hcp_id;
-        $bill->date_of_bill =  $request->date;
-        $bill->treatment = $request->treatment;
-        $bill->description = $request->description;
-        $bill->amount_paid = $request->amount_paid;
-        $bill->amount_charged = $request->amount_charged;
-        $bill->hcp_deduction = $request->amount_deducted;
-        $bill->service_deduction = $service_deduction;
-        $bill->drug_deduction = $drug_deduction;
-        $bill->final_payment = $payment_to_hcp;
-        $bill->payment_method = $request->payment_method;
-        $bill->payment_reference = $request->payment_reference;
-        $bill->service_break_down = json_encode($checkService);
-        $bill->drug_break_down = json_encode($checkdrugs);
-        $bill->save();
-
-        // save to the transaction as regards to count drug and service activities
-        $service = new Claim;
-        if($request->hcp_drug_details){
-            foreach($request->hcp_service_details as $bill_detail){
-                $find_service = Tariff::where('id', $bill_detail['treatment_id'])->first();
-                if($find_service != null){
-                    $service->enrollee_id = $checkEnrollee->id;
-                    $service->hmo_id = auth()->user()->userable->id;
-                    $service->hcp_id = $checkEnrollee->hcp_id;;
-                    $service->period = $request->date;
-                    $find_service->serviceItems()->save($service);
-                }
-            }
-        }
-
-        $drug = new Claim;
-        if($request->hcp_drug_details){
-            foreach($request->hcp_drug_details as $drug_detail){
-                $find_drug = Tariff::where('id', $drug_detail['drug_id'])->first();
-                if($find_drug != null){
-                    $drug->enrollee_id = $checkEnrollee->id;
-                    $drug->hmo_id = auth()->user()->userable->id;
-                    $drug->hcp_id = $checkEnrollee->hcp_id;;
-                    $drug->period = $request->date;
-                    $find_drug->serviceItems()->save($drug);
-                }
-            }
-        }
-
-        // $time = strtotime($bill->date_of_bill);
-        // setup capitation
-        // $findRate = Rate::where('name', 'capitation')->first();
-
-        // $checkCapitation = Capitation::where('hcp_id', $checkEnrollee->hcp_id)
-        //             ->where('hmo_id', auth()->user()->userable->id)
-        //             ->whereMonth('period', date("F",$time))
-        //             ->whereYear('period', date("Y",$time))->first();
-
-        // if($checkCapitation == null){
-        //     $newCapitation = new Capitation;
-        //     $newCapitation->hcp_id = $checkEnrollee->hcp_id;
-        //     $newCapitation->hmo_id = $checkEnrollee->hmo_id;
-        //     $newCapitation->lives = 1;
-        //     $newCapitation->cap_rate = $findRate->amount;
-        //     $newCapitation->period = $bill->date_of_bill;
-        //     $newCapitation->save();
-        // }else{
-        //     $checkCapitation->lives += 1;
-        //     $checkCapitation->save();
-        // }
-        // dd($final_payment);
-        
-        Session::flash('success', 'The bill was sucessfully saved');
-        return redirect()->route('bills.show', $bill->identifier);
-    }
-
     public function show($id)
     {
         $bill = Bill::where('identifier', $id)->first();
@@ -386,34 +274,10 @@ class BillController extends Controller
         return $agreement;
     }
 
-    public function hmoSignBill($id)
+    public function hmoSignBill($WhatAreYouSigning, $idOfWhatsigningWhat, $organizationType, $organizationId)
     {
-        $bill = Bill::where('identifier', $id)->first();
-
-        if($bill->id){
-            $checkCheckHowManyAlreadySigned = AuthorizationSignature::where('signable_type', 'bill')
-                ->where('signable_id',  $bill->id)->first();
-        }
-
-        if($checkCheckHowManyAlreadySigned->count() >= auth()->user()->userable->hmo_signatories){
-            Session::flash('success', 'The bill has already been signed by authorized signatories');
-            return redirect()->back();
-        }
-
-        $checkIfAlreadySigned = AuthorizationSignature::where('signable_type', 'bill')
-            ->where('operator_user_id',  auth()->user()->id)
-            ->where('signable_id',  $bill->id)->first();
-
-        if($checkIfAlreadySigned == null){
-            Session::flash('success', 'The bill is already signed by you');
-            return redirect()->back();
-        }
-
-        $sign = new AuthorizationSignature;
-        $sign->operator_user_id = auth()->user()->id;
-        $sign->approveSignature()->save($sign);
-
-        Session::flash('success', 'The bill was sucessfully signed by '. auth()->user()->name);
+        $item = $FunctionHelpers::signAnything($WhatAreYouSigning, $idOfWhatsigningWhat, $organizationType, $organizationId);
+        Session::flash($item['status'], $item['message']);
         return redirect()->back();
     }
 }

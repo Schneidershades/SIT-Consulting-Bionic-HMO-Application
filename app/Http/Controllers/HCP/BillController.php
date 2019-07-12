@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\HCP;
 
+use App\Http\Helpers\FunctionHelpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Bill;
@@ -243,39 +244,10 @@ class BillController extends Controller
                 ->with('enrollees', $enrollees);
     }
 
-    public function hcpSignBill($id)
+    public function hcpSignBill($WhatAreYouSigning, $idOfWhatsigningWhat, $organizationType, $organizationId)
     {
-        $bill = Bill::where('identifier', $id)->first();
-
-        if($bill->id){
-            $checkCheckHowManyAlreadySigned = AuthorizationSignature::where('signable_type', 'bill')
-                ->where('signable_id',  $bill->id)->first()
-                ->where('organizationable_type', 'hcp')
-                ->where('organizationable_id',  auth()->user()->userable->id);
-        }
-
-        if($checkCheckHowManyAlreadySigned->count() >= auth()->user()->userable->hcp_signatories){
-            Session::flash('success', 'The bill has already been signed by authorized signatories');
-            return redirect()->back();
-        }
-
-        $checkIfAlreadySigned = AuthorizationSignature::where('signable_type', 'bill')
-            ->where('signable_id',  $bill->id)
-            ->where('organizationable_type', 'hcp')
-            ->where('organizationable_id',  auth()->user()->userable->id)
-            ->where('operator_user_id',  $bill->id)
-            ->first();
-
-        if($checkIfAlreadySigned == null){
-            Session::flash('success', 'The bill is already signed by you');
-            return redirect()->back();
-        }
-
-        $sign = new AuthorizationSignature;
-        $sign->operator_user_id = auth()->user()->id;
-        $sign->approveSignature()->save($sign);
-
-        Session::flash('success', 'The bill was sucessfully signed by '. auth()->user()->name);
+        $item = $FunctionHelpers::signAnything($WhatAreYouSigning, $idOfWhatsigningWhat, $organizationType, $organizationId);
+        Session::flash($item['status'], $item['message']);
         return redirect()->back();
     }
 }
