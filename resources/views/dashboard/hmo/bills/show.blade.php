@@ -142,11 +142,13 @@
 					<br><br>
 
 					<div class="row">
-						<div class="col-lg-4 payment-icons">
-							<!-- <p class="lead">Treatment Description:</p>
+						<div class="col-lg-12 payment-icons">
+							<p class="lead">Treatment Description:</p>
 							<p class="text-muted bg-light p-2 mt-3 border rounded">
 								{{$bill->description}}
-							</p> -->
+							</p>
+						</div>
+						<div class="col-lg-4 payment-icons">
 
 							<p class="lead">HCP Approval Status:</p>
 							<p class="text-muted bg-light p-2 mt-3 border rounded">
