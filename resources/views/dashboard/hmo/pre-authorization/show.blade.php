@@ -34,7 +34,7 @@
 
                     <div class="col-md-3">
                         <label for="input-9">Service Type </label><br>
-                        <h5>{{$transaction->hospitable_type}}</h5>
+                        <h5>{{$transaction->claimable_type}}</h5>
                     </div>
                     <div class="col-md-3">
                         <label for="input-9">Service Category</label><br>
@@ -43,12 +43,12 @@
 
                     <div class="col-md-3">
                         <label for="input-9">Service Name</label><br>
-                        <h5>{{$transaction->hospitable->getTitle()}}</h5>
+                        <h5>{{$transaction->claimable->getTitle()}}</h5>
                     </div>
 
                     <div class="col-md-3">
                         <label for="input-9">Amount </label><br>
-                        <h5>N {{$transaction->hospitable->amount}}</h5>
+                        <h5>N {{$transaction->claimable->amount}}</h5>
                     </div>
                     <div class="col-md-3">
                         <label for="input-9">Transaction status</label><br>

@@ -15,6 +15,9 @@ Route::get('/js/enrollees/hcp/{enrollee_id}', 'HMO\BillController@getEnrolleeHcp
 Route::get('/js/hcp/agreements/{hcp_id}', 'HMO\BillController@getHmoAgreementWithHcp')->name('get.hcp.agreements');
 
 
+Route::get('/sign/bill/{WhatAreYouSigning}/{idOfWhatsigningWhat}/{organizationType}/{organizationId}', 'HomeController@signHere')->name('sign.bills');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
@@ -98,6 +101,8 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 	Route::resource('/agreements', 'HMO\AgreementController');
 	Route::get('/agreements/delete/{id}', 'HMO\AgreementController@destroy')->name('agreements.delete');
 	Route::post('/agreements/update/{id}', 'HMO\AgreementController@update')->name('agreements.update');
+
+	
 
 });
 

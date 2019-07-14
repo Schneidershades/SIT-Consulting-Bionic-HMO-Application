@@ -35,10 +35,11 @@
                 <th>HCP Code/Name</th>
                 <th>Enrollee</th>
                 <th>Date</th>
-                <th>Charged</th>
-                <th>Paid</th>
+                <th>HCP Endorsed</th>
+                <th>HMO Endorsed</th>
                 <th>conclusive Amount</th>
                 <th>Action</th>
+
               </tr>
             </thead>
             <tbody>
@@ -47,26 +48,36 @@
                 <td>{{$bill->hcp->hcp_name}}</td>
                 <td>{{$bill->enrollee->first_name}} {{$bill->enrollee->middle_name}} {{$bill->enrollee->last_name}}</td>
                 <td>{{$bill->date_of_bill}}</td>
-                <td>{{$bill->amount_charged}}</td>
-                <td>{{$bill->amount_paid}}</td>
+                <td>
+                  @if($bill->hcp_signature_status == 'verified')
+                    {{$bill->hcp_signature_status}}
+                  @elseif($bill->hcp_signature_status == 'pending')
+                    @if($bill->hcp->hasAccount($bill->hcp->id) == 'yes')
+                      {{ $bill->hcp->approvalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) }}
+                    @else
+                      {{$bill->hcp->approvalStatus("verify bills", $bill->hcp_id, "bill", $bill->id)}}
+                    @endif
+                  @elseif($bill->hcp_signature_status == 'rejected')
+                    {{$bill->hcp_signature_status}}
+                  @endif
+                </td>
+                <td>
+                  @if($bill->hmo_signature_status == 'verified')
+                    {{$bill->hmo_signature_status}}
+                  @elseif($bill->hmo_signature_status == 'pending')
+                      {{$bill->hmo->approvalStatus("verify bills", $bill->hmo_id, "bill", $bill->id)}}
+                  @elseif($bill->hmo_signature_status == 'rejected')
+                    {{$bill->hmo_signature_status}}
+                  @endif
+                </td>
                 <td>{{$bill->final_payment}}</td>
                 <td>
+                  
                   <a href="{{route('bills.show', $bill->identifier)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>
                 </td>
               </tr>
               @endforeach
             </tbody>
-            <tfoot>
-              <tr>
-                <th>HCP Code/Name</th>
-                <th>Enrollee</th>
-                <th>Date</th>
-                <th>Charged</th>
-                <th>Paid</th>
-                <th>conclusive Amount</th>
-                <th>Action</th>
-              </tr>
-            </tfoot>
           </table>
         </div>
       </div>

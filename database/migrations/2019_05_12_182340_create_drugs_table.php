@@ -22,6 +22,11 @@ class CreateDrugsTable extends Migration
             $table->string('presentation')->nullable();
             $table->string('parent_id')->nullable();
             $table->decimal('amount', 40, 2)->default(0);
+            $table->integer('hmo_signature_approvals')->default(0);
+            $table->string('hmo_signature_status')->default('pending');
+
+            $table->integer('hcp_signature_approvals')->default(0);
+            $table->string('hcp_signature_status')->default('pending');
             $table->timestamps();
         });
     }

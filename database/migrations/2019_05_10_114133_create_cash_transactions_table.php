@@ -31,6 +31,11 @@ class CreateCashTransactionsTable extends Migration
             $table->integer('operator_user_id')->nullable()->index();
             $table->integer('verify_id')->nullable()->index();
             $table->string('action')->default('pending');
+            $table->integer('hmo_signature_approvals')->default(0);
+            $table->string('hmo_signature_status')->default('pending');
+
+            $table->integer('hcp_signature_approvals')->default(0);
+            $table->string('hcp_signature_status')->default('pending');
             $table->softDeletes();
             $table->timestamps();
         });

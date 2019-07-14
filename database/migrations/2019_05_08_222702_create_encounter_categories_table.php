@@ -20,7 +20,11 @@ class CreateEncounterCategoriesTable extends Migration
             $table->string('name')->nullable();
             $table->string('slug')->unique()->nullable();
             $table->integer('operator_user_id')->unsigned()->nullable();
-            $table->integer('verify_id')->unsigned()->nullable();
+            $table->integer('hmo_signature_approvals')->default(0);
+            $table->string('hmo_signature_status')->default('pending');
+
+            $table->integer('hcp_signature_approvals')->default(0);
+            $table->string('hcp_signature_status')->default('pending');
             $table->softDeletes();
             $table->timestamps();
         });

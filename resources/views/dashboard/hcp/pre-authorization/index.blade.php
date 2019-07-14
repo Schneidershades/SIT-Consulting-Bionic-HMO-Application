@@ -47,9 +47,9 @@
               <tr>
                 <td>{{$transaction->hcp->hcp_name}}</td>
                 <td>{{$transaction->enrollee->first_name}} {{$transaction->enrollee->middle_name}} {{$transaction->enrollee->last_name}}</td>
-                <td>{{$transaction->hospitable_type}}</td>
+                <td>{{$transaction->claimable_type}}</td>
                 <td>{{$transaction->service_type}}</td>
-                <td>{{$transaction->hospitable->amount}}</td>
+                <td>{{$transaction->claimable->amount}}</td>
                 <td>{{$transaction->status}}</td>
                 <td>
                   <a href="{{route('pre-authorization.show', $transaction->identifier)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>

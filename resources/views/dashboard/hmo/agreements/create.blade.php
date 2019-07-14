@@ -80,9 +80,9 @@
 									<label for="input-25">Tariff Type</label>
 									<select name="service_type" class="form-control single-select" required>
 										<option value="">---Select Service Type---</option>
-										<option value="primary">Primary Health Service</option>
-										<option value="secondary">Secondary Health Service</option>
-										<option value="tertiary">Tertiary Health Service</option>
+										<option value="phs">Primary Health Service</option>
+										<option value="shs">Secondary Health Service</option>
+										<option value="ths">Tertiary Health Service</option>
 									</select>
 								</div>
 

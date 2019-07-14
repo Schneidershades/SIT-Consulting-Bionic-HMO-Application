@@ -30,7 +30,9 @@
                         @if($hcp->hcp->hasAccount($hcp->hcp->id) == 'yes')
                         <span class="btn btn-gradient-royal m-1">Account is created</span>
                         @else
-                        <button class="btn btn-gradient-royal m-1" data-toggle="modal" data-target="#royalmodal">Create Account for {{$hcp->hcp->hcp_code}} - {{$hcp->hcp->hcp_name}}</button>
+                        <button class="btn btn-gradient-royal m-1" data-toggle="modal" data-target="#royalmodal">
+                            Create Account
+                        </button>
                         <div class="modal fade" id="royalmodal">
                             <div class="modal-dialog">
                                 <div class="modal-content gradient-royal border-0">
@@ -66,12 +68,15 @@
                                     </div>
                                 </div>
                             </div>
-                            @endif
                         </div>
+                        @endif
                     </div>
+                    
                     <div class="col-md-3">
-                        @if($hcp->provider_payment_mechanism != 'none')
-                        <span class="btn btn-gradient-royal m-1">Payment Mechanism : {{$hcp->provider_payment_mechanism }}</span>
+                        @if($hcp->provider_payment_mechanism != NULL)
+                        <span class="btn btn-gradient-royal m-1">
+                            Payment Mechanism : {{$hcp->provider_payment_mechanism ? $hcp->provider_payment_mechanism : 'Not Set'}}
+                        </span>
                         @else
                         <button class="btn btn-gradient-royal m-1" data-toggle="modal" data-target="#PaymentMechanismModal">Set Payment Mechanism </button>
                         <div class="modal fade" id="PaymentMechanismModal">
@@ -111,7 +116,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="row">
                     <div class="col-md-3">
                         <label for="input-9">HCP Code</label><br>
                         <h5>{{$hcp->hcp->hcp_code}}</h5>

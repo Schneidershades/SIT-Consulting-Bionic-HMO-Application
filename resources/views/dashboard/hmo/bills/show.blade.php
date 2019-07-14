@@ -29,7 +29,7 @@
 <!-- End Breadcrumb-->
 
 
-<div class="row">
+<div class="row myDivToPrint">
 	<div class="col-lg-12 mx-auto">
 		<div class="card">
 			<div class="card-body">
@@ -57,7 +57,7 @@
 
 					<hr>
 					<div class="row invoice-info">
-						<div class="col-sm-6 invoice-col">
+						<div class="col-sm-4 invoice-col">
 							From: HCP
 							<address>
 								<strong>{{$bill->hcp->hcp_name}}</strong><br>
@@ -66,13 +66,22 @@
 								Email: {{$bill->hcp->hcp_email ? $bill->hcp->hcp_email : 'Not available'}}
 							</address>
 						</div><!-- /.col -->
-						<div class="col-sm-6 invoice-col">
+						<div class="col-sm-4 invoice-col">
 							To: HMO
 							<address>
 								<strong>{{$bill->hmo->hmo_name}}</strong><br>
 								{{$bill->hmo->hmo_address ? $bill->hmo->hmo_address : 'Not available'}}<br>
 								Phone: {{$bill->hmo->hmo_phone ? $bill->hmo->hmo_phone : 'Not available'}}<br>
 								Email: {{$bill->hmo->hmo_email ? $bill->hmo->hmo_email : 'Not available'}}
+							</address>
+						</div><!-- /.col -->
+						<div class="col-sm-4 invoice-col">
+							Benefactor: Enrollee
+							<address>
+								<strong>{{$bill->enrollee->first_name}} {{$bill->enrollee->middle_name}} {{$bill->enrollee->last_name}}</strong><br>
+								{{$bill->enrollee->address ? $bill->enrollee->address : 'Not available'}}<br>
+								Phone: {{$bill->enrollee->phone ? $bill->enrollee->phone : 'Not available'}}<br>
+								Email: {{$bill->enrollee->email ? $bill->enrollee->email : 'Not available'}}
 							</address>
 						</div><!-- /.col -->
 					</div><!-- /.row -->
@@ -85,15 +94,19 @@
 									<th scope="col">Tariff code</th>
 									<th scope="col">Description</th>
 									<th scope="col">Amount</th>
+									<th scope="col">type</th>
+									<th scope="col">Status</th>
 								</tr>
 							</thead>
 							<tbody>
 								@foreach($bill->transactions as $t)
-									@if($t->hospitable_type == "tariff")
+									@if($t->claimable_type == "tariff")
 									<tr scope="row">
-										<th scope="col">{{$t->hospitable->tariff_code}} </th>
-										<th scope="col">{{$t->hospitable->description}}</th>
-										<th scope="col">{{$t->hospitable->amount}}</th>
+										<th scope="col">{{$t->claimable->tariff_code}} </th>
+										<th scope="col">{{$t->claimable->description}} </th>
+										<th scope="col">{{$t->claimable->amount}} </th>
+										<th scope="col">{{$t->service_type}} </th>
+										<th scope="col">{{$t->status}} </th>
 									</tr>
 									@endif
 								@endforeach
@@ -107,14 +120,18 @@
 								<tr>
 									<th scope="col">Drug Items</th>
 									<th scope="col">Amount</th>
+									<th scope="col">Type</th>
+									<th scope="col">Status</th>
 								</tr>
 							</thead>
 							<tbody>
 								@foreach($bill->transactions as $t)
-									@if($t->hospitable_type == "drug")
+									@if($t->claimable_type == "drug")
 										<tr scope="row">
-											<th scope="col"> {{$t->hospitable->drug_name}} - {{$t->hospitable->dosage_form}}  - {{$t->hospitable->strengths}}  - {{$t->hospitable->presentation}}</th>
-											<th scope="col">{{$t->hospitable->amount}}</th>
+											<th scope="col"> {{$t->claimable->drug_name}} - {{$t->claimable->dosage_form}}  - {{$t->claimable->strengths}}  - {{$t->claimable->presentation}}</th>
+											<th scope="col">{{$t->claimable->amount}}</th>
+											<th scope="col">{{$t->service_type}}</th>
+											<th scope="col">{{$t->status}}</th>
 										</tr>
 									@endif
 								@endforeach
@@ -130,21 +147,20 @@
 
 					<div class="row">
 						<div class="col-lg-6 payment-icons">
-							<p class="lead">Payment Description:</p>
+							<p class="lead">Treatment Description:</p>
 							<p class="text-muted bg-light p-2 mt-3 border rounded">
 								{{$bill->description}}
 							</p>
 
+							<p class="lead">Service Status:</p>
 							<p class="text-muted bg-light p-2 mt-3 border rounded">
-								HCP Bill Status: {{$bill->hcp_operator_id ? "approve" : "pending"}} <br>
-								HMO Bill Status: {{$bill->hmo_operator_id ? "approve" : "pending"}} <br>
+								HCP Bill Status: {{$bill->hmo_signature_status}} <br>
+								HMO Bill Status: {{$bill->hmo_signature_status}} <br>
 							</p>
 
 							<!-- <p class="text-muted bg-light p-2 mt-3 border rounded">
 								Bill Status: {{$bill->hmo_operator_id ? "approve" : "pending"}}
 							</p> -->
-
-
 						</div>
 						<div class="col-lg-6">
 							<p class="lead">Amount Due </p>
@@ -164,42 +180,6 @@
 							</div>
 						</div>
 					</div>
-
-					<!-- <div class="card-body">
-						<table class="table">
-							<thead>
-								<tr class="row">
-									<th class="col-md-12"><h5>HCP Description</h5></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr scope="row">
-									<th scope="col">Date of Bill<br>{{$bill->created_at}}</th>
-									<th scope="col">Bill Description<br>{{$bill->created_at}}</th>
-									<th scope="col">HCP Amount Charged<br>N {{$bill->amount_charged ? $bill->amount_charged : 'Not Available'}}</th>
-								</tr>
-
-								<tr scope="row">
-									<th scope="col">Enrollee Amount Paid<br>N {{$bill->amount_paid ? $bill->amount_paid : 'Not Available'}}</th>
-									<th scope="col">HCP Charged Deductions<br>N {{$bill->hcp_deduction ? $bill->hcp_deduction : 'Not Available'}}</th>
-									<th scope="col">Tariff Deductions<br>N{{$bill->tariff_deduction ? $bill->tariff_deduction : 'Not concluded'}}</th>
-								</tr>
-							</tbody>
-						</table><br>
-						<table>
-							<tbody>
-						        <tr class="row">
-						        	<th class="col-md-12"><h5>HMO Operation Activity </h5></th>
-						        	<th class="col-md-4">Remarks <br> </th>
-						        	<th class="col-md-4">Action <br> </th>
-						        	<th class="col-md-4">Disbursment <br> </th>
-						        </tr>
-						    </tbody>
-						</table>
-
-						
-					</div> -->
-
 					<!-- this row will not appear when printing -->
 					<hr>
 					<div class="row no-print">
@@ -217,16 +197,6 @@
 					</div>
 				</section>
 				<!-- /.content -->
-
-				
-				
-				
-
-				<!-- <div class="form-group row">
-					<div class="col-sm-10">
-						<a href="" type="submit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> Edit Medical Bill Details</a>
-					</div>
-				</div> -->
 			</div>
 		</div>
 	</div>

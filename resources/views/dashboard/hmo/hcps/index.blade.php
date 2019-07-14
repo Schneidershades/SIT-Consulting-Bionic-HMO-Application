@@ -56,7 +56,6 @@
                   <span class="badge badge-danger m-1">Has an Account</span>
                   @else
                   <span class="badge badge-success">No Account Account</span>
-                  
                   @endif
                 </td>
                 <td>

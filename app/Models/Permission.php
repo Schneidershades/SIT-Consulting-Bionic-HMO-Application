@@ -17,4 +17,9 @@ class Permission extends Model
     {
         return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
+
+    public function permissionable()
+    {
+    	return $this->morphTo();
+    }
 }

@@ -12,6 +12,8 @@ use App\Models\Capitation;
 use App\Models\Encounter;
 use App\Models\Agreement;
 use App\Models\HcpTransfer;
+use App\Models\Permission;
+use App\Models\RolePermission;
 
 class Hcp extends Model
 {
@@ -90,5 +92,58 @@ class Hcp extends Model
     public function approveSignature()
     {
         return $this->morphToMany(AuthorizationSignature::class, 'signable');
+    }
+
+    public function approvalStatus($permission, $hcp_id, $signable_type, $signable_id)
+    {
+
+        $checkRole = Role::where('rolable_type', 'hcp')
+            ->where('rolable_id', $hcp_id)
+            ->pluck('id')
+            ->toArray();
+
+        $checkPermission = Permission::where('permissionable_type', 'hcp')
+            ->where('permissionable_id', $hcp_id)
+            ->where('name', $permission)->first();
+
+        if($checkRole == null){
+            return 'No Role';
+        }
+
+        $rolePermission = RolePermission::whereIn('role_id', $checkRole)
+            ->where('permission_id', $checkPermission->id)
+            ->pluck('role_id')->toArray();
+        
+        if($rolePermission==null){
+            return 'not permission';
+        }
+
+        $userRoles = UserRole::whereIn('role_id', $rolePermission)
+            ->pluck('id')
+            ->toArray();
+
+        $userRolesCount = UserRole::whereIn('role_id', $rolePermission)->get();
+
+        // dd($userRoles);
+       
+        if($userRoles == null){
+            return 'no user role';
+        }
+
+        $findSignature = AuthorizationSignature::whereIn('operator_user_id', $userRoles)
+            ->where('signable_type', $signable_type)
+            ->where('signable_id', $signable_id)
+            ->where('organizationable_type', 'hcp')
+            ->where('organizationable_id', $hcp_id)
+            ->get();
+
+        // dd($findSignature);
+
+        if($findSignature==null){
+            return 0;
+        }
+
+        return $findSignature->count() .'/'. $userRolesCount->count();
+        // return 'good';
     }
 }

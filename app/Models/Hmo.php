@@ -90,4 +90,57 @@ class Hmo extends Model
     {
         return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
+
+    public function approvalStatus($permission, $hmo_id, $signable_type, $signable_id)
+    {
+
+        $checkRole = Role::where('rolable_type', 'hmo')
+            ->where('rolable_id', $hmo_id)
+            ->pluck('id')
+            ->toArray();
+
+        $checkPermission = Permission::where('permissionable_type', 'hmo')
+            ->where('permissionable_id', $hmo_id)
+            ->where('name', $permission)->first();
+
+        if($checkRole == null){
+            return 'No Role';
+        }
+
+        $rolePermission = RolePermission::whereIn('role_id', $checkRole)
+            ->where('permission_id', $checkPermission->id)
+            ->pluck('role_id')->toArray();
+        
+        if($rolePermission==null){
+            return 'no permission';
+        }
+
+        $userRoles = UserRole::whereIn('role_id', $rolePermission)
+            ->pluck('id')
+            ->toArray();
+
+        $userRolesCount = UserRole::whereIn('role_id', $rolePermission)->get();
+
+        // dd($userRoles);
+       
+        if($userRoles == null){
+            return 'no user role';
+        }
+
+        $findSignature = AuthorizationSignature::whereIn('operator_user_id', $userRoles)
+            ->where('signable_type', $signable_type)
+            ->where('signable_id', $signable_id)
+            ->where('organizationable_type', 'hmo')
+            ->where('organizationable_id', $hmo_id)
+            ->get();
+
+        // dd($findSignature);
+
+        if($findSignature==null){
+            return 0;
+        }
+
+        return $findSignature->count() .'/'. $userRolesCount->count();
+        // return 'good';
+    }
 }

@@ -89,11 +89,11 @@
 							</thead>
 							<tbody>
 								@foreach($bill->transactions as $t)
-									@if($t->hospitable_type == "tariff")
+									@if($t->claimable_type == "tariff")
 									<tr scope="row">
-										<th scope="col">{{$t->hospitable->tariff_code}} </th>
-										<th scope="col">{{$t->hospitable->description}}</th>
-										<th scope="col">{{$t->hospitable->amount}}</th>
+										<th scope="col">{{$t->claimable->tariff_code}} </th>
+										<th scope="col">{{$t->claimable->description}}</th>
+										<th scope="col">{{$t->claimable->amount}}</th>
 									</tr>
 									@endif
 								@endforeach
@@ -111,10 +111,10 @@
 							</thead>
 							<tbody>
 								@foreach($bill->transactions as $t)
-									@if($t->hospitable_type == "drug")
+									@if($t->claimable_type == "drug")
 										<tr scope="row">
-											<th scope="col"> {{$t->hospitable->drug_name}} - {{$t->hospitable->dosage_form}}  - {{$t->hospitable->strengths}}  - {{$t->hospitable->presentation}}</th>
-											<th scope="col">{{$t->hospitable->amount}}</th>
+											<th scope="col"> {{$t->claimable->drug_name}} - {{$t->claimable->dosage_form}}  - {{$t->claimable->strengths}}  - {{$t->claimable->presentation}}</th>
+											<th scope="col">{{$t->claimable->amount}}</th>
 										</tr>
 									@endif
 								@endforeach

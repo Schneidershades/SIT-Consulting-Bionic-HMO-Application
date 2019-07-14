@@ -11,10 +11,11 @@ use App\Models\Enrollee;
 use App\Models\Tariff;
 use App\Models\Capitation;
 use App\Models\Rate;
-use App\Models\Drug;
+use App\Models\Drug;       
 use App\Models\HmoHcp;
 use App\Models\Hcp;
 use App\Models\Claim;
+use App\Models\User;
 use App\Models\DiseaseClass;
 use App\Models\AuthorizationSignature;
 use Session;
@@ -24,7 +25,7 @@ class BillController extends Controller
 {
     public function index()
     {
-        $bills =  Bill::where('hmo_id', auth()->user()->userable->id)->where('hcp_signature_staus', 'verified')->get();
+        $bills =  Bill::where('hmo_id', auth()->user()->userable->id)->where('hcp_signature_status', 'pending')->get();
         return view('dashboard.hmo.bills.index')
                 ->with('bills', $bills);
     }
@@ -32,7 +33,7 @@ class BillController extends Controller
     public function start()
     {
         $enrollees = Enrollee::where('hmo_id', auth()->user()->userable->id)->get();
-        $diseases = DiseaseClass::where('parent_id', '!=' , NULL)->get();
+        $diseases = DiseaseClass::all();
         return view('dashboard.hmo.bills.start')
                 ->with('diseases', $diseases)
                 ->with('enrollees', $enrollees);
@@ -47,7 +48,6 @@ class BillController extends Controller
 
         if($checkEnrollee != null){
             $checkHcp = Hcp::where('id', $checkEnrollee->hcp_id)->first();
-            
         }
 
         // $checkEncounterAlerts = Bill::where('enrollee', $request->enrollee_id)->get();
@@ -76,6 +76,11 @@ class BillController extends Controller
         $bill = Bill::where('identifier', $identifier)->where('finished', false)->first();
 
         if($bill == null){
+            return redirect()->back();
+        }
+
+        if($bill->finished == true){
+            Session::flash('success', 'Invalid Bill Submission. Please Create a new bill');
             return redirect()->back();
         }
 
@@ -117,99 +122,171 @@ class BillController extends Controller
         $bill->save();
 
         // save to the transaction as regards to count drug and service activities
-        $service = new Claim;
-        if($request->hcp_drug_details){
-            foreach($request->hcp_service_details as $bill_detail){
-                // dd($bill_detail);                         
-                $tariff = Tariff::where('id', $bill_detail['treatment_id'])->first();
+        if($request->hcp_service_details){
+            $serviceDetails = array_flatten($request->hcp_service_details);
+            $tariffId = Tariff::whereIn('id', $serviceDetails)->pluck('id')->toArray();
 
-                $authorization = Agreement::where('agreementable_id', $tariff->id)
+            $authorization = Agreement::whereIn('agreementable_id', $tariffId)
                                 ->where('service_type', 'phs')
                                 ->where('hmo_id', auth()->user()->userable->id)
                                 ->where('agreementable_type', 'tariff')
-                                ->where('hcp_id', $bill->hcp_id)->first();
-                    
-                $preAuthorization = Agreement::where('agreementable_id', $tariff->id)
-                                ->where('service_type', 'shs')
-                                ->orWhere('service_type', 'ths')
+                                ->where('hcp_id', $bill->hcp_id)
+                                ->get();
+            $preAuthorization = Agreement::whereIn('agreementable_id', $tariffId)
+                            ->where('service_type', 'shs')
+                            ->orWhere('service_type', 'ths')
+                            ->where('hmo_id', auth()->user()->userable->id)
+                            ->where('agreementable_type', 'tariff')
+                            ->where('hcp_id', $bill->hcp_id)->get();
+            
+            if($authorization != null){
+           
+                foreach ($authorization as $authorize) {
+                    $claimServiceAuthorization = Claim::where('claimable_id', $authorize->agreementable->id)
+                                ->where('claimable_type', 'tariff')
+                                ->where('service_type', 'phs')
                                 ->where('hmo_id', auth()->user()->userable->id)
-                                ->where('agreementable_type', 'tariff')
-                                ->where('hcp_id', $bill->hcp_id)->first();
-
-
-                if($authorization != null){
-                    $service->identifier = mt_rand(100000, 9833322);
-                    $service->enrollee_id = $bill->enrollee_id;
-                    $service->hmo_id = auth()->user()->userable->id;
-                    $service->hcp_id = $bill->hcp_id;
-                    $service->bill_id = $bill->id;
-                    $service->pre_authorization = false;
-                    $service->status = 'verified';
-                    $service->service_type = $authorization->service_type;
-                    $service->amount = $authorization->amount;
-                    $tariff->serviceItems()->save($service);
+                                ->where('hcp_id', $bill->hcp_id)
+                                ->where('enrollee_id', $bill->enrollee_id)
+                                ->where('bill_id', $bill->id)
+                                ->first();
+                    if($claimServiceAuthorization == null){
+                        $service = new Claim;
+                        $service->identifier = mt_rand(100000, 9833322);
+                        $service->enrollee_id = $bill->enrollee_id;
+                        $service->hmo_id = auth()->user()->userable->id;
+                        $service->hcp_id = $bill->hcp_id;
+                        $service->bill_id = $bill->id;
+                        $service->pre_authorization = false;
+                        $service->status = 'verified';
+                        $service->operator_user_id = auth()->user()->id;
+                        $service->service_type = $authorize->service_type;
+                        $service->amount = $authorize->amount;
+                        $authorize->agreementable->serviceItems()->save($service);
+                    }else{
+                        $claimServiceAuthorization->operator_user_id = auth()->user()->id;
+                        $claimServiceAuthorization->service_type = $authorize->service_type;
+                        $claimServiceAuthorization->amount = $authorize->amount;
+                        $claimServiceAuthorization->save();
+                    }
                 }
+            }
 
-                if($preAuthorization != null){
-                    $service->identifier = mt_rand(100000, 9833322);
-                    $service->enrollee_id = $bill->enrollee_id;
-                    $service->hmo_id = auth()->user()->userable->id;
-                    $service->hcp_id = $bill->hcp_id;
-                    $service->bill_id = $bill->id;
-                    $service->pre_authorization = true;
-                    $service->status = 'pending';
-                    $service->service_type = $authorization->service_type;
-                    $service->amount = $preAuthorization->amount;
-                    $tariff->serviceItems()->save($service);
-                }
+            if($preAuthorization != null){
+                foreach ($preAuthorization as $preAuthorize) {
+                    $claimServicePreAuthorization = Claim::where('claimable_id', $preAuthorize->agreementable->id)
+                                ->where('service_type', 'phs')
+                                ->orWhere('service_type', 'shs')
+                                ->where('hmo_id', auth()->user()->userable->id)
+                                ->where('claimable_type', 'tariff')
+                                ->where('hcp_id', $bill->hcp_id)
+                                ->where('enrollee_id', $bill->enrollee_id)
+                                ->where('bill_id', $bill->id)
+                                ->first();
+                    if($claimServicePreAuthorization == null){
+                        $service = new Claim;
+                        $service->enrollee_id = $bill->enrollee_id;
+                        $service->hmo_id = auth()->user()->userable->id;
+                        $service->hcp_id = $bill->hcp_id;
+                        $service->bill_id = $bill->id;
+                        $service->pre_authorization = true;
+                        $service->status = 'pending';
+                        $service->operator_user_id = auth()->user()->id;
+                        $service->service_type = $preAuthorize->service_type;
+                        $service->amount = $preAuthorize->amount;
+                        $preAuthorize->agreementable->serviceItems()->save($service);
+                    }else{
+                        $claimServicePreAuthorization->operator_user_id = auth()->user()->id;
+                        $claimServicePreAuthorization->service_type = $authorize->service_type;
+                        $claimServicePreAuthorization->amount = $authorize->amount;
+                        $claimServicePreAuthorization->save();
+                    }
+                }  
             }
         }
 
         $drug = new Claim;
         if($request->hcp_drug_details){
-            foreach($request->hcp_drug_details as $drug_detail){
-                $drugCheck = Drug::where('id', $drug_detail['drug_id'])->first();
-
-                $drugAuthorization = Agreement::where('agreementable_id', $drugCheck->id)
+            $drugDetails = array_flatten($request->hcp_drug_details);
+            $drugId = Drug::whereIn('id', $drugDetails)->pluck('id')->toArray();
+            $drugAuthorization = Agreement::whereIn('agreementable_id', $drugId)
                                 ->where('service_type', 'phs')
                                 ->where('hmo_id', auth()->user()->userable->id)
                                 ->where('agreementable_type', 'drug')
-                                ->where('hcp_id', $bill->hcp_id)->first();
-
-                $drugPreAuthorization = Agreement::where('agreementable_id', $drugCheck->id)
-                                ->where('service_type', 'shs')
-                                ->orWhere('service_type', 'ths')
+                                ->where('hcp_id', $bill->hcp_id)
+                                ->get();
+            $drugPreAuthorization = Agreement::whereIn('agreementable_id', $drugId)
+                            ->where('service_type', 'shs')
+                            ->orWhere('service_type', 'ths')
+                            ->where('hmo_id', auth()->user()->userable->id)
+                            ->where('agreementable_type', 'drug')
+                            ->where('hcp_id', $bill->hcp_id)->get();
+            if($drugAuthorization != null){
+                foreach ($drugAuthorization as $drugAuthorize) {
+                    $claimDrugAuthorization = Claim::where('claimable_id', $drugAuthorize->agreementable->id)
+                                ->where('claimable_type', 'drug')
+                                ->where('service_type', 'phs')
+                                ->where('enrollee_id', $bill->enrollee_id)
                                 ->where('hmo_id', auth()->user()->userable->id)
-                                ->where('agreementable_type', 'drug')
-                                ->where('hcp_id', $bill->hcp_id)->first();
-
-                if($drugAuthorization != null){
-                    $drug->identifier = mt_rand(100000, 9833322);
-                    $drug->enrollee_id = $bill->enrollee_id;
-                    $drug->hmo_id = auth()->user()->userable->id;
-                    $drug->hcp_id = $bill->hcp_id;
-                    $drug->bill_id = $bill->id;
-                    $drug->pre_authorization = false;
-                    $drug->status = 'verified';
-                    $drug->service_type = $authorization->service_type;
-                    $drug->amount = $authorization->amount;
-                    $drugCheck->drugItems()->save($drug);
+                                ->where('hcp_id', $bill->hcp_id)
+                                ->where('bill_id', $bill->id)
+                                ->first();
+                    if($claimDrugAuthorization == null){
+                        $drug = new Claim;
+                        $drug->enrollee_id = $bill->enrollee_id;
+                        $drug->hmo_id = auth()->user()->userable->id;
+                        $drug->hcp_id = $bill->hcp_id;
+                        $drug->bill_id = $bill->id;
+                        $drug->pre_authorization = false;
+                        $drug->status = 'verified';
+                        $drug->operator_user_id = auth()->user()->id;
+                        $drug->service_type = $drugAuthorize->service_type;
+                        $drug->amount = $drugAuthorize->amount;
+                        $drugAuthorize->agreementable->drugItems()->save($drug);
+                    }else{
+                        $claimDrugAuthorization->operator_user_id = auth()->user()->id;
+                        $claimDrugAuthorization->service_type = $authorize->service_type;
+                        $claimDrugAuthorization->amount = $authorize->amount;
+                        $claimDrugAuthorization->save();
+                    }
                 }
-
-                if($drugPreAuthorization != null){
-                    $drug->identifier = mt_rand(100000, 9833322);
-                    $drug->enrollee_id = $bill->enrollee_id;
-                    $drug->hmo_id = auth()->user()->userable->id;
-                    $drug->hcp_id = $bill->hcp_id;
-                    $drug->bill_id = $bill->id;
-                    $drug->pre_authorization = true;
-                    $drug->status = 'pending';
-                    $drug->service_type = $authorization->service_type;
-                    $drug->amount = $drugPreAuthorization->amount;
-                    $drugCheck->drugItems()->save($drug);
+            }
+            
+            if($drugPreAuthorization != null){
+                foreach ($drugPreAuthorization as $drugPreAuthorize) {
+                    $claimDrugPreAuthorization = Claim::where('claimable_id', $drugPreAuthorize->agreementable->id)
+                                ->where('service_type', 'phs')
+                                ->where('service_type', 'shs')
+                                ->where('enrollee_id', $bill->enrollee_id)
+                                ->where('hmo_id', auth()->user()->userable->id)
+                                ->where('claimable_type', 'drug')
+                                ->where('hcp_id', $bill->hcp_id)
+                                ->where('bill_id', $bill->id)
+                                ->first();
+                    if($claimDrugPreAuthorization == null){
+                        $drug = new Claim;
+                        $drug->enrollee_id = $bill->enrollee_id;
+                        $drug->hmo_id = auth()->user()->userable->id;
+                        $drug->hcp_id = $bill->hcp_id;
+                        $drug->bill_id = $bill->id;
+                        $drug->pre_authorization = true;
+                        $drug->status = 'pending';
+                        $drug->operator_user_id = auth()->user()->id;
+                        $drug->service_type = $drugPreAuthorize->service_type;
+                        $drug->amount = $drugPreAuthorize->amount;
+                        $drugPreAuthorize->agreementable->drugItems()->save($drug);
+                    }else{
+                        $claimDrugPreAuthorization->operator_user_id = auth()->user()->id;
+                        $claimDrugPreAuthorization->service_type = $authorize->service_type;
+                        $claimDrugPreAuthorization->amount = $authorize->amount;
+                        $claimDrugPreAuthorization->save();
+                    }
                 }
             }
         }
+
+        $bill->finished = true;
+        $bill->save();
 
         // encounter alerts 
         
@@ -274,10 +351,5 @@ class BillController extends Controller
         return $agreement;
     }
 
-    public function hmoSignBill($WhatAreYouSigning, $idOfWhatsigningWhat, $organizationType, $organizationId)
-    {
-        $item = $FunctionHelpers::signAnything($WhatAreYouSigning, $idOfWhatsigningWhat, $organizationType, $organizationId);
-        Session::flash($item['status'], $item['message']);
-        return redirect()->back();
-    }
+    
 }

@@ -23,10 +23,9 @@ class CreateAgreementsTable extends Migration
             $table->integer('agreementable_id')->nullable();
             $table->string('agreementable_type')->nullable();
             $table->string('status')->default('pending');
-            $table->string('hmo_agreement_status')->default('pending');
-            $table->string('hcp_agreement_status')->default('pending');
             $table->integer('hmo_signature_approvals')->default(0);
             $table->string('hmo_signature_status')->default('pending');
+
             $table->integer('hcp_signature_approvals')->default(0);
             $table->string('hcp_signature_status')->default('pending');
             $table->softDeletes();

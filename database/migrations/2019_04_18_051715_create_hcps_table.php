@@ -30,11 +30,14 @@ class CreateHcpsTable extends Migration
             $table->string('hcp_bank_sort_code')->nullable();
             $table->integer('operator_user_id')->nullable()->index();
             $table->string('action')->default('pending');
-            $table->integer('hmo_signature_approvals')->default(0);
-            $table->integer('hcp_signature_approvals')->default(0);
-            $table->string('hmo_signature_status')->default('pending');
-            $table->string('hcp_signature_status')->default('pending');
             $table->integer('hmo_signatories')->default(0);
+            
+            $table->integer('hmo_signature_approvals')->default(0);
+            $table->string('hmo_signature_status')->default('pending');
+
+            $table->integer('hcp_signature_approvals')->default(0);
+            $table->string('hcp_signature_status')->default('pending');
+
             $table->softDeletes();
             $table->timestamps();
         });

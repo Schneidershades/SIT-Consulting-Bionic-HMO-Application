@@ -15,7 +15,7 @@ class Claim extends Model
         parent::boot();
 
         static::creating(function($walletfund){
-            $walletfund->identifier = 'claim'.uniqid(true);
+            $walletfund->identifier = mt_rand(100000, 9833322);
         });
     }
 

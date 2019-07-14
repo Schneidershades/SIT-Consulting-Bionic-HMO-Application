@@ -11,4 +11,9 @@ class AuthorizationSignature extends Model
     {
     	return $this->morphTo();
     }
+
+    public function organizationable()
+    {
+    	return $this->morphTo();
+    }
 }

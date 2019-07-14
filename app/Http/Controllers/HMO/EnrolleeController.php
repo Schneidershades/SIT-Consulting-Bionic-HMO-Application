@@ -9,6 +9,7 @@ use App\Models\Enrollee;
 use App\Models\HealthCarePlan;
 use App\Models\Hmo;
 use App\Models\HmoHcp;
+use App\Models\User;
 use App\Models\HcpTransfer;
 use App\Models\HealthCarePlanBenefit;
 use Session;

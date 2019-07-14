@@ -17,4 +17,9 @@ class Role extends Model
     {
         return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
+
+    public function roleable()
+    {
+    	return $this->morphTo();
+    }
 }

@@ -7,7 +7,7 @@ use App\Models\AuthorizationSignature;
 use App\Models\Hcp;
 use App\Models\Hmo;
 use App\Models\Enrollee;
-use App\Models\TariffDrugTransaction;
+use App\Models\Claim;
 
 class Bill extends Model
 {
@@ -37,7 +37,7 @@ class Bill extends Model
 
     public function transactions()
     {
-        return $this->hasMany(TariffDrugTransaction::class, 'bill_id');
+        return $this->hasMany(Claim::class, 'bill_id');
     }
 
     public function approveSignature()
