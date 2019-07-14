@@ -18,6 +18,11 @@ use App\Models\Claim;
 use App\Models\User;
 use App\Models\DiseaseClass;
 use App\Models\AuthorizationSignature;
+use App\Models\Role;
+use App\Models\Permission;
+use App\Models\RolePermission;
+use App\Models\UserPermission;
+use App\Models\UserRole;
 use Session;
 
 
@@ -305,7 +310,41 @@ class BillController extends Controller
     public function show($id)
     {
         $bill = Bill::where('identifier', $id)->first();
+
+        // $checkRole = Role::where('rolable_type', 'hcp')
+        //     ->where('rolable_id', $bill->hcp_id)
+        //     ->pluck('id')
+        //     ->toArray();
+
+        // $checkPermission = Permission::where('permissionable_type', 'hcp')
+        //     ->where('permissionable_id', $bill->hcp_id)
+        //     ->where('name', 'verify bills')->first();
+
+        // if($checkRole == null){
+        //     return 'No Role';
+        // }
+
+        // $rolePermission = RolePermission::whereIn('role_id', $checkRole)
+        //     ->where('permission_id', $checkPermission->id)
+        //     ->pluck('role_id')->toArray();
+        
+        // if($rolePermission==null){
+        //     return 'not permission';
+        // }
+ 
+        // $userApprovalRoles = UserRole::whereIn('role_id', $rolePermission)->pluck('user_id')->toArray();
+
+        // $findSignature = AuthorizationSignature::whereIn('operator_user_id', $userApprovalRoles)
+        //     ->where('signable_type', 'bill')
+        //     ->where('signable_id', $bill->id)
+        //     ->where('organizationable_type', 'hcp')
+        //     ->where('organizationable_id', $bill->hcp_id)
+        //     ->get();
+
+        // dd($findSignature);
+
         return view('dashboard.hmo.bills.show')
+                    // ->with('approvals', $userApprovalRoles)
                     ->with('bill', $bill);
     }
 

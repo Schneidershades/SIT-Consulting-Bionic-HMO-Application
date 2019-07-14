@@ -47,4 +47,29 @@ class User extends Authenticatable
     {
         return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
+
+    public function hcpSignReport($user, $document, $content)
+    {
+
+        $findSignature = AuthorizationSignature::where('operator_user_id', $user)
+            ->where('signable_type', $document)
+            ->where('signable_id', $content->id)
+            ->where('organizationable_type', 'hcp')
+            ->where('organizationable_id', $content->hcp_id)
+            ->first();
+
+        if($findSignature == null){
+            $message = 'pending';
+        }
+
+        if($findSignature != null && $findSignature->action == 'accepted'){
+            $message = 'accepted';
+        }
+
+        if($findSignature != null && $findSignature->action == 'rejected'){
+            $message = 'rejected';
+        }
+
+        return $message;
+    }
 }

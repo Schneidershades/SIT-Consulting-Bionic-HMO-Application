@@ -276,5 +276,10 @@ class PermissionsTableSeeder extends Seeder
             'name'=> 'create HCP users',
         ]);
 
+        Permission::create([
+            'name'=> 'verify pre-authorization requests',
+        ]);
+
+        
     }
 }
