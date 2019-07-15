@@ -98,6 +98,10 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 
 	Route::resource('/claims', 'HMO\ClaimController');
 	Route::resource('/users', 'HMO\UserController');
+	Route::post('/user/give/permission/{id}', 'HMO\UserController@addPermissions')->name('give.user.permission');
+	Route::get('/user/remove/permission/{user}/{permission}', 'HMO\UserController@deletePermissions')->name('delete.user.permission');
+
+
 	Route::resource('/settings/payment', 'HMO\PaymentController');
 
 	Route::post('/create-hcps-account', 'HMO\HcpController@createHcpAccount')->name('create.hcps.account');

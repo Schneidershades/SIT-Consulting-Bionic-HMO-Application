@@ -50,7 +50,7 @@
 
 
 <div class="row">
-  <div class="col-lg-8 mx-auto">
+  <div class="col-lg-8">
     <div class="card">
       <div class="card-body">
         <div class="card-title text-uppercase "><i class="fa fa-address-book-o"></i> Information {{$user->name}} </div>
@@ -84,9 +84,7 @@
                 <td>{{$permission->name}}</td>
                 
                 <td>
-                  <!-- <a href="{{route('users.edit', $user->id)}}" class="btn btn-dark btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-edit"></i></a> -->
-                  <a href="{{route('users.show', $user->id)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>
-                  <!-- <a href="{{route('users.destroy', $user->id)}}" class="btn btn-danger btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-trash"></i></a> -->
+                  <a href="{{route('delete.user.permission', [$user->id, $permission->id])}}" class="btn btn-danger btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-trash"></i></a>
                 </td>
               </tr>
               @endforeach
@@ -102,12 +100,12 @@
       </div>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-lg-4">
     <div class="card bg-dark shadow-dark">
       <div class="card-body">
         <div class="card-title text-uppercase text-white"><i class="fa fa-address-book-o"></i>Create New Role</div>
         <hr>
-        <form class="color-form" method="POST" action="{{route('roles.store')}}" enctype="multipart/form-data">
+        <form class="color-form" method="POST" action="{{route('give.user.permission', $user->id)}}" enctype="multipart/form-data">
           @csrf
           <div class="form-group col-md-12">
             <label for="input-9">Add Permission</label>
