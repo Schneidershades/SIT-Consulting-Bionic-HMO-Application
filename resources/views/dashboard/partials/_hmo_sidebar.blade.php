@@ -202,6 +202,7 @@
          <i class="fa fa-angle-left pull-right"></i>
          </a>
          <ul class="sidebar-submenu">
+            <li><a href="{{route('roles.index')}}"><i class="fa fa-long-arrow-right"></i> View Role</a></li>
             <li><a href="{{route('users.index')}}"><i class="fa fa-long-arrow-right"></i> View Users & Role</a></li>
             <li><a href="{{route('users.create')}}"><i class="fa fa-long-arrow-right"></i>Create User Account</a></li>
          </ul>

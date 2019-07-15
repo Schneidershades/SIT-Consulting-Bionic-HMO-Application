@@ -94,8 +94,8 @@ class Hmo extends Model
     public function approvalStatus($permission, $hmo_id, $signable_type, $signable_id)
     {
 
-        $checkRole = Role::where('rolable_type', 'hmo')
-            ->where('rolable_id', $hmo_id)
+        $checkRole = Role::where('roleable_type', 'hmo')
+            ->where('roleable_id', $hmo_id)
             ->pluck('id')
             ->toArray();
 

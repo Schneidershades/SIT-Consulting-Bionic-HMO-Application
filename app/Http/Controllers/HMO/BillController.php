@@ -311,8 +311,8 @@ class BillController extends Controller
     {
         $bill = Bill::where('identifier', $id)->first();
 
-        // $checkRole = Role::where('rolable_type', 'hcp')
-        //     ->where('rolable_id', $bill->hcp_id)
+        // $checkRole = Role::where('roleable_type', 'hcp')
+        //     ->where('roleable_id', $bill->hcp_id)
         //     ->pluck('id')
         //     ->toArray();
 

@@ -4,11 +4,11 @@
 <!-- Breadcrumb-->
  <div class="row pt-2 pb-2">
     <div class="col-sm-9">
-	    <h4 class="page-title">New Enrollee Registration</h4>
+	    <h4 class="page-title">All HMO User</h4>
 	    <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="javaScript:void();">{{auth()->user()->userable->hmo_name}}</a></li>
         <li class="breadcrumb-item"><a href="javaScript:void();">Dashboard</a></li>
-        <li class="breadcrumb-item active" aria-current="page">New Users</li>
+        <li class="breadcrumb-item active" aria-current="page">All HMO Users</li>
      </ol>
     </div>
  	<div class="col-sm-3">
@@ -79,9 +79,9 @@
 
                 </td>
                 <td>
-                  <a href="{{route('users.edit', $user->id)}}" class="btn btn-dark btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-edit"></i></a>
+                  <!-- <a href="{{route('users.edit', $user->id)}}" class="btn btn-dark btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-edit"></i></a> -->
                   <a href="{{route('users.show', $user->id)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>
-                  <a href="{{route('users.destroy', $user->id)}}" class="btn btn-danger btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-trash"></i></a>
+                  <!-- <a href="{{route('users.destroy', $user->id)}}" class="btn btn-danger btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-trash"></i></a> -->
                 </td>
               </tr>
               @endforeach

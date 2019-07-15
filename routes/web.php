@@ -67,6 +67,11 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 	Route::get('/cash/delete/{id}', 'HMO\CashController@destroy')->name('cash.delete');
 	Route::post('/cash/update/{id}', 'HMO\CashController@update')->name('cash.update');
 
+
+	Route::resource('/roles', 'HMO\RoleController');
+	Route::get('/role/delete/{id}', 'HMO\RoleController@destroy')->name('roles.delete');
+	Route::post('/role/update/{id}', 'HMO\RoleController@update')->name('roles.update');
+
 	Route::resource('/assessments', 'HMO\AssessmentController');
 	Route::get('/assessments/delete/{id}', 'HMO\AssessmentController@destroy')->name('assessments.delete');
 	Route::post('/assessments/update/{id}', 'HMO\AssessmentController@update')->name('assessments.update');

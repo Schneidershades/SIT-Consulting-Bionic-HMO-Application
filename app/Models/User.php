@@ -72,4 +72,14 @@ class User extends Authenticatable
 
         return $message;
     }
+
+    public function assignedBy()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function verifiedBy()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

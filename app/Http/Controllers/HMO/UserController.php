@@ -22,7 +22,7 @@ class UserController extends Controller
    	public function create()
    	{
    		return view('dashboard.hmo.users.create')
-   			->with('roles', Role::all())
+   			->with('roles', Role::where('roleable_type', 'hmo')->where('roleable_id', auth()->user()->userable->id)->get())
    			->with('permissions', Permission::all());
    	}
 
@@ -45,11 +45,14 @@ class UserController extends Controller
 
    	public function show($id)
    	{
-   		return view('dashboard.hmo.users.show');
+      $user = User::findOrFail($id);
+   		return view('dashboard.hmo.users.show')
+        ->with('permissions', UserPermission::where('user_id', '!=', ))
+        ->with('user', $user);
    	}
 
-   	public function destroy()
-   	{
+   	// public function destroy()
+   	// {
 
-   	}
+   	// }
 }

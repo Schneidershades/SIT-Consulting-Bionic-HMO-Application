@@ -97,8 +97,8 @@ class Hcp extends Model
     public function approvalStatus($permission, $hcp_id, $signable_type, $signable_id)
     {
 
-        $checkRole = Role::where('rolable_type', 'hcp')
-            ->where('rolable_id', $hcp_id)
+        $checkRole = Role::where('roleable_type', 'hcp')
+            ->where('roleable_id', $hcp_id)
             ->pluck('id')
             ->toArray();
 
@@ -149,8 +149,8 @@ class Hcp extends Model
 
     public function showApprovalStatus($permission, $hcp_id, $signable_type, $signable_id)
     {
-        $checkRole = Role::where('rolable_type', 'hcp')
-            ->where('rolable_id', $hcp_id)
+        $checkRole = Role::where('roleable_type', 'hcp')
+            ->where('roleable_id', $hcp_id)
             ->pluck('id')
             ->toArray();
 
