@@ -23,6 +23,7 @@ class CreateAuthorizationSignaturesTable extends Migration
             $table->string('organizationable_type')->nullable();
 
             $table->string('action')->nullable();
+            $table->text('report')->nullable();
 
             $table->string('operator_user_id')->nullable();
             $table->softDeletes();

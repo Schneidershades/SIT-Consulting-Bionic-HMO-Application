@@ -8,6 +8,9 @@ use Session;
 use File;
 use Image;
 use Storage;
+use App\Models\Disbursement;
+use App\Models\Claim;
+
 class HelperFunction extends Model
 {
     public static function uploadAnything($file, $name, $pathDirectory, $signItemDatabaseAttribute){
@@ -41,7 +44,7 @@ class HelperFunction extends Model
         $className = ($morphMap[$class]);
         $table = new $className;
 
-        $signItem = $table::where('identifier', $id)->first();
+        $signItem = $table::where('identifier', $idOfWhatsigningWhat)->first();
 
         $checkIfAlreadySigned = AuthorizationSignature::where('signable_type', $WhatAreYouSigning)
             ->where('signable_id',  $signItem->id)
@@ -93,6 +96,31 @@ class HelperFunction extends Model
             $signItem->hcp_signature_approvals = 'verified';
             $signItem->hmo_signature_approvals = 'verified';
             $signItem->save();
+
+            // if the model to be verified is a claim as the above condition
+            if($className == 'Claim'){
+                $signItem->initiation_disbursment = "verified";
+                $signItem->save();
+                
+                $checkDisbursement = Disbursement::where('hmo_id', auth()->user()->userable->id)
+                                                    ->('hcp_id', $className->hcp_id)
+                                                    // ->('month', $className->hcp_id)
+                                                    // ->('year', $className->hcp_id)
+                                                    ->('hmo_signature_status', 'pending');
+                                                    // ->('created_at', Carbon::);
+                if($checkDisbursement == null){
+                    $disbursement = new Disbursement;
+                    $disbursment->hcp_id = $className->hcp_id;
+                    $disbursment->hmo_id = auth()->user()->userable->id;
+                    $disbursment->remittance = 1;
+                    $disbursment->amount = $className->amount;
+                    $disbursment->save();
+                }else{
+                    $checkDisbursement->amount += $className->amount;
+                    $checkDisbursement->remittance += 1;
+                    $checkDisbursement->save();
+                }
+            }
         }elseif($signItem->hmo_signature_approvals >= auth()->user()->userable->hmo_signatories){
             $signItem->hcp_signature_approvals = 'verified';
             $signItem->save();

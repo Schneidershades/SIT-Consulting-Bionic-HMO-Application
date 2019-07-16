@@ -6,7 +6,7 @@
   <div class="col-sm-9">
     <h4 class="page-title">Disbursment for  {{$disbursment->hcp->hcp_name}}</h4>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="javaScript:void();">{{auth()->user()->userable->hmo_name}}</a></li>
+      <li class="breadcrumb-item"><a href="javaScript:void();">{{auth()->user()->userable->hcp_name}}</a></li>
       <li class="breadcrumb-item"><a href="javaScript:void();">Dashboard</a></li>
       <li class="breadcrumb-item active" aria-current="page"> Disbursment for  {{$disbursment->hcp->hcp_name}}</li>
     </ol>

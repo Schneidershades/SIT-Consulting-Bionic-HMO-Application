@@ -4,11 +4,11 @@
 <!-- Breadcrumb-->
  <div class="row pt-2 pb-2">
     <div class="col-sm-9">
-	    <h4 class="page-title">All Disbursments in {{auth()->user()->userable->hmo_name}}</h4>
+	    <h4 class="page-title">All Disbursments in {{auth()->user()->userable->hcp_name}}</h4>
 	    <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="javaScript:void();">Bionic</a></li>
         <li class="breadcrumb-item"><a href="javaScript:void();">Dashboard</a></li>
-        <li class="breadcrumb-item active" aria-current="page"> All Disbursments in {{auth()->user()->userable->hmo_name}}</li>
+        <li class="breadcrumb-item active" aria-current="page"> All Disbursments in {{auth()->user()->userable->hcp_name}}</li>
      </ol>
     </div>
  	<div class="col-sm-3">
@@ -22,7 +22,7 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-header"><i class="fa fa-table"></i> All Disbursments in {{auth()->user()->userable->hmo_name}}
+      <div class="card-header"><i class="fa fa-table"></i> All Disbursments in {{auth()->user()->userable->hcp_name}}
       </div>
 
       <div class="card-body">
@@ -41,7 +41,7 @@
             <tbody>
               @foreach($disbursments as $disbursment)
               <tr>
-                <td>{{$disbursment->hcp->hcp_name}}</td>
+                <td>{{$disbursment->hmo->hmo_name}}</td>
                 <td>{{$disbursment->remittance}}</td>
                 <td>{{$disbursment->amount}}</td>
                 <td>{{$disbursment->month}}, {{$disbursment->year}}</td>

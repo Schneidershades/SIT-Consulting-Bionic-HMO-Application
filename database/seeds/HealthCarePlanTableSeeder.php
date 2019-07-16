@@ -33,10 +33,6 @@ class HealthCarePlanTableSeeder extends Seeder
         	'amount' => 0,
         ]);
 
-
-
-
-
         $type = HealthCarePlan::create([
         	'hmo_id' => '45',
         	'plan' => 'RegiMax',

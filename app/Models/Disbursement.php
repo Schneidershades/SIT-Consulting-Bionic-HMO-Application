@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\AuthorizationSignature;
 
-class Disbursment extends Model
+class Disbursement extends Model
 {
     public function approveSignature()
     {

@@ -22,5 +22,9 @@ class DatabaseSeeder extends Seeder
         $this->call(CashClassificationTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
+        $this->call(UserPermissionTableSeeder::class);
+        $this->call(RolePermissionTableSeeder::class);
+        $this->call(HmoHcpTableSeeder::class);
+        $this->call(EnrolleesTableSeeder::class);
     }
 }

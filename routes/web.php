@@ -6,7 +6,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
 Route::get('/js/tariff', 'HMO\tariffController@tariffApi');
 Route::get('/js/hmo/enrollees', 'HMO\BillController@getHcp')->name('get.hmo.enrollees');
 
@@ -14,9 +13,7 @@ Route::get('/js/hmo/all/enrollees', 'HMO\BillController@getAllEnrollees')->name(
 Route::get('/js/enrollees/hcp/{enrollee_id}', 'HMO\BillController@getEnrolleeHcp')->name('get.enrollee.hcp');
 Route::get('/js/hcp/agreements/{hcp_id}', 'HMO\BillController@getHmoAgreementWithHcp')->name('get.hcp.agreements');
 
-
 Route::get('/sign/bill/{WhatAreYouSigning}/{idOfWhatsigningWhat}/{organizationType}/{organizationId}', 'HomeController@signHere')->name('sign.bills');
-
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -111,7 +108,11 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 	Route::get('/agreements/delete/{id}', 'HMO\AgreementController@destroy')->name('agreements.delete');
 	Route::post('/agreements/update/{id}', 'HMO\AgreementController@update')->name('agreements.update');
 
-	
+
+	Route::get('/disbursements/all/transactions', 'HMO\DisbursementController@index')->name('disbursements.index');
+	Route::get('/disbursements/all/pending/transactions', 'HMO\DisbursementController@pending')->name('disbursements.pending');
+	Route::get('/disbursements/all/verified/transactions', 'HMO\DisbursementController@verified')->name('disbursements.verified');
+	Route::get('/disbursements/show/transactions/{id}', 'HMO\DisbursementController@show')->name('disbursements.show');
 
 });
 

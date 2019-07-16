@@ -4,11 +4,11 @@
 <!-- Breadcrumb-->
  <div class="row pt-2 pb-2">
     <div class="col-sm-9">
-	    <h4 class="page-title">All Disbursments in {{auth()->user()->userable->hmo_name}}</h4>
+	    <h4 class="page-title">All Pending Disbursments in {{auth()->user()->userable->hmo_name}}</h4>
 	    <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="javaScript:void();">Bionic</a></li>
         <li class="breadcrumb-item"><a href="javaScript:void();">Dashboard</a></li>
-        <li class="breadcrumb-item active" aria-current="page"> All Disbursments in {{auth()->user()->userable->hmo_name}}</li>
+        <li class="breadcrumb-item active" aria-current="page"> All Pending Disbursments in {{auth()->user()->userable->hmo_name}}</li>
      </ol>
     </div>
  	<div class="col-sm-3">
@@ -22,7 +22,7 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-header"><i class="fa fa-table"></i> All Disbursments in {{auth()->user()->userable->hmo_name}}
+      <div class="card-header"><i class="fa fa-table"></i> All Pending Disbursments in {{auth()->user()->userable->hmo_name}}
       </div>
 
       <div class="card-body">

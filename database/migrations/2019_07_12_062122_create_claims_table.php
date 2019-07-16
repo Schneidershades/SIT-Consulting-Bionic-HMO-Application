@@ -25,6 +25,8 @@ class CreateClaimsTable extends Migration
             $table->integer('bill_id')->nullable();
             $table->date('period')->nullable();
             $table->boolean('pre_authorization')->default(false);
+            $table->string('initiation_disbursment')->default('pending');
+            $table->timestamp('initiation_disbursment_date')->nullable();
             $table->string('status')->default('pending');
             $table->string('service_type')->nullable();
             $table->decimal('amount', 40, 2)->nullable()->default(0);

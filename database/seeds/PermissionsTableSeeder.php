@@ -32,29 +32,12 @@ class PermissionsTableSeeder extends Seeder
     	]);
 
         Permission::create([
-            'name'=> 'view agreements',
+            'name'=> 'create agreements',
             'permissionable_type' => 'hmo',
             'permissionable_id' => 1,
         ]);
 
-        Permission::create([
-            'name'=> 'edit assessments',
-            'permissionable_type' => 'hmo',
-            'permissionable_id' => 1,
-        ]);
-
-        Permission::create([
-            'name'=> 'delete assessments',
-            'permissionable_type' => 'hmo',
-            'permissionable_id' => 1,
-        ]);
-
-        Permission::create([
-            'name'=> 'create assessments',
-            'permissionable_type' => 'hmo',
-            'permissionable_id' => 1,
-        ]);
-
+        
         Permission::create([
             'name'=> 'view agreements',
             'permissionable_type' => 'hmo',
@@ -62,19 +45,14 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         Permission::create([
-            'name'=> 'edit assessments',
+            'name'=> 'edit agreements',
             'permissionable_type' => 'hmo',
             'permissionable_id' => 1,
         ]);
 
+        
         Permission::create([
-            'name'=> 'delete assessments',
-            'permissionable_type' => 'hmo',
-            'permissionable_id' => 1,
-        ]);
-
-        Permission::create([
-            'name'=> 'create assessments',
+            'name'=> 'delete agreements',
             'permissionable_type' => 'hmo',
             'permissionable_id' => 1,
         ]);
@@ -128,17 +106,35 @@ class PermissionsTableSeeder extends Seeder
             'permissionable_id' => 1,
     	]);
 
-    	Permission::create([
-    		'name'=> 'view bills',
+        Permission::create([
+            'name'=> 'verify bills',
             'permissionable_type' => 'hmo',
             'permissionable_id' => 1,
-    	]);
+        ]);
 
-    	Permission::create([
-    		'name'=> 'verify bills',
+        Permission::create([
+            'name'=> 'view claims',
             'permissionable_type' => 'hmo',
             'permissionable_id' => 1,
-    	]);
+        ]);
+
+        Permission::create([
+            'name'=> 'edit claims',
+            'permissionable_type' => 'hmo',
+            'permissionable_id' => 1,
+        ]);
+
+        Permission::create([
+            'name'=> 'delete claims',
+            'permissionable_type' => 'hmo',
+            'permissionable_id' => 1,
+        ]);
+
+        Permission::create([
+            'name'=> 'create claims',
+            'permissionable_type' => 'hmo',
+            'permissionable_id' => 1,
+        ]);
 
     	Permission::create([
     		'name'=> 'verify claims',
@@ -151,6 +147,18 @@ class PermissionsTableSeeder extends Seeder
             'permissionable_type' => 'hmo',
             'permissionable_id' => 1,
     	]);
+
+        Permission::create([
+            'name'=> 'delete bills',
+            'permissionable_type' => 'hmo',
+            'permissionable_id' => 1,
+        ]);
+
+        Permission::create([
+            'name'=> 'create bills',
+            'permissionable_type' => 'hmo',
+            'permissionable_id' => 1,
+        ]);
 
     	Permission::create([
     		'name'=> 'verify data',
@@ -175,18 +183,6 @@ class PermissionsTableSeeder extends Seeder
             'permissionable_type' => 'hmo',
             'permissionable_id' => 1,
         ]);
-
-    	Permission::create([
-    		'name'=> 'delete bills',
-            'permissionable_type' => 'hmo',
-            'permissionable_id' => 1,
-    	]);
-
-    	Permission::create([
-    		'name'=> 'create bills',
-            'permissionable_type' => 'hmo',
-            'permissionable_id' => 1,
-    	]);
 
     	Permission::create([
     		'name'=> 'view capitations',
@@ -232,30 +228,6 @@ class PermissionsTableSeeder extends Seeder
 
     	Permission::create([
     		'name'=> 'create cash',
-            'permissionable_type' => 'hmo',
-            'permissionable_id' => 1,
-    	]);
-
-    	Permission::create([
-    		'name'=> 'view claims',
-            'permissionable_type' => 'hmo',
-            'permissionable_id' => 1,
-    	]);
-
-    	Permission::create([
-    		'name'=> 'edit claims',
-            'permissionable_type' => 'hmo',
-            'permissionable_id' => 1,
-    	]);
-
-    	Permission::create([
-    		'name'=> 'delete claims',
-            'permissionable_type' => 'hmo',
-            'permissionable_id' => 1,
-    	]);
-
-    	Permission::create([
-    		'name'=> 'create claims',
             'permissionable_type' => 'hmo',
             'permissionable_id' => 1,
     	]);

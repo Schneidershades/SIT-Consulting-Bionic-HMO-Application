@@ -106,6 +106,17 @@
       </li>
       <li>
          <a href="javaScript:void();" class="waves-effect">
+         <i class="icon-puzzle"></i><span>Disbursments</span>
+         <i class="fa fa-angle-left pull-right"></i>
+         </a>
+         <ul class="sidebar-submenu">
+            <li><a href="{{route('disbursements.index')}}"><i class="fa fa-long-arrow-right"></i> All Disbursments</a></li>
+            <li><a href="{{route('disbursements.pending')}}"><i class="fa fa-long-arrow-right"></i> Pending Disbursments</a></li>
+            <li><a href="{{route('disbursements.verified')}}"><i class="fa fa-long-arrow-right"></i> Verified Disbursments</a></li>
+         </ul>
+      </li>
+      <li>
+         <a href="javaScript:void();" class="waves-effect">
          <i class="icon-grid"></i><span>Assessments</span>
          <i class="fa fa-angle-left float-right"></i>
          </a>

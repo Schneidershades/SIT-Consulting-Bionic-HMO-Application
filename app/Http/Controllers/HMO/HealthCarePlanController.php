@@ -17,7 +17,7 @@ class HealthCarePlanController extends Controller
 
     public function index()
     {
-        $plans = HealthCarePlan::where('hmo_id', auth()->user()->userable->id)->where('parent_id', '=', NULL)->get();
+        $plans = HealthCarePlan::where('hmo_id', auth()->user()->userable->id)->get();
         return view('dashboard.hmo.health-plan.index')
                 ->with('plans', $plans); 
     }
