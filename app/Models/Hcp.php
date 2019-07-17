@@ -159,7 +159,7 @@ class Hcp extends Model
             ->where('name', $permission)->first();
 
         if($checkRole == null){
-            return 'No Role';
+            return false;
         }
 
         $rolePermission = RolePermission::whereIn('role_id', $checkRole)
@@ -167,7 +167,7 @@ class Hcp extends Model
             ->pluck('role_id')->toArray();
         
         if($rolePermission==null){
-            return 'not permission';
+            return false;
         }
 
         $userRoles = UserRole::whereIn('role_id', $rolePermission)
@@ -215,7 +215,6 @@ class Hcp extends Model
         //     'accepted' => $SignatureAccepted,
         //     'rejected' => $SignatureRejected,
         // ]
-
         return $userApprovalRoles;
         // return 'good';
     }

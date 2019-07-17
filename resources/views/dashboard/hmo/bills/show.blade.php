@@ -152,7 +152,7 @@
 
 							<p class="lead">HCP Approval Status:</p>
 							<p class="text-muted bg-light p-2 mt-3 border rounded">
-								@if($bill->hcp->showApprovalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) != 'null')
+								@if($bill->hcp->showApprovalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) != null)
 	                      			@foreach ($bill->hcp->showApprovalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) as $role)
 									
 	                      			{{$role->user->name}} -
@@ -179,7 +179,7 @@
 						<div class="col-lg-4">
 							<p class="lead">HMO Service Status:</p>
 							<p class="text-muted bg-light p-2 mt-3 border rounded">
-								@if($bill->hcp->showApprovalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) != 'null')
+								@if($bill->hcp->showApprovalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) != null)
 	                      			@foreach ($bill->hcp->showApprovalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) as $role)
 									
 	                      			{{$role->user->name}} -

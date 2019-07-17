@@ -35,7 +35,7 @@
 			<div class="card-body">
 				<div class="card-title text-uppercase "><i class="fa fa-address-book-o"></i>  claim for {{$claim->hcp->hcp_name}} at attention to {{$claim->enrollee->first_name}} {{$claim->enrollee->middle_name}} {{$claim->enrollee->last_name}}</div>
 				<hr>
-
+			
 			</div>
 		</div>
 	</div>
