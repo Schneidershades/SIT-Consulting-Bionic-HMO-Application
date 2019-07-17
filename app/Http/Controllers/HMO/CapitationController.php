@@ -22,7 +22,7 @@ class CapitationController extends Controller
 
     public function raiseCreateCapitation()
     {
-        $hcps = HmoHcp::where('hmo_id', auth()->user()->userable->id)->get();
+        $hcps = HmoHcp::where('hmo_id', auth()->user()->userable->id)->where('provider_payment_mechanism', 'capitation')->get();
         return view('dashboard.hmo.capitation.raise')
                 ->with('hcps', $hcps);
     }
