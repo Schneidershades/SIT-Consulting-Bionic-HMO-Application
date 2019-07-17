@@ -45,7 +45,7 @@
                 <td>{{$hcp->hcp->hcp_name}}</td>
                 <td>{{$hcp->countHmoEnrollees($hcp->hcp->id)}}</td>
                 <td>
-                  @if($hcp->provider_payment_mechanism == "none")
+                  @if($hcp->provider_payment_mechanism == NULL)
                   <span class="badge badge-danger m-1">None</span>
                   @else
                   <span class="badge badge-success">{{$hcp->provider_payment_mechanism}}</span>
