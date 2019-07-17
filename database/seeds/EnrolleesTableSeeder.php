@@ -8,7 +8,7 @@ class EnrolleesTableSeeder extends Seeder
     public function run()
     {
     	Enrollee::create([
-    		'hmo_id'=>'1',
+    		'hmo_id'=>'45',
 		    'hcp_id'=>'3000',
 		    'health_plan_id'=> 5,
 		    'first_name' => 'schneider',
