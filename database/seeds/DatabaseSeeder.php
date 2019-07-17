@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RolePermissionTableSeeder::class);
         $this->call(HmoHcpTableSeeder::class);
         $this->call(EnrolleesTableSeeder::class);
+        $this->call(DiseaseClassesTableSeeder::class);
     }
 }

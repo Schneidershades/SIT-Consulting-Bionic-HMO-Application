@@ -32,38 +32,29 @@
               <tr>
                 <th>HCP Code/Name</th>
                 <th>Enrollee</th>
+                <th>Service Type</th>
+                <th>Conclusive Amount</th>
+                <th>Status</th>
                 <th>Date</th>
-                <th>conclusive Amount</th>
-                <th>Disbursment Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              @foreach($bills as $bill)
+              @foreach($claims as $claim)
               <tr>
-                <td>{{$bill->hcp->hcp_name}}</td>
-                <td>{{$bill->enrollee->first_name}} {{$bill->enrollee->middle_name}} {{$bill->enrollee->last_name}}</td>
-                <td>{{$bill->date_of_bill}}</td>
-               
-                <td>{{$bill->final_payment}}</td>
-                <td>Processing</td>
+                <td>{{$claim->hcp->hcp_name}}</td>
+                <td>{{$claim->enrollee->first_name}} {{$claim->enrollee->middle_name}} {{$claim->enrollee->last_name}}</td>
+                <td>{{$claim->claimable->getTitle()}}</td>
+                <td>{{$claim->amount}}</td>
+                <td>{{$claim->status}}</td>
+                <td>{{$claim->created_at->format('M')}}, {{$claim->created_at->format('Y')}}</td>
                 <td>
-                  <!-- <a href="{{route('bills.edit', $bill->id)}}" class="btn btn-dark btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-edit"></i></a> -->
-                  <a href="{{route('claims.show', $bill->identifier)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>
+                  <!-- <a href="{{route('claims.edit', $claim->id)}}" class="btn btn-dark btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-edit"></i></a> -->
+                  <a href="{{route('claims.show', $claim->identifier)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>
                 </td>
               </tr>
               @endforeach
             </tbody>
-            <tfoot>
-              <tr>
-                <th>HCP Code/Name</th>
-                <th>Enrollee</th>
-                <th>Date</th>
-                <th>conclusive Amount</th>
-                <th>Disbursment Status</th>
-                <th>Action</th>
-              </tr>
-            </tfoot>
           </table>
         </div>
       </div>

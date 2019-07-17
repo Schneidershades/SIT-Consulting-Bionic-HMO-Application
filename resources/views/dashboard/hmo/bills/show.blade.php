@@ -152,17 +152,22 @@
 
 							<p class="lead">HCP Approval Status:</p>
 							<p class="text-muted bg-light p-2 mt-3 border rounded">
-                      			@foreach ($bill->hcp->showApprovalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) as $role)
-								
-                      			{{$role->user->name}} -
-                      			@if($role->user->hcpSignReport($role->user_id, 'bill', $bill) == 'accepted')
-									<span class="badge badge-pill badge-success m-1"><i class="fa fa-check"></i>{{$role->user->hcpSignReport($role->user_id, 'bill', $bill)}}</span>
-                      			@elseif($role->user->hcpSignReport($role->user_id, 'bill', $bill) == 'rejected')
-									<span class="badge badge-pill badge-danger m-1"><i class="fa fa-times"></i> {{$role->user->hcpSignReport($role->user_id, 'bill', $bill)}}</span>
+								@if($bill->hcp->showApprovalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) != 'null')
+	                      			@foreach ($bill->hcp->showApprovalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) as $role)
+									
+	                      			{{$role->user->name}} -
+	                      			@if($role->user->hcpSignReport($role->user_id, 'bill', $bill) == 'accepted')
+										<span class="badge badge-pill badge-success m-1"><i class="fa fa-check"></i>{{$role->user->hcpSignReport($role->user_id, 'bill', $bill)}}</span>
+	                      			@elseif($role->user->hcpSignReport($role->user_id, 'bill', $bill) == 'rejected')
+										<span class="badge badge-pill badge-danger m-1"><i class="fa fa-times"></i> {{$role->user->hcpSignReport($role->user_id, 'bill', $bill)}}</span>
+									@else
+										<span class="badge badge-pill badge-warning m-1"><i class="fa fa-eye"></i> {{$role->user->hcpSignReport($role->user_id, 'bill', $bill)}}</span>
+	                      			@endif<br>
+									@endforeach
 								@else
-									<span class="badge badge-pill badge-warning m-1"><i class="fa fa-eye"></i> {{$role->user->hcpSignReport($role->user_id, 'bill', $bill)}}</span>
-                      			@endif<br>
-								@endforeach
+									No Available Signatories
+								@endif
+
                       			<br>
 								HCP Bill Status: {{$bill->hmo_signature_status}} <br>
 							</p>
@@ -174,18 +179,22 @@
 						<div class="col-lg-4">
 							<p class="lead">HMO Service Status:</p>
 							<p class="text-muted bg-light p-2 mt-3 border rounded">
-                      			@foreach ($bill->hcp->showApprovalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) as $role)
-								
-                      			{{$role->user->name}} -
-                      			@if($role->user->hcpSignReport($role->user_id, 'bill', $bill) == 'accepted')
-									<span class="badge badge-pill badge-success m-1"><i class="fa fa-check"></i>{{$role->user->hcpSignReport($role->user_id, 'bill', $bill)}}</span>
-                      			@elseif($role->user->hcpSignReport($role->user_id, 'bill', $bill) == 'rejected')
-									<span class="badge badge-pill badge-danger m-1"><i class="fa fa-times"></i> {{$role->user->hcpSignReport($role->user_id, 'bill', $bill)}}</span>
-								@else
-									<span class="badge badge-pill badge-warning m-1"><i class="fa fa-eye"></i> {{$role->user->hcpSignReport($role->user_id, 'bill', $bill)}}</span>
-                      			@endif<br>
+								@if($bill->hcp->showApprovalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) != 'null')
+	                      			@foreach ($bill->hcp->showApprovalStatus("verify bills", $bill->hcp_id, "bill", $bill->id) as $role)
+									
+	                      			{{$role->user->name}} -
+	                      			@if($role->user->hcpSignReport($role->user_id, 'bill', $bill) == 'accepted')
+										<span class="badge badge-pill badge-success m-1"><i class="fa fa-check"></i>{{$role->user->hcpSignReport($role->user_id, 'bill', $bill)}}</span>
+	                      			@elseif($role->user->hcpSignReport($role->user_id, 'bill', $bill) == 'rejected')
+										<span class="badge badge-pill badge-danger m-1"><i class="fa fa-times"></i> {{$role->user->hcpSignReport($role->user_id, 'bill', $bill)}}</span>
+									@else
+										<span class="badge badge-pill badge-warning m-1"><i class="fa fa-eye"></i> {{$role->user->hcpSignReport($role->user_id, 'bill', $bill)}}</span>
+	                      			@endif<br>
 
-								@endforeach 
+									@endforeach 
+								@else
+									No Available Signatories
+								@endif
                       			<br>
 								HMO Bill Status: {{$bill->hmo_signature_status}} <br>
 							</p>
