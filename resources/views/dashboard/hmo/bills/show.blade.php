@@ -129,7 +129,7 @@
 									@if($t->claimable_type == "drug")
 										<tr scope="row">
 											<th scope="col"> {{$t->claimable->drug_name}} - {{$t->claimable->dosage_form}}  - {{$t->claimable->strengths}}  - {{$t->claimable->presentation}}</th>
-											<th scope="col">{{$t->claimable->amount}}</th>
+											<th scope="col">{{$t->amount}}</th>
 											<th scope="col">{{$t->service_type}}</th>
 											<th scope="col">{{$t->status}}</th>
 										</tr>
