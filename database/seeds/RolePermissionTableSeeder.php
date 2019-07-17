@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Model\RolePermission;
+use App\Models\RolePermission;
 
 class RolePermissionTableSeeder extends Seeder
 {

@@ -21,7 +21,6 @@ class CreateDisbursementsTable extends Migration
             $table->decimal('amount', 40, 2)->nullable()->default(0);
             $table->string('month')->nullable();
             $table->integer('year')->nullable();
-            $table->integer('year')->nullable();
             $table->integer('hmo_signature_approvals')->default(0);
             $table->string('hmo_signature_status')->default('pending');
 

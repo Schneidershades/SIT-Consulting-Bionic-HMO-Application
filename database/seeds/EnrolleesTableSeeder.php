@@ -10,10 +10,9 @@ class EnrolleesTableSeeder extends Seeder
     	Enrollee::create([
     		'hmo_id'=>'1',
 		    'hcp_id'=>'3000',
-		    'referral_code'=> 'nie',
 		    'health_plan_id'=> 5,
 		    'first_name' => 'schneider',
-		    'middle_name' = 'busayo',
+		    'middle_name' => 'busayo',
 		    'last_name' => 'komolafe',
 		    'gender' => 'male',
 		    'next_of_kin' => 'baxi',
@@ -30,8 +29,8 @@ class EnrolleesTableSeeder extends Seeder
 		    'company' => 'sit consulting',
 		    'company_sector' => 'software',
 		    'nationality' => 'nigerian',
-		    'parent_id' => null;
-		    'operator_user_id' => 1;
+		    'parent_id' => null,
+		    'operator_user_id' => 1,
     	]);
     }
 }
