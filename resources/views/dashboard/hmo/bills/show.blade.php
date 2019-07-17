@@ -207,11 +207,11 @@
 									<tbody>
 										<tr>
 											<th style="width:50%">Subtotal:</th>
-											<td>N {{$bill->final_payment}}</td>
+											<!-- <td>N {{$bill->final_payment}}</td> -->
 										</tr>
 										<tr>
 											<th>Total:</th>
-											<td>N {{$bill->final_payment}}</td>
+											<!-- <td>N {{$bill->final_payment}}</td> -->
 										</tr>
 									</tbody>
 								</table>
