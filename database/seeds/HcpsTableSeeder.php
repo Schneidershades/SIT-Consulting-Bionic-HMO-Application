@@ -33224,7 +33224,6 @@ class HcpsTableSeeder extends Seeder
     		'hcp_address'=>'250a Ph/Aba Expressway'
     	] );
 
-
     	
     	Hcp::create( [
     		'id'=>'3803',
@@ -35743,8 +35742,6 @@ class HcpsTableSeeder extends Seeder
     		'hcp_name'=>'Hilal Specialist Hospital',
     		'hcp_address'=>'12'
     	] );
-
-
     	
     	Hcp::create( [
     		'id'=>'4083',
@@ -35752,5 +35749,12 @@ class HcpsTableSeeder extends Seeder
     		'hcp_name'=>'Federal University Gusau Medical Center',
     		'hcp_address'=>'Federal University Gusau Campus'
     	] );
+
+        Hcp::create( [          
+            'hcp_code'=>'RV/0033',
+            'hcp_logo'=>'assets/hcps/logos/rsuth.png',
+            'hcp_name'=>'Rivers State University Teaching Hospital',
+            'hcp_address'=>'Rivers'
+        ] );
     }
 }

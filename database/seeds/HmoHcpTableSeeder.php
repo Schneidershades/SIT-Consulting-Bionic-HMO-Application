@@ -66,6 +66,11 @@ class HmoHcpTableSeeder extends Seeder
         	'hmo_id'=> 45,
             'hcp_id' => 3000,
         ]);
+        
+        HmoHcp::create([
+            'hmo_id'=> 45,
+            'hcp_id' => 4084,
+        ]);
 
     }
 }

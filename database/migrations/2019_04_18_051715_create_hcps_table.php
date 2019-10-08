@@ -21,6 +21,7 @@ class CreateHcpsTable extends Migration
             $table->string('hcp_name')->nullable();
             $table->string('hcp_address')->nullable();
             $table->string('hcp_state')->nullable();
+            $table->text('hcp_logo')->nullable();
             $table->string('hcp_contact')->nullable();
             $table->string('hcp_service')->nullable();
             $table->string('hcp_category')->nullable();
