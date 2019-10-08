@@ -9,7 +9,7 @@ class EnrolleesTableSeeder extends Seeder
     {
     	Enrollee::create([
     		'hmo_id'=>'45',
-		    'hcp_id'=>'3000',
+		    'hcp_id'=>'4084',
 		    'health_plan_id'=> 5,
 		    'first_name' => 'schneider',
 		    'middle_name' => 'busayo',
