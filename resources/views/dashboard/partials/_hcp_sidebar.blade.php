@@ -1,8 +1,8 @@
-<!--Start sidebar-wrapper-->
+Start sidebar-wrapper-->
 <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true">
     <div class="brand-logo">
         <a href="{{route('home')}}">
-            <img src="{{URL::to('assets/images/logo-icon.png')}}" class="logo-icon" alt="logo icon">
+            <img src="{{ auth()->user()->userable->hcp_name ? URL::to(auth()->user()->userable->hcp_logo) : URL::to('assets/images/logo-icon.png') }}" class="logo-icon" alt="logo icon">
             <h5 class="logo-text"> HCP </h5>
         </a>
     </div>
@@ -109,4 +109,4 @@
         </li>
     </ul>
 </div>
-<!--End sidebar-wrapper-->
+<!--End sidebar-wrapper
