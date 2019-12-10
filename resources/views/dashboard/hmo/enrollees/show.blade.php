@@ -33,11 +33,11 @@
 					</div>
 					<div class="col-md-4">
 						<label for="input-26">Set Enrollee Plan</label>
-						<h5>{{$enrollee->health_care_plan->plan}} - {{$enrollee->health_care_plan->amount}}</h5>
+						<h5>{{$enrollee->health_care_plan ? $enrollee->hcp->hcp_name : ''}} - {{$enrollee->health_care_plan->amount}}</h5>
 					</div>
 					<div class="col-md-4">
 						<label for="input-25">Set Health Care Provider</label>
-						<h5>{{$enrollee->hcp->hcp_name}}</h5>
+						<h5>{{$enrollee->hcp ? $enrollee->hcp->hcp_name : ''}}</h5>
 					</div>
 					<hr>
 					<div class="col-md-4">
