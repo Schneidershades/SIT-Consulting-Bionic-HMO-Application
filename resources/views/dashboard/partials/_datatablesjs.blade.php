@@ -31,7 +31,7 @@
 
     </script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
         $.extend($.fn.dataTable.defaults, {
           rowReorder: {
                 selector: 'td:nth-child(2)'
