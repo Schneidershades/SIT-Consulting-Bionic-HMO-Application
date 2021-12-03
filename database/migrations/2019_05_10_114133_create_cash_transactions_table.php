@@ -15,7 +15,7 @@ class CreateCashTransactionsTable extends Migration
     public function up()
     {
         Schema::create('cash_transactions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->integer('cash_type_id')->nullable();
             $table->integer('cash_classification_id')->nullable();

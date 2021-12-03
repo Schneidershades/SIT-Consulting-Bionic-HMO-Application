@@ -15,7 +15,7 @@ class CreateEncounterCategoriesTable extends Migration
     public function up()
     {
         Schema::create('encounter_categories', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->string('name')->nullable();
             $table->string('slug')->unique()->nullable();

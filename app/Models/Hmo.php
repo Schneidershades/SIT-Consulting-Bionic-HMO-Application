@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\AuthorizationSignature;
 use App\Models\HealthCarePlan;
 use App\Models\Enrollee;
-use App\Models\Hmo;
 use App\Models\Hcp;
 use App\Models\User;
 use App\Models\Staff;

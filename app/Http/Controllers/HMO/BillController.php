@@ -23,7 +23,7 @@ use App\Models\Permission;
 use App\Models\RolePermission;
 use App\Models\UserPermission;
 use App\Models\UserRole;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 
 class BillController extends Controller

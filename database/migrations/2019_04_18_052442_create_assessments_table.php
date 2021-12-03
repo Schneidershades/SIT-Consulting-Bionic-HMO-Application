@@ -15,7 +15,7 @@ class CreateAssessmentsTable extends Migration
     public function up()
     {
         Schema::create('assessments', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->date('assessment_date')->nullable();
             $table->text('remark')->nullable();

@@ -15,7 +15,7 @@ class CreateHmoHcpTable extends Migration
     public function up()
     {
         Schema::create('hmo_hcp', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->integer('operator_user_id')->nullable();
             $table->integer('verify_id')->nullable();
             $table->integer('hcp_id')->nullable();

@@ -15,7 +15,7 @@ class CreateStaffBenefitsTable extends Migration
     public function up()
     {
         Schema::create('staff_benefits', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('cash_classification_id')->nullable();
             $table->decimal('amount', 40, 2)->default(0);
             $table->integer('staff_id')->unsigned()->nullable();

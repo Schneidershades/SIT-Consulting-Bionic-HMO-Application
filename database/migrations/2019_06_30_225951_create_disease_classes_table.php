@@ -16,7 +16,7 @@ class CreateDiseaseClassesTable extends Migration
     public function up()
     {
         Schema::create('disease_classes', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->string('disease_code')->nullable();
             $table->text('description')->nullable();

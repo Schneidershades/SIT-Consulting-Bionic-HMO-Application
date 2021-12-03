@@ -9,7 +9,7 @@ use App\Models\Hcp;
 use App\Models\Hmo;
 use App\Models\HmoHcp;
 use App\Models\Agreement;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class HmoController extends Controller
 {

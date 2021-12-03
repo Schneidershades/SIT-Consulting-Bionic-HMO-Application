@@ -15,7 +15,7 @@ class CreateCashClassificationsTable extends Migration
     public function up()
     {
         Schema::create('cash_classifications', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->string('name')->nullable();
             $table->string('external')->default('yes');

@@ -15,7 +15,7 @@ class CreateHealthCarePlanBenefitsTable extends Migration
     public function up()
     {
         Schema::create('health_care_plan_benefits', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->integer('health_care_plan_id')->nullable();
             $table->text('benefit')->nullable();
             $table->timestamps();

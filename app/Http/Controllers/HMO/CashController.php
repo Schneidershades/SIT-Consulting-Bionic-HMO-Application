@@ -9,7 +9,7 @@ use App\Models\CashTransaction;
 use App\Models\CashClassification;
 use App\Models\CashType;
 use App\Models\Hmo;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class CashController extends Controller
 {

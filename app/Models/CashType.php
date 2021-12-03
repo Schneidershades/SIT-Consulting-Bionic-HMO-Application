@@ -19,7 +19,7 @@ class CashType extends Model
 
     public function cashTransaction()
     {
-    	return $this->belongsTo(CashTransaction::Class);
+    	return $this->belongsTo(CashTransaction::class);
     }
 
     public function approveSignature()

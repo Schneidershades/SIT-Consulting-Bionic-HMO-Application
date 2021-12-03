@@ -6,7 +6,7 @@ use App\Http\Helpers\FunctionHelpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Staff;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class StaffController extends Controller
 {

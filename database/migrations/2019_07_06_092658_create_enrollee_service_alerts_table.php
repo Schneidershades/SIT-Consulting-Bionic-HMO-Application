@@ -15,7 +15,7 @@ class CreateEnrolleeServiceAlertsTable extends Migration
     public function up()
     {
         Schema::create('enrollee_service_alerts', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->integer('hmo_id')->unsigned()->index()->nullable();
             $table->integer('hcp_id')->unsigned()->index()->nullable();
             $table->integer('enrollee_id')->unsigned()->index()->nullable();

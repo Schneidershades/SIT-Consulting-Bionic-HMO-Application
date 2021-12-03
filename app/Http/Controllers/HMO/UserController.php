@@ -5,7 +5,7 @@ namespace App\Http\Controllers\HMO;
 use App\Http\Helpers\FunctionHelpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Session;
+use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Permission;

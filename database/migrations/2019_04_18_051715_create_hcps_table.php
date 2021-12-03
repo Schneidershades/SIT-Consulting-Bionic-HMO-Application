@@ -15,7 +15,7 @@ class CreateHcpsTable extends Migration
     public function up()
     {
         Schema::create('hcps', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->string('hcp_code')->nullable();
             $table->string('hcp_name')->nullable();

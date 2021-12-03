@@ -15,7 +15,7 @@ class CreateHcpTransfersTable extends Migration
     public function up()
     {
         Schema::create('hcp_transfers', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->integer('transfer_to_hcp_id')->nullable();
             $table->string('check_in_transfer_to_hcp_status')->default('pending');
             $table->integer('hcp_check_in_transfer_user_id')->nullable();
