@@ -7,6 +7,8 @@ use App\Models\AuthorizationSignature;
 
 class CashTransaction extends Model
 {
+    protected $guarded = [];
+
     protected static function boot()
     {
         parent::boot();

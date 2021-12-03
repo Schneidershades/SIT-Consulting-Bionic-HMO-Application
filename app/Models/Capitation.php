@@ -9,6 +9,8 @@ use App\Models\Hmo;
 
 class Capitation extends Model
 {
+    protected $guarded = [];
+
     protected static function boot()
     {
     	parent::boot();

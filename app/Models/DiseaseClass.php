@@ -7,6 +7,9 @@ use App\Models\AuthorizationSignature;
 
 class DiseaseClass extends Model
 {
+
+    protected $guarded = [];
+    
     public function children()
     {
     	return $this->hasMany(DiseaseClass::class, 'parent_id');

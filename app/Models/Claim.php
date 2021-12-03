@@ -10,6 +10,9 @@ use App\Models\Hcp;
 
 class Claim extends Model
 {
+
+    protected $guarded = [];
+    
     protected static function boot()
     {
         parent::boot();

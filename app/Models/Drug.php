@@ -10,6 +10,9 @@ use App\Models\HealthCarePlan;
 
 class Drug extends Model
 {
+
+    protected $guarded = [];
+    
     public function drugItems()
     {
         return $this->morphMany(Claim::class, 'claimable');

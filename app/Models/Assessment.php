@@ -9,6 +9,8 @@ use App\Models\Hmo;
 
 class Assessment extends Model
 {
+    protected $guarded = [];
+
 	protected static function boot()
     {
     	parent::boot();

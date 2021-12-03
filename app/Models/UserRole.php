@@ -10,6 +10,8 @@ class UserRole extends Model
 {
     protected $table = "users_roles";
 
+    protected $guarded = [];
+
     public function user()
     {
     	return $this->belongsTo(User::class);

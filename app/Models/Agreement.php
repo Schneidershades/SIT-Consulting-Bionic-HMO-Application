@@ -9,6 +9,9 @@ use App\Models\Hcp;
 
 class Agreement extends Model
 {
+
+    protected $guarded = [];
+    
 	public function agreementable()
     {
         return $this->morphTo();

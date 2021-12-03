@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class AuthorizationSignature extends Model
 {
+
+
+    protected $guarded = [];
+    
     public function signable()
     {
     	return $this->morphTo();

@@ -10,6 +10,9 @@ use App\Models\Hmo;
 
 class HcpTransfer extends Model
 {
+
+    protected $guarded = [];
+    
     public function transferrable()
     {
         return $this->morphTo();

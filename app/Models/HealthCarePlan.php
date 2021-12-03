@@ -13,6 +13,9 @@ use App\Models\Drug;
 
 class HealthCarePlan extends Model
 {
+
+    protected $guarded = [];
+    
     protected static function boot()
     {
         parent::boot();

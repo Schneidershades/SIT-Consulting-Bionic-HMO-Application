@@ -8,6 +8,9 @@ use App\Models\CashTransaction;
 
 class CashType extends Model
 {
+
+    protected $guarded = [];
+    
     protected static function boot()
     {
         parent::boot();

@@ -14,6 +14,9 @@ use App\Models\HcpTransfer;
 
 class Enrollee extends Model
 {
+
+    protected $guarded = [];
+    
     protected static function boot()
     {
         parent::boot();

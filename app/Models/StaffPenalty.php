@@ -8,6 +8,9 @@ use App\Models\Staff;
 
 class StaffPenalty extends Model
 {
+
+    protected $guarded = [];
+    
     public function staff()
     {
     	return $this->belongsto(Staff::class);

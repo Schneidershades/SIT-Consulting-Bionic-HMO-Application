@@ -11,6 +11,9 @@ use App\Models\Enrollee;
 
 class HmoHcp extends Model
 {
+
+    protected $guarded = [];
+    
     protected $table = "hmo_hcp";
 
     public function hmo()

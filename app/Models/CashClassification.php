@@ -8,6 +8,10 @@ use App\Models\CashTransaction;
 
 class CashClassification extends Model
 {
+
+
+    protected $guarded = [];
+    
     protected static function boot()
     {
         parent::boot();

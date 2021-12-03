@@ -8,6 +8,9 @@ use App\Models\Role;
 
 class RolePermission extends Model
 {
+
+    protected $guarded = [];
+    
     protected $table = "roles_permissions";
 
     public function role()

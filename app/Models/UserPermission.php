@@ -10,6 +10,8 @@ class UserPermission extends Model
 {
     protected $table = "users_permissions";
 
+    protected $guarded = [];
+
     public function user()
     {
     	return $this->belongsTo(User::class);

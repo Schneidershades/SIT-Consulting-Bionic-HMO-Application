@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use Notifiable, HasPermissionsTrait;
 
+    protected $guarded = [];
+
     /**
      * The attributes that are mass assignable.
      *

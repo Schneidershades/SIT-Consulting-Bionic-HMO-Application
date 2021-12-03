@@ -10,6 +10,9 @@ use App\Models\HealthCarePlan;
 
 class Tariff extends Model
 {
+
+    protected $guarded = [];
+    
     protected static function boot()
     {
         parent::boot();

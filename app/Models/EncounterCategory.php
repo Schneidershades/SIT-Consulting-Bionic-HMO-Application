@@ -8,6 +8,9 @@ use App\Models\Encounter;
 
 class EncounterCategory extends Model
 {
+
+    protected $guarded = [];
+    
 	protected static function boot()
     {
         parent::boot();

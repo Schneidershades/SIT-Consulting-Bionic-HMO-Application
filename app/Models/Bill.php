@@ -11,6 +11,8 @@ use App\Models\Claim;
 
 class Bill extends Model
 {
+    protected $guarded = [];
+
     protected static function boot()
     {
         parent::boot();

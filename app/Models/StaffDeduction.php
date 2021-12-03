@@ -8,6 +8,9 @@ use App\Models\Staff;
 
 class StaffDeduction extends Model
 {
+
+    protected $guarded = [];
+    
     public function staff()
     {
     	return $this->belongsto(Staff::class);

@@ -9,6 +9,9 @@ use App\Models\Hcp;
 
 class Encounter extends Model
 {
+
+    protected $guarded = [];
+    
 	protected static function boot()
     {
         parent::boot();
