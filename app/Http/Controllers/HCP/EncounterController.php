@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Encounter;
 use App\Models\EncounterCategory;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class EncounterController extends Controller
 {

@@ -10,7 +10,7 @@ use App\Models\HealthCarePlanBenefit;
 use App\Models\HealthCarePlannable;
 use App\Models\Tariff;
 use App\Models\Drug;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class HealthCarePlanController extends Controller
 {

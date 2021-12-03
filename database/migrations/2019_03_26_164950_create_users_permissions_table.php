@@ -15,7 +15,7 @@ class CreateUsersPermissionsTable extends Migration
     public function up()
     {
         Schema::create('users_permissions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->integer('user_id')->unsigned()->index();
             $table->integer('permission_id')->unsigned()->index();
             $table->timestamps();

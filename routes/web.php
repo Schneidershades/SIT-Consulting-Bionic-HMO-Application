@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -117,8 +120,6 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 });
 
 Route::group(['prefix' => '/hcp', 'middleware' => ['auth', 'hcp']],  function(){
-
-
 	Route::resource('/hcp-agreements', 'HCP\AgreementController')->only([
 	    'index'
 	]);;
@@ -145,6 +146,7 @@ Route::group(['prefix' => '/hcp', 'middleware' => ['auth', 'hcp']],  function(){
 	Route::resource('/hcp-enrollees', 'HCP\EnrolleeController')->only([
 	    'index', 'show',
 	]);
+	
 	Route::resource('/hcp-hmos', 'HCP\HmoController');
 	Route::resource('/hcp-assessments', 'HCP\AssessmentController');
 	Route::get('/hcp-tariffs', 'HCP\tariffController@index')->name('hcp.tariffs');
@@ -153,5 +155,5 @@ Route::group(['prefix' => '/hcp', 'middleware' => ['auth', 'hcp']],  function(){
 	Route::resource('/hcp-capitations', 'HCP\CapitationController');
 	Route::resource('/hcp-encounters', 'HCP\EncounterController');
 	Route::resource('/hcp-claims', 'HCP\ClaimController');
-});
 
+});

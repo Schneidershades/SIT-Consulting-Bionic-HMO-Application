@@ -15,7 +15,7 @@ class CreateHmosTable extends Migration
     public function up()
     {
         Schema::create('hmos', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->string('hmo_code')->nullable();
             $table->string('hmo_name')->nullable();

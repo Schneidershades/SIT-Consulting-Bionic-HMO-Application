@@ -15,7 +15,7 @@ class CreateCashTypesTable extends Migration
     public function up()
     {
         Schema::create('cash_types', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->string('name')->nullable();
             $table->integer('operator_user_id')->nullable()->index();

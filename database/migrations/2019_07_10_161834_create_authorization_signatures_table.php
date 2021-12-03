@@ -15,7 +15,7 @@ class CreateAuthorizationSignaturesTable extends Migration
     public function up()
     {
         Schema::create('authorization_signatures', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->integer('signable_id')->nullable();
             $table->string('signable_type')->nullable();
 

@@ -15,7 +15,7 @@ class CreateClaimsTable extends Migration
     public function up()
     {
         Schema::create('claims', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->integer('claimable_id')->nullable();
             $table->string('claimable_type')->nullable();

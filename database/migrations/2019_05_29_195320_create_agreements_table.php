@@ -15,7 +15,7 @@ class CreateAgreementsTable extends Migration
     public function up()
     {
         Schema::create('agreements', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->integer('hcp_id')->nullable()->index();
             $table->integer('hmo_id')->nullable()->index();
             $table->string('service_type')->nullable();

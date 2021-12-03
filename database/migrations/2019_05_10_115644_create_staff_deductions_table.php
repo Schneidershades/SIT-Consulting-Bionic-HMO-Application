@@ -15,7 +15,7 @@ class CreateStaffDeductionsTable extends Migration
     public function up()
     {
         Schema::create('staff_deductions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->integer('cash_classification_id')->nullable();
             $table->decimal('amount', 40, 2)->default(0);
             $table->integer('staff_id')->unsigned()->nullable();

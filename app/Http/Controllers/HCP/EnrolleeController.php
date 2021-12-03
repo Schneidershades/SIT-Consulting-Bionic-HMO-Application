@@ -10,7 +10,7 @@ use App\Models\HealthCarePlan;
 use App\Models\Hmo;
 use App\Models\HmoHcp;
 use App\Models\HcpTransfer;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class EnrolleeController extends Controller
 {

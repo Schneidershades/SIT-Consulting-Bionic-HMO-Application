@@ -15,7 +15,7 @@ class CreateEnrolleesTable extends Migration
     public function up()
     {
         Schema::create('enrollees', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->string('nhis_identifier')->nullable();
             $table->date('nhis_reg_date')->nullable();

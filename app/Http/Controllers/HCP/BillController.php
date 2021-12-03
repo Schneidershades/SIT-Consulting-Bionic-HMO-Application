@@ -15,7 +15,7 @@ use App\Models\Capitation;
 use App\Models\Hmo;
 use App\Models\DiseaseClass;
 use App\Models\Agreement;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class BillController extends Controller
 {

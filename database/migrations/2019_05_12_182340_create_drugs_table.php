@@ -15,7 +15,7 @@ class CreateDrugsTable extends Migration
     public function up()
     {
         Schema::create('drugs', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('drug_name')->nullable();
             $table->string('dosage_form')->nullable();
             $table->string('strengths')->nullable();

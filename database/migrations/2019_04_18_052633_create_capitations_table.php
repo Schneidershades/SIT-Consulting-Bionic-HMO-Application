@@ -15,7 +15,7 @@ class CreateCapitationsTable extends Migration
     public function up()
     {
         Schema::create('capitations', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->integer('hcp_id')->nullable();
             $table->integer('hmo_id')->nullable();

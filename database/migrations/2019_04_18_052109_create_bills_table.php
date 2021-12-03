@@ -15,7 +15,7 @@ class CreateBillsTable extends Migration
     public function up()
     {
         Schema::create('bills', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->integer('enrollee_id')->nullable();
             $table->integer('hcp_id')->nullable();

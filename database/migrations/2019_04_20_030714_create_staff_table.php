@@ -15,7 +15,7 @@ class CreateStaffTable extends Migration
     public function up()
     {
         Schema::create('staff', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->integer('staffable_id')->unsigned();
             $table->string('staffable_type')->nullable();

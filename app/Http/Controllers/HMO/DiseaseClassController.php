@@ -6,7 +6,7 @@ use App\Http\Helpers\FunctionHelpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\DiseaseClass;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class DiseaseClassController extends Controller
 {

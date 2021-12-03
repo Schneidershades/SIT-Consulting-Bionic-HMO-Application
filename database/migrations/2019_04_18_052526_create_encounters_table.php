@@ -15,7 +15,7 @@ class CreateEncountersTable extends Migration
     public function up()
     {
         Schema::create('encounters', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('identifier')->nullable();
             $table->integer('hcp_id')->nullable()->index();
             $table->integer('year')->nullable();
