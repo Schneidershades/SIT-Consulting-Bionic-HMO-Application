@@ -34,9 +34,9 @@
                 <th>Name</th>
                 <th>No of Lives</th>
                 <th>Capitation</th>
-                <th>Amount</th>
+                <th>Remittance</th>
                 <th>Period</th>
-                <th>Action</th>
+                <!-- <th>Action</th> -->
               </tr>
             </thead>
             <tbody>
@@ -45,14 +45,14 @@
                 <td>{{$capitation->hcp->hcp_code}}</td>
                 <td>{{$capitation->hcp->hcp_name}}</td>
                 <td>{{$capitation->lives}}</td>
-                <td>{{$capitation->cap_rate}}</td>
-                <td>N {{$capitation->cap_rate * $capitation->lives}} </td>
+                <td>N {{$capitation->capitation_rate}}</td>
+                <td>N {{$capitation->remittance}} </td>
                 <td>{{$capitation->period}} </td>
-                <td>
+                <!-- <td> -->
 					<!-- <a href="{{route('capitations.edit', $capitation->id)}}" class="btn btn-dark btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-edit"></i></a> -->
-		            <a href="{{route('capitations.show', $capitation->id)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>
+		            <!-- <a href="{{route('capitations.show', $capitation->id)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a> -->
 	                <!-- <a href="{{route('capitations.delete', $capitation->id)}}" class="btn btn-danger btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-trash"></i></a> -->
-                </td>
+                <!-- </td> -->
               </tr>
               @endforeach
             </tbody>

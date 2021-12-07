@@ -17,6 +17,8 @@ class CreateDisbursementsTable extends Migration
             $table->id();
             $table->integer('hcp_id')->nullable();
             $table->integer('hmo_id')->nullable();
+            $table->integer('disbursementable_id')->nullable();
+            $table->string('disbursementable_type')->nullable();
             $table->integer('remittance')->default(0);
             $table->decimal('amount', 40, 2)->nullable()->default(0);
             $table->string('month')->nullable();

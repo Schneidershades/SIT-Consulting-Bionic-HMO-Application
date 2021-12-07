@@ -14,4 +14,9 @@ class Disbursement extends Model
     {
         return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
+
+    public function disbursementable()
+    {
+    	return $this->morphTo();
+    }
 }

@@ -46,7 +46,7 @@ class Hcp extends Model
 
     public function enrollees()
     {
-        return $this->hasMany(Enrollee::class);
+        return $this->hasMany(Enrollee::class, 'hcp_id');
     }
 
     public function assessments()

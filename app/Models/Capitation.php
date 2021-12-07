@@ -35,4 +35,9 @@ class Capitation extends Model
         return $this->morphToMany(AuthorizationSignature::class, 'signable');
     }
 
+    public function disburse()
+    {
+        return $this->morphToMany(Disbursement::class, 'disbursementable');
+    }
+
 }
