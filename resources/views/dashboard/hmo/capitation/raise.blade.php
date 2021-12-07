@@ -45,11 +45,12 @@
 					<!-- <a type="submit" class="btn btn-danger bg-white text-dark align-lef shadow px-5"><i class="icon-lock"></i> Cancel Activity</a> -->
 				</div>
 				<hr>
-				<form class="color-form" method="POST" action="{{route('hcps.store')}}" enctype="multipart/form-data">
+				<form class="color-form" method="POST" action="{{route('capitations.raise.save')}}" enctype="multipart/form-data">
 					@csrf
 					<div class="form-row">
 						<div class="form-group col-md-6">
 			              	<label for="input-9">Raise Capitation for: </label><br>
+
 			              	<select  name="raiseCapitationFor" id="for" class="form-control" onchange="
 			              		if(this.value=='selectedHcps'){ 
 						          	$('#selectedHcps').fadeIn(); 
@@ -58,7 +59,7 @@
 						          	$('#selectedHcps').fadeOut();
 						      	}" 
 						    >
-						        	
+
 							<option value="">---Select HCPs---</option>
 							<option value="all">All HCPs</option>
 							<option value="selectedHcps">Select from Existing HCPs</option>
@@ -74,10 +75,10 @@
 			                </select>
 		               	</div>
 
-		               	<div class="form-group col-md-6">
+		               	<!-- <div class="form-group col-md-6">
 							<label for="input-26">Lives</label>
 							<input name="lives" type="number" min="0" class="form-control" id="input-26" placeholder="Number of lives" required>
-						</div>
+						</div> -->
 
 						<div class="form-group col-md-6">
 							<label for="input-26">Period</label>
@@ -129,8 +130,6 @@
 <!--Multi Select Js-->
 <script src="{{URL::to('assets/plugins/jquery-multi-select/jquery.multi-select.js')}}"></script>
 <script src="{{URL::to('assets/plugins/jquery-multi-select/jquery.quicksearch.js')}}"></script>
-
-
 
 <!-- <script type="text/javascript">
 

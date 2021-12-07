@@ -2,27 +2,28 @@
 
 namespace App\Http\Controllers\HMO;
 
-use App\Http\Helpers\FunctionHelpers;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Bill;
-use App\Models\Agreement;
-use App\Models\Enrollee;
-use App\Models\Tariff;
-use App\Models\Capitation;
-use App\Models\Rate;
-use App\Models\Drug;       
-use App\Models\HmoHcp;
 use App\Models\Hcp;
-use App\Models\Claim;
-use App\Models\User;
-use App\Models\DiseaseClass;
-use App\Models\AuthorizationSignature;
+use App\Models\Bill;
+use App\Models\Rate;
 use App\Models\Role;
+use App\Models\User;
+use App\Models\Claim;
+use App\Models\HmoHcp;
+use App\Models\Tariff;
+use App\Models\Enrollee;
+use App\Models\UserRole;
+use App\Models\Agreement;
+use App\Models\Capitation;
 use App\Models\Permission;
+use App\Models\Drug;       
+use Illuminate\Support\Arr;
+use App\Models\DiseaseClass;
+use Illuminate\Http\Request;
 use App\Models\RolePermission;
 use App\Models\UserPermission;
-use App\Models\UserRole;
+use App\Http\Controllers\Controller;
+use App\Http\Helpers\FunctionHelpers;
+use App\Models\AuthorizationSignature;
 use Illuminate\Support\Facades\Session;
 
 
@@ -128,7 +129,7 @@ class BillController extends Controller
 
         // save to the transaction as regards to count drug and service activities
         if($request->hcp_service_details){
-            $serviceDetails = array_flatten($request->hcp_service_details);
+            $serviceDetails = Arr::flatten($request->hcp_service_details);
             $tariffId = Tariff::whereIn('id', $serviceDetails)->pluck('id')->toArray();
 
             $authorization = Agreement::whereIn('agreementable_id', $tariffId)
@@ -212,7 +213,7 @@ class BillController extends Controller
 
         $drug = new Claim;
         if($request->hcp_drug_details){
-            $drugDetails = array_flatten($request->hcp_drug_details);
+            $drugDetails = Arr::flatten($request->hcp_drug_details);
             $drugId = Drug::whereIn('id', $drugDetails)->pluck('id')->toArray();
             $drugAuthorization = Agreement::whereIn('agreementable_id', $drugId)
                                 ->where('service_type', 'phs')

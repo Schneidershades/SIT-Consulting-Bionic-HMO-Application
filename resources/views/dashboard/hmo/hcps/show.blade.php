@@ -75,7 +75,11 @@
                     <div class="col-md-3">
                         @if($hcp->provider_payment_mechanism != NULL)
                         <span class="btn btn-gradient-royal m-1">
-                            Payment Mechanism : {{$hcp->provider_payment_mechanism ? $hcp->provider_payment_mechanism : 'Not Set'}}
+                            @if($hcp->provider_payment_mechanism == 'capitation')
+                                {{$hcp->provider_payment_mechanism}} @ N {{$hcp->capitation_agreement}} 
+                            @elseif($hcp->provider_payment_mechanism == 'fee-for-service')
+                                {{$hcp->provider_payment_mechanism}}
+                            @endif
                         </span>
                         @else
                         <button class="btn btn-gradient-royal m-1" data-toggle="modal" data-target="#PaymentMechanismModal">Set Payment Mechanism </button>
@@ -93,12 +97,27 @@
                                             @csrf
                                             <div class="form-row">
                                                 <div class="form-group col-md-12">
-                                                    <label for="input-25">Payment Method</label>
-                                                    <select name="provider_payment_mechanism" id="" class="form-control">
-                                                        <option value="fee-for-service">Fee for Service</option>
+                                                    <label for="input-9">Payment Method: </label><br>
+                                                    
+                                                    <select name="provider_payment_mechanism" id="for" class="form-control" onchange="
+                                                        if(this.value=='capitation'){ 
+                                                            $('#inputCapitationFee').fadeIn(); 
+                                                        }
+                                                        else{ 
+                                                            $('#inputCapitationFee').fadeOut();
+                                                        }" 
+                                                    > 
+                                                    <option value="">---Select Agreement Settlement---</option>
+                                                    <option value="fee-for-service">Fee for Service</option>
                                                         <option value="capitation">Capitation</option>
-                                                    </select>
+                                                    </select>						      	
                                                 </div>
+
+                                                <div class="form-group col-md-12" id="inputCapitationFee" style="display:none">
+                                                    <label for="input-9">Input HCP Cap rate</label>
+                                                    <input type="number" name="capitation_agreement" class="form-control" required>
+                                                </div>
+
                                                 <input name="hcp_id" type="hidden" value="{{$hcp->hcp->id}}">
                                             </div>
                                             <!-- <div class="modal-footer">

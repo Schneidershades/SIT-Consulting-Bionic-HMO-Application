@@ -43,8 +43,7 @@ class BillController extends Controller
         }
 
         if($checkEnrollee != null){
-            $checkHmo = Hmo::where('id', $checkEnrollee->hmo_id)->first();
-            
+            $checkHmo = Hmo::where('id', $checkEnrollee->hmo_id)->first();s
         }
 
         // $checkEncounterAlerts = Bill::where('enrollee', $request->enrollee_id)->get();

@@ -104,6 +104,7 @@ class HcpController extends Controller
     {
         $findHcp = HmoHcp::where('hmo_id', auth()->user()->userable->id)->where('hcp_id',$request->hcp_id)->first();
         $findHcp->provider_payment_mechanism = $request->provider_payment_mechanism;
+        $findHcp->capitation_agreement = $request->capitation_agreement;
         $findHcp->save();
         Session::flash('success', 'The payment setup has been updated to ' . $request->provider_payment_mechanism);
         return redirect()->back();

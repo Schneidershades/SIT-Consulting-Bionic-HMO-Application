@@ -27,37 +27,44 @@ class CapitationController extends Controller
                 ->with('hcps', $hcps);
     }
 
-    public function raiseCapitation()
+    public function raiseCapitation(Request $request)
     {
-        $findRate = Rate::where('name', 'capitation')->first();
-
         if($request->raiseCapitationFor == 'all'){
-            $hcps = Hcp::all();
+            $hcps = HmoHcp::where('hmo_id', auth()->user()->userable->id)->where('provider_payment_mechanism', 'capitation')->get();
             foreach ($hcps as $hcp) {
-                $capitation =  new Capitation;
-                $capitation->hmo_id =  auth()->user()->userable->id;
-                $capitation->hcp_id =  $hcp->id;
-                $capitation->lives =  $request->lives;
-                $capitation->cap_rate =   $findRate->amount;
-                $capitation->period =  $request->period;
-                $capitation->operator =  auth()->user()->id;
-                $capitation->save();
+                if($hcp->enrollees > 0){
+                    $capitation =  new Capitation;
+                    $capitation->hmo_id =  auth()->user()->userable->id;
+                    $capitation->hcp_id =  $hcp->id;
+                    $capitation->lives =  $request->lives;
+                    $capitation->cap_rate =   $hcp->capitation_agreement;
+                    $capitation->remittance =   $hcp->capitation_agreement * $hcp->enrollees->count();
+                    $capitation->period =  $request->period;
+                    $capitation->operator =  auth()->user()->id;
+                    $capitation->save();
+                }
             }
         }
 
-        if($request->raiseCapitationFor != 'all'){
-            $hcps = Hcp::whereIn('id', $request->hcp_id)->get();
+        if($request->raiseCapitationFor == 'selectedHcps'){
+            $hcps = HmoHcp::whereIn('hcp_id', $request->hcps)
+                ->where('hmo_id', auth()->user()->userable->id)
+                ->where('provider_payment_mechanism', 'capitation')
+                ->get();
+            
             foreach ($hcps as $hcp) {
-                $capitation =  new Capitation;
-                $capitation->hmo_id =  auth()->user()->userable->id;
-                $capitation->hcp_id =  $hcp->id;
-                $capitation->lives =  $request->lives;
-                $capitation->cap_rate =   $findRate->amount;
-                $capitation->period =  $request->period;
-                $capitation->operator =  auth()->user()->id;
-                $capitation->save();
+                if($hcp->enrollees > 0){
+                    $capitation =  new Capitation;
+                    $capitation->hmo_id =  auth()->user()->userable->id;
+                    $capitation->hcp_id =  $hcp->id;
+                    $capitation->lives =  $hcp->enrollees->count();
+                    $capitation->cap_rate =   $hcp->capitation_agreement;
+                    $capitation->remittance =   $hcp->capitation_agreement * $hcp->enrollees->count();
+                    $capitation->period =  $request->period;
+                    $capitation->operator =  auth()->user()->id;
+                    $capitation->save();
+                }
             }
         }
-    	
     }
 }

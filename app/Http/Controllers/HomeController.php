@@ -71,7 +71,7 @@ class HomeController extends Controller
 
     public function SignHere($WhatAreYouSigning, $idOfWhatsigningWhat, $organizationType, $organizationId, $action)
     {
-        $item = $FunctionHelpers::signAnything($WhatAreYouSigning, $idOfWhatsigningWhat, $organizationType, $organizationId);
+        $item = FunctionHelpers::signAnything($WhatAreYouSigning, $idOfWhatsigningWhat, $organizationType, $organizationId);
         Session::flash($item['status'], $item['message']);
         return redirect()->back();
     }
