@@ -11,6 +11,7 @@ use App\Models\Tariff;
 use App\Models\Drug;
 use App\Models\Enrollee;
 use App\Models\Bill;
+use App\Models\Capitation;
 
 class EloquentServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,7 @@ class EloquentServiceProvider extends ServiceProvider
             'drug' => Drug::class,
             'enrollee' => Enrollee::class,
             'bill' => Bill::class,
+            'capitation' => Capitation::class,
         ]);
     }
 
@@ -37,6 +39,7 @@ class EloquentServiceProvider extends ServiceProvider
             'drug' => Drug::class,
             'enrollee' => Enrollee::class,
             'bill' => Bill::class,
+            'capitation' => Capitation::class,
         ]);
     }
 }

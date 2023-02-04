@@ -36,7 +36,8 @@
                 <th>Capitation</th>
                 <th>Remittance</th>
                 <th>Period</th>
-                <!-- <th>Action</th> -->
+                <th>Status</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -47,12 +48,21 @@
                 <td>{{$capitation->lives}}</td>
                 <td>N {{$capitation->capitation_rate}}</td>
                 <td>N {{$capitation->remittance}} </td>
-                <td>{{$capitation->period}} </td>
-                <!-- <td> -->
-					<!-- <a href="{{route('capitations.edit', $capitation->id)}}" class="btn btn-dark btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-edit"></i></a> -->
-		            <!-- <a href="{{route('capitations.show', $capitation->id)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a> -->
+                <td>{{$capitation->month}} {{$capitation->year}} </td>
+                <td>{{$capitation->disbursment}} </td>
+                <td>
+                  @if($capitation->disbursment == 'initiated')
+                  <a href="{{route('capitations.process', $capitation->id)}}" class="btn btn-success btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-check"></i></a>
+                  <a href="{{route('capitations.decline', $capitation->id)}}" class="btn btn-danger btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-times"></i></a>
+					        <!-- <a href="{{route('capitations.edit', $capitation->id)}}" class="btn btn-dark btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-edit"></i></a> -->
+		              <!-- <a href="{{route('capitations.show', $capitation->id)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a> -->
 	                <!-- <a href="{{route('capitations.delete', $capitation->id)}}" class="btn btn-danger btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-trash"></i></a> -->
-                <!-- </td> -->
+                  @elseif($capitation->disbursment == 'declined')
+                    <button class="btn btn-danger btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-times"></i></button>
+                  @elseif($capitation->disbursment == 'processing')
+                    <button class="btn btn-success btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-check"></i></button>
+                  @endif
+                </td>
               </tr>
               @endforeach
             </tbody>
@@ -64,6 +74,7 @@
                 <th>Capitation</th>
                 <th>Amount</th>
                 <th>Period</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </tfoot>

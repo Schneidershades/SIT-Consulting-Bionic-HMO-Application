@@ -48,7 +48,7 @@
 				<form class="color-form" method="POST" action="{{route('capitations.raise.save')}}" enctype="multipart/form-data">
 					@csrf
 					<div class="form-row">
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-4">
 			              	<label for="input-9">Raise Capitation for: </label><br>
 
 			              	<select  name="raiseCapitationFor" id="for" class="form-control" onchange="
@@ -66,7 +66,45 @@
 						    </select>						      	
 		               	</div>
 
-		               	<div class="form-group col-md-6" id="selectedHcps" style="display:none">
+						<div class="form-group col-md-4">
+							<label for="input-26">Month</label> 
+							<select class=" form-control"  name="month">
+								<option value="">---Select Month---</option>
+								<option value="January">January</option>
+								<option value="Febuary">Febuary</option>
+								<option value="March">March</option>
+								<option value="April">April</option>
+								<option value="May">May</option>
+								<option value="June">June</option>
+								<option value="July">July</option>
+								<option value="August">August</option>
+								<option value="September">September</option>
+								<option value="October">October</option>
+								<option value="November">November</option>
+								<option value="December">December</option>
+			                </select>
+						</div>
+
+						<div class="form-group col-md-4">
+							<label for="input-26">Year</label> 
+							<select class=" form-control"  name="year">
+								<option value="">---Select Year---</option>
+								<option value="2021">2021</option>
+								<option value="2022">2022</option>
+			                </select>
+						</div>
+
+		               	<!-- <div class="form-group col-md-6">
+							<label for="input-26">Lives</label>
+							<input name="lives" type="number" min="0" class="form-control" id="input-26" placeholder="Number of lives" required>
+						</div> -->
+
+						<!-- <div class="form-group col-md-6">
+							<label for="input-26">Period</label>
+							<input name="period" type="date" class="form-control" id="input-26" required>
+						</div> -->
+
+						<div class="form-group col-md-6" id="selectedHcps" style="display:none">
 			              	<label for="input-9">Select from Existing HCPs</label>
 		                    <select multiple="multiple" class=" form-control multi-select" id="my_multi_select3" name="hcps[]">
 		                    @foreach($hcps as $hcp)
@@ -74,16 +112,6 @@
 		                    @endforeach
 			                </select>
 		               	</div>
-
-		               	<!-- <div class="form-group col-md-6">
-							<label for="input-26">Lives</label>
-							<input name="lives" type="number" min="0" class="form-control" id="input-26" placeholder="Number of lives" required>
-						</div> -->
-
-						<div class="form-group col-md-6">
-							<label for="input-26">Period</label>
-							<input name="period" type="date" class="form-control" id="input-26" required>
-						</div>
 					</div>
 
 					<div class="form-group">

@@ -88,6 +88,8 @@ Route::group(['prefix' => '/hmo', 'middleware' => ['auth', 'hmo']],  function(){
 	Route::resource('/capitations', 'HMO\CapitationController');
 	Route::get('/capitations/delete/{id}', 'HMO\CapitationController@destroy')->name('capitations.delete');
 	Route::post('/capitations/update/{id}', 'HMO\CapitationController@update')->name('capitations.update');
+	Route::get('/capitations/process/{id}', 'HMO\CapitationController@process')->name('capitations.process');
+	Route::get('/capitations/decline/{id}', 'HMO\CapitationController@decline')->name('capitations.decline');
 
 	Route::get('/capitations/raise/save/hcp', 'HMO\CapitationController@raiseCreateCapitation')->name('capitations.raise.start');
 	Route::post('/capitations/raise/save/hcp', 'HMO\CapitationController@raiseCapitation')->name('capitations.raise.save');

@@ -32,8 +32,8 @@
               <tr>
                 <th>HCP Name</th>
                 <th>Remittance</th>
+                <th>Type </th>
                 <th>Amount</th>
-                <th>Period</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -43,12 +43,10 @@
               <tr>
                 <td>{{$disbursement->hcp->hcp_name}}</td>
                 <td>{{$disbursement->remittance}}</td>
+                <td>{{$disbursement->disbursementable_type}}</td>
                 <td>{{$disbursement->amount}}</td>
-                <td>{{$disbursement->month}}, {{$disbursement->year}}</td>
                 <td>{{$disbursement->hmo_signature_status}}</td>
                 <td>
-                  <!-- <a href="{{route('disbursements.edit', $disbursement->id)}}" class="btn btn-dark btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-edit"></i></a> -->
-                  <a href="{{route('disbursements.show', $disbursement->identifier)}}" class="btn btn-warning btn-round waves-effect waves-light m-1"><i aria-hidden="true" class="fa fa-eye"></i></a>
                 </td>
               </tr>
               @endforeach

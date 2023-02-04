@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\HMO;
 
-use App\Http\Helpers\FunctionHelpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use DB;
-use App\Models\Rate;
 use App\Models\Capitation;
-use App\Models\Hcp;
+use App\Models\Disbursement;
 use App\Models\HmoHcp;
 
 class CapitationController extends Controller
@@ -40,9 +37,12 @@ class CapitationController extends Controller
                     $capitation->hcp_id =  $hcp->hcp->id;
                     $capitation->lives =  $hcp->hcp->enrollees->count();
                     $capitation->capitation_rate =   $hcp->capitation_agreement;
+                    $capitation->month =   $request->month;
+                    $capitation->year =   $request->year;
                     $capitation->remittance =   $hcp->capitation_agreement * $hcp->hcp->enrollees->count();
                     $capitation->period =  $request->period;
-                    // $capitation->operator =  auth()->user()->id;
+                    $capitation->disbursment = 'initiated';
+                    $capitation->operator_id =  auth()->user()->id;
                     $capitation->save();
                 }
             }
@@ -61,14 +61,42 @@ class CapitationController extends Controller
                     $capitation->hcp_id =  $hcp->hcp->id;
                     $capitation->lives =  $hcp->hcp->enrollees->count();
                     $capitation->capitation_rate =   $hcp->capitation_agreement;
+                    $capitation->month =   $request->month;
+                    $capitation->year =   $request->year;
+                    $capitation->disbursment = 'initiated';
                     $capitation->remittance =   $hcp->capitation_agreement * $hcp->hcp->enrollees->count();
-                    $capitation->period =  $request->period;
-                    // $capitation->operator =  auth()->user()->id;
+                    $capitation->operator_id =  auth()->user()->id;
                     $capitation->save();
                 }
             }
         }
 
-        return view('dashboard.hmo.capitation.index')->with('capitations', $capitations);
+        return redirect()->route('capitations.index');
+    }
+
+    public function process($id)
+    {
+        $cap = Capitation::find($id);
+        $cap->disbursment = 'processing';
+        $cap->save();
+
+        $disbursement = new Disbursement; 
+        $disbursement->hcp_id = $cap->hcp_id;
+        $disbursement->hmo_id = $cap->hmo_id;
+        $disbursement->disbursementable_id = $cap->id;
+        $disbursement->disbursementable_type = 'capitation';
+        $disbursement->remittance = $cap->remittance;
+        $disbursement->amount = $cap->remittance;
+        $disbursement->save();
+
+        return redirect()->back();
+    }
+
+    public function decline($id)
+    {
+        $cap = Capitation::find($id);
+        $cap->disbursment = 'declined';
+        $cap->save();
+        return redirect()->back();
     }
 }

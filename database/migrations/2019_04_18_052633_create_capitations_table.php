@@ -25,7 +25,9 @@ class CreateCapitationsTable extends Migration
             $table->date('period')->nullable();
             $table->integer('operator_user_id')->nullable()->index();
             $table->string('action')->default('pending');
-            $table->string('disbursment')->default('processing');
+            $table->string('month')->nullable();
+            $table->string('year')->nullable();
+            $table->string('disbursement')->default('processing');
             $table->integer('hmo_signature_approvals')->default(0);
             $table->string('hmo_signature_status')->default('pending');
 

@@ -19,4 +19,9 @@ class Disbursement extends Model
     {
     	return $this->morphTo();
     }
+
+    public function hcp()
+    {
+        return $this->belongsTo(Hcp::class);
+    }
 }
